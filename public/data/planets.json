@@ -1,0 +1,4 @@
+{  
+  "ter":{"name":"Earth","map":"earthmapclouds.jpg","trajectory":true,"H":-3.79,"elements":[{"a":1.00000261,"e":0.01671123,"i":-0.00001531,"L":100.46457166,"W":102.93768193,"N":0,"da":0.00000562,"de":-0.00004392,"di":-0.01294668,"dL":35999.37244981,"dW":0.32327364,"dN":0,"ep":"2000-01-01"}],"desig":"Ter","en":"Earth","sym":"♁","ar":"اَلْأَرْض‎","cn":"地球","fr":"Terre","de":"Erde","gr":"Γη","il":"ארץ‎","in":"पृथ्वी","it":"Terra","jp":"地球","ru":"Земля́","es":"Tierra","lat":"Terra"},
+  "lun":{"name":"Moon","map":"","H":0.21,"elements":[],"desig":"Lun","en":"Moon","sym":"☾","ar":"القمر","cn":"月球","fr":"Lune","de":"Mond","gr":"Σελήνη","il":"הירח","in":"चन्द्रमा","it":"Luna","jp":"月","ru":"Луна","es":"Luna","lat":"Luna"}
+}

@@ -4,7 +4,7 @@ import { useStepper } from '~/composables/useStepper';
 import { LOCATION_MAP_TAB } from '~/constants/location-map/tabs';
 
 const locationMapStore = useLocationMapStore();
-const { setSteps, getCurrentStep } = useStepper();
+const { setSteps, getCurrentStep, prevStep, nextStep } = useStepper();
 const { isMobile } = useBreakpoints()
 const mapStore = useMapStore()
 const {
@@ -18,13 +18,11 @@ const step = {
   choose: 'choose',
 };
 
-onMounted(() => {
-  setSteps([
-    { name: step.location },
+ setSteps([
     { name: step.design },
+    { name: step.location },
     { name: step.choose },
   ]);
-});
 
 function handleTotalUpdate(newTotal: number): void {
   dynamicTotal.value = newTotal;
@@ -53,13 +51,13 @@ const installmentPrice = computed(() => {
 })
 
 function handleGoBack() {
-  mapStore.previousStep()
+  prevStep();
 };
 
 function handleContinue() {
   if (getCurrentStep.value?.name === step.choose) {
   } else {
-    mapStore.nextStep()
+    nextStep();
   }
 }
 </script>

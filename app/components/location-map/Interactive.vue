@@ -1,76 +1,19 @@
-<template>
-  <div :class="['map-frame', `${layout?.shape}-container`]">
-    <div ref="mapContainer"
-         id="interactiveMap"
-         :class="mapClasses">
-    </div>
-    <div class="map-details" v-if="showDetails">
-      <template v-if="layout?.shape === 'rectangle' && displaySubtitle">
-        <div class="map-title">{{ displayTitle }}</div>
-        <div class="map-subtitle">{{ displaySubtitle }}</div>
-        <div class="map-coordinates-below">{{ coordinates }}</div>
-      </template>
-      <template v-else>
-        <div class="map-title">{{ displayTitle }}</div>
-        <div class="map-subtitle" v-if="displaySubtitle">{{ displaySubtitle }}</div>
-        <div class="map-coordinates">{{ coordinates }}</div>
-      </template>
-    </div>
-  </div>
-
-</template>
-
 <script setup lang="ts">
 import { ref, onMounted, watch, computed, nextTick } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useMapStore } from '../../stores/mapStore';
+import { useLocationMapStore } from '~/stores';
 
-const mapStore = useMapStore();
-const { mapTitle, mapSubtitle, coordinatesText, location, layout, design } = storeToRefs(mapStore)
+const locationMapStore = useLocationMapStore();
+const { getLayoutName, layout, location, getMapTitle, getCoordinatesText, mapSubtitle, design } = storeToRefs(locationMapStore);
 const config = useRuntimeConfig();
 
 const mapContainer = ref<HTMLElement>()
 
 const mapInstance = ref<any>(null)
 
-const mapClasses = computed(() => {
-  const classes = []
-  if (layout.value) {
-    switch (layout.value.shape) {
-      case 'circle':
-        classes.push('circle-layout')
-        break
-      case 'horizontal':
-        classes.push('horizontal-layout')
-        break
-      case 'full-page':
-        classes.push('full-page-layout')
-        break
-      default:
-        classes.push('rectangle-layout')
-    }
-  } else {
-    classes.push('rectangle-layout')
-  }
-  return classes
-})
-
 const showDetails = computed(() => {
-  const layoutShape = mapStore.layout?.shape || 'rectangle';
+  const layoutShape = layout.value?.shape || 'rectangle';
   return layoutShape !== 'full-page';
 });
-
-const displayTitle = computed(() => {
-  return mapTitle.value || location.value?.name
-})
-
-const displaySubtitle = computed(() => {
-  return mapSubtitle.value || null
-})
-
-const coordinates = computed(() => {
-  return coordinatesText.value
-})
 
 async function initializeMap() {
   if (!mapContainer.value || !window.mapboxgl) return;
@@ -124,6 +67,28 @@ onMounted(() => {
   initializeMap()
 })
 </script>
+
+<template>
+  <div :class="['map-frame', `${layout?.shape}-container`]">
+    <div ref="mapContainer"
+         id="interactiveMap"
+         :class="[getLayoutName]">
+    </div>
+    <div class="map-details" v-if="showDetails">
+      <template v-if="layout?.shape === 'rectangle' && mapSubtitle">
+        <div class="map-title">{{ getMapTitle }}</div>
+        <div class="map-subtitle">{{ mapSubtitle }}</div>
+        <div class="map-coordinates-below">{{ getCoordinatesText }}</div>
+      </template>
+      <template v-else>
+        <div class="map-title">{{ getMapTitle }}</div>
+        <div class="map-subtitle" v-if="mapSubtitle">{{ mapSubtitle }}</div>
+        <div class="map-coordinates">{{ getCoordinatesText }}</div>
+      </template>
+    </div>
+  </div>
+
+</template>
 
 <style scoped>
 #interactiveMap {

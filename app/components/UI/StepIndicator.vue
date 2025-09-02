@@ -29,7 +29,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { MapPin, Palette, Settings } from 'lucide-vue-next'
 import type { Step } from '../../types'
 

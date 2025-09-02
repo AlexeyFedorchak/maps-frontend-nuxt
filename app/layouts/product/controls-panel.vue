@@ -1,84 +1,21 @@
 <template>
   <div class="controls-section" :style="isMobile ? 'background-color: #FFFFFF !important' : ''">
-    <div class="header-section">
-      <img src="/images/logo.svg" alt="Logo">
-    </div>
+    <ControlPanelHeader logo="/images/logo.svg" alt="Logo" />
 
     <div class="content-area" :style="isMobile ? 'background-color: #FFFFFF !important' : ''">
-      <div class="container-info">
-        <p class="product-title">Custom Location Map</p>
-        <p class="product-description">
-          Your special chosen place, captured in the finest detail. High quality archival grade paper. Giclee print to last a lifetime.
-        </p>
-      </div>
-
-      <ul v-if="!isMobile" class="nav nav-tabs nav-tab-icons flex" id="type-tab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <div
-            class="nav-link"
-            :class="{ active: activeTab === 'print' }"
-            @click="mapStore.setActiveTab('print')"
-            role="tab"
-          >
-            <img src="/images/icons/print.svg" alt="print">
-            <div class="block mt-2">
-              <p class="m-0 font-extrabold black">Create Print</p>
-              <p class="m-0 sub-title">Capture moments</p>
-            </div>
-          </div>
-        </li>
-        <li class="nav-item" role="presentation">
-          <div
-            class="nav-link"
-            :class="{ active: activeTab === 'jewellery' }"
-            @click="mapStore.setActiveTab('jewellery')"
-            role="tab"
-          >
-            <img src="/images/icons/jewellery.svg" alt="jewellery">
-            <div class="block mt-2">
-              <p class="m-0 font-extrabold black">Create Jewellery</p>
-              <p class="m-0 sub-title">Wearable memories</p>
-            </div>
-          </div>
-        </li>
-      </ul>
-
-      <div class="tab-content" id="type-tab-content" :style="isMobile ? 'background-color: #FFFFFF !important' : ''">
-        <div v-if="activeTab === 'print'" class="tab-pane fade show active w-full">
-<!--          <div class="flex justify-items-center mt-2 mb-4" v-if="showSteps">
-            <div class="steps">
-              <div
-                class="step"
-                :class="{ active: currentStep === 'design' }"
-              >
-                <div class="step-title uppercase">Craft</div>
-              </div>
-              <div
-                class="step"
-                :class="{ active: currentStep === 'location' }"
-              >
-                <div class="step-title uppercase">Create</div>
-              </div>
-              <div
-                class="step"
-                :class="{ active: currentStep === 'choose' }"
-              >
-                <div class="step-title uppercase">Choose</div>
-              </div>
-            </div>
-          </div>-->
-
+      <!-- <div class="tab-content" id="type-tab-content" :style="isMobile ? 'background-color: #FFFFFF !important' : ''">
+        <div v-if="activeTab === LOCATION_MAP_TAB.print" class="tab-pane fade show active w-full">
           <Transition name="step" mode="out-in">
             <slot></slot>
           </Transition>
         </div>
 
-        <div v-if="activeTab === 'jewellery'" class="tab-pane fade w-full">
+        <div v-if="activeTab === LOCATION_MAP_TAB.jewellery" class="tab-pane fade w-full">
           <div class="text-center py-5">
             <p class="sub-title">Jewellery options coming soon...</p>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Desktop price display -->
       <div v-if="!isMobile" class="container-info">
@@ -196,21 +133,21 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useMapStore } from '../../stores/mapStore'
-import type { Location, Design, Layout, ColorScheme } from '../../types'
-
+import { LOCATION_MAP_TABS, LOCATION_MAP_TAB, LOCATION_MAP_TAB_PAGE_NAME } from '~/constants/location-map/tabs';
+import { useNavigationTabs } from '~/composables/useNavigationTabs';
 
 const mapStore = useMapStore()
 const { isMobile } = useBreakpoints()
+const navigationStore = useNavigationStore();
+const {
+  activeTab,
+} = useNavigationTabs(navigationStore, LOCATION_MAP_TAB_PAGE_NAME, LOCATION_MAP_TABS);
+
 const {
   currentStep,
-  activeTab,
-  isLoading,
   canProceedToNextStep,
   canGoToPreviousStep,
-  completionProgress
-} = storeToRefs(mapStore)
-const showSteps = ref(true)
+} = storeToRefs(mapStore);
 
 const dynamicTotal = ref(21.99)
 
@@ -234,27 +171,6 @@ const continueButtonText = computed(() => {
       return 'Continue'
   }
 })
-
-function handleTotalUpdate(newTotal: number): void {
-  const oldTotal = dynamicTotal.value
-  dynamicTotal.value = newTotal
-}
-
-function handleLocationSelected(location: Location) {
-  mapStore.setLocation(location)
-}
-
-function handleDesignSelected(design: Design) {
-  mapStore.setDesign(design)
-}
-
-function handleLayoutSelected(layout: Layout) {
-  mapStore.setLayout(layout)
-}
-
-function handleColorSchemeSelected(colorScheme: ColorScheme) {
-  mapStore.setColorScheme(colorScheme)
-}
 
 function handleGoBack() {
   mapStore.previousStep()

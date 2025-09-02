@@ -26,8 +26,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useMapStore } from '../../stores/mapStore';
-import { storeToRefs } from 'pinia';
+import { useMapStore } from '~/stores';
 
 interface Props {
   locationName?: string

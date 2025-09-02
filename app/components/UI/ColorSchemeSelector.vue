@@ -90,7 +90,7 @@
 import { computed, onMounted } from 'vue'
 import { AlertCircle } from 'lucide-vue-next'
 import { useMapStyles } from '../../composables/useMapStyles'
-import type { ColorScheme } from '../../types'
+import type { ColorScheme } from '~/types'
 
 interface Props {
   selectedSchemeId?: string | null

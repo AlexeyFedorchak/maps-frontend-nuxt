@@ -3,6 +3,10 @@ export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: {enabled: true},
     modules: ['@nuxt/image', '@nuxtjs/tailwindcss', '@pinia/nuxt'],
+    pinia: {
+        // Prevent autoimport for good indexit usage file via IDE
+        storesDirs: [],
+    },
     runtimeConfig: {
         public: {
             mapboxToken: process.env.NUXT_MAPBOX_TOKEN,

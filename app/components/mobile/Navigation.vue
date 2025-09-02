@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { LOCATION_MAP_TABS, LOCATION_MAP_TAB, LOCATION_MAP_TAB_PAGE_NAME } from '~/constants/location-map/tabs';
+import { useNavigationTabs } from '~/composables/useNavigationTabs';
+import { useTabStore } from '~/stores';
+
+const tabStore = useTabStore();
+const {
+  activeTab,
+} = useNavigationTabs(tabStore, LOCATION_MAP_TAB_PAGE_NAME, LOCATION_MAP_TABS);
+
+</script>
+
 <template>
   <div class="mobile-navigation-overlay">
     <!-- mobile Logo -->
@@ -5,44 +17,38 @@
       <img src="/images/logo.svg" alt="Logo">
     </div>
   </div>
-  
+
   <div class="mobile-nav-tabs">
-      <ul class="nav nav-tabs nav-tab-icons flex" role="tablist">
-        <li class="nav-item" role="presentation">
-          <div
+    <ul class="nav nav-tabs nav-tab-icons flex" role="tablist">
+      <li class="nav-item" role="presentation">
+        <div
             class="nav-link"
-            :class="{ active: mapStore.activeTab === 'print' }"
-            @click="mapStore.setActiveTab('print')"
+            :class="{ active: activeTab === LOCATION_MAP_TAB.print }"
+            @click="() => activeTab = LOCATION_MAP_TAB.print"
             role="tab"
-          >
-            <img src="/images/icons/print.svg" alt="print">
-            <div class="block">
-              <p class="m-0 font-extrabold black">PRINT</p>
-            </div>
+        >
+          <img src="/images/icons/print.svg" alt="print">
+          <div class="block">
+            <p class="m-0 font-extrabold black">PRINT</p>
           </div>
-        </li>
-        <li class="nav-item" role="presentation">
-          <div
+        </div>
+      </li>
+      <li class="nav-item" role="presentation">
+        <div
             class="nav-link"
-            :class="{ active: mapStore.activeTab === 'jewellery' }"
-            @click="mapStore.setActiveTab('jewellery')"
+            :class="{ active: activeTab === LOCATION_MAP_TAB.jewellery }"
+            @click="activeTab = LOCATION_MAP_TAB.jewellery"
             role="tab"
-          >
-            <img src="/images/icons/jewellery.svg" alt="jewellery">
-            <div class="block">
-              <p class="m-0 font-extrabold black">JEWELLERY</p>
-            </div>
+        >
+          <img src="/images/icons/jewellery.svg" alt="jewellery">
+          <div class="block">
+            <p class="m-0 font-extrabold black">JEWELLERY</p>
           </div>
-        </li>
-      </ul>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useMapStore } from '../../stores/mapStore'
-
-const mapStore = useMapStore()
-</script>
 
 <style scoped>
 .mobile-navigation-overlay {
@@ -98,23 +104,23 @@ const mapStore = useMapStore()
 .mobile-nav-tabs .nav.nav-tabs.nav-tab-icons {
   border: none !important;
   display: flex;
-  flex-direction: row !important; 
-  flex-wrap: nowrap !important; 
-  gap: 0; 
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0;
   margin: 0;
   background: none !important;
   border-radius: 30px;
-  overflow: visible; 
+  overflow: visible;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
   backdrop-filter: none !important;
-  width: 70%; 
+  width: 70%;
   max-width: 450px;
   align-items: center;
   justify-content: center;
 }
 
 .mobile-nav-tabs .nav-item {
-  flex: 0 0 auto; 
+  flex: 0 0 auto;
   background: none !important;
   display: flex;
   min-width: 0;
@@ -125,7 +131,7 @@ const mapStore = useMapStore()
   flex-direction: row !important;
   align-items: center;
   justify-content: center;
-  padding: 8px 20px; 
+  padding: 8px 20px;
   border: none;
   border-radius: 0;
   background: #FFFFFF;
@@ -137,18 +143,18 @@ const mapStore = useMapStore()
   white-space: nowrap !important;
   box-shadow: none !important;
   width: auto;
-  min-height: 30px; 
+  min-height: 30px;
   flex: none;
 }
 
 /* First button (PRINT) - with special background and rounded corners */
 .mobile-nav-tabs .nav-item:first-child .nav-link {
   background: #E4E3DB;
-  border-radius: 30px; 
-  padding: 8px 22px; 
+  border-radius: 30px;
+  padding: 8px 22px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 2; 
-  margin-right: -8px; 
+  z-index: 2;
+  margin-right: -8px;
 }
 
 .mobile-nav-tabs .nav-item:first-child .nav-link::after {
@@ -165,10 +171,10 @@ const mapStore = useMapStore()
 /* Last button (JEWELLERY) */
 .mobile-nav-tabs .nav-item:last-child .nav-link {
   background: #FFFFFF;
-  border-radius: 0 30px 30px 0; 
-  padding: 8px 22px 8px 30px; 
+  border-radius: 0 30px 30px 0;
+  padding: 8px 22px 8px 30px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1; 
+  z-index: 1;
 }
 
 /* Active state for PRINT */
@@ -209,7 +215,7 @@ const mapStore = useMapStore()
 }
 
 .mobile-nav-tabs .nav-link p {
-  font-size: 11px; 
+  font-size: 11px;
   line-height: 1;
   margin: 0;
   white-space: nowrap;
@@ -225,24 +231,24 @@ const mapStore = useMapStore()
 
 @media (max-width: 480px) {
   .mobile-nav-tabs {
-    max-width: 380px; 
-    padding: 0 20px; 
+    max-width: 380px;
+    padding: 0 20px;
   }
 
   .mobile-nav-tabs .nav-link {
-    padding: 20px 35px; 
-    min-width: 140px; 
+    padding: 20px 35px;
+    min-width: 140px;
     min-height: 10px;
   }
 
   .mobile-nav-tabs .nav-link img {
-    width: 18px; 
+    width: 18px;
     height: 18px;
-    margin-right: 3px; 
+    margin-right: 3px;
   }
 
   .mobile-nav-tabs .nav-link p {
-    font-size: 13px; 
+    font-size: 13px;
   }
 
   .mobile-logo img {

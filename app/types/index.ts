@@ -1,7 +1,6 @@
 export * from './map'
 export * from './api'
 export * from './components'
-export * from './ui'
 
 export type Coordinates = [number, number]
 
@@ -32,22 +31,22 @@ export interface Design {
   description?: string
   badge?: string
   preview: string
-  fullImage: string
+  fullImage?: string
   compatibleLayouts?: Layout[]
   mapboxStyle?: string
-  isActive: boolean
-  sortOrder: number
+  isActive?: boolean
+  sortOrder?: number
 }
 
 export interface Layout {
   id: LayoutId
   name: string
   description?: string
-  dimensions: string
+  dimensions?: string
   shape: MapShape
   preview: string
   isDefault?: boolean
-  isActive: boolean
+  isActive?: boolean
   priceModifier?: number
 }
 

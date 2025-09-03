@@ -917,10 +917,6 @@ ul.nav-tabs .nav-link.active {
     display: none !important;
 }
 
-.controls-section .nav.nav-tabs.nav-tab-icons {
-    display: flex !important;
-}
-
 @media (max-width: 768px) {
     .mobile-logo {
         display: flex !important;

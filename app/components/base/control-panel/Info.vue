@@ -6,9 +6,9 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="container-info">
-        <p class="product-title">{{ props.title }}</p>
-        <p class="product-description">
+  <div class="p-7">
+        <p class="uppercase tracking-wider font-extrabold">{{ props.title }}</p>
+        <p class="text-[#787878] leading-6">
           {{ props.description }}
         </p>
       </div>

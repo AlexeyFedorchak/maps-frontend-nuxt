@@ -17,7 +17,6 @@ const step = {
   design: 'design',
   choose: 'choose',
 };
-
  setSteps([
     { name: step.design },
     { name: step.location },
@@ -27,6 +26,14 @@ const step = {
 function handleTotalUpdate(newTotal: number): void {
   dynamicTotal.value = newTotal;
 }
+
+const totalPrice = computed(() => {
+  return dynamicTotal.value.toFixed(2)
+});
+
+const installmentPrice = computed(() => {
+  return (dynamicTotal.value / 3).toFixed(2)
+});
 
 // TODO: Refactor:
 const continueButtonText = computed(() => {
@@ -42,17 +49,9 @@ const continueButtonText = computed(() => {
   }
 });
 
-const totalPrice = computed(() => {
-  return dynamicTotal.value.toFixed(2)
-});
-
-const installmentPrice = computed(() => {
-  return (dynamicTotal.value / 3).toFixed(2)
-})
-
 function handleGoBack() {
   prevStep();
-};
+}
 
 function handleContinue() {
   if (getCurrentStep.value?.name === step.choose) {
@@ -63,164 +62,64 @@ function handleContinue() {
 </script>
 
 <template>
-  <ControlPanelContainer>
-    <template #content>
-      <ControlPanelInfo
-        title="Custom Location Map"
-        description="Your special chosen place, captured in the finest detail. High quality archival grade paper. Giclee print to last a lifetime."
+  <SharedControlPanel
+    :panel-info="{
+      title: 'Custom Location Map',
+      description: 'Your special chosen place, captured in the finest detail. High quality archival grade paper. Giclee print to last a lifetime.',
+    }"
+    :panel-switcher="{
+      tabs: [LOCATION_MAP_TAB.print, LOCATION_MAP_TAB.jewellery]
+    }"
+    :stepper="{
+      steps: [
+          { name: step.design },
+          { name: step.location },
+          { name: step.choose }
+      ]
+    }"
+    :panel-price="{
+      totalPrice: totalPrice,
+      installmentPrice: installmentPrice,
+    }"
+  >
+    <template #panel-switcher-tab-1="{stepper}">
+      <!-- Step: Location -->
+      <LocationMapStepLocation
+          v-if="stepper.getCurrentStep.value?.name === step.location"
+          key="location"
+          :location="locationMapStore.location"
+          :map-subtitle="locationMapStore.mapSubtitle"
+          :map-title="locationMapStore.mapTitle"
+          @location-selected="locationMapStore.setLocation($event)"
+          @update-map-title="locationMapStore.setMapTitle($event)"
+          @update-map-subtitle="locationMapStore.setMapSubtitle($event)"
       />
-      <ControlPanelSwitcher
-       :tabs="[LOCATION_MAP_TAB.print, LOCATION_MAP_TAB.jewellery]">
-        <template #content-tab-1>
-          <!-- TODO: implement switch steps -->
-          <!-- Step: Location -->
-          <LocationMapStepLocation 
-            v-if="getCurrentStep?.name === step.location"
-            key="location"
-            :location="locationMapStore.location"
-            :map-subtitle="locationMapStore.mapSubtitle"
-            :map-title="locationMapStore.mapTitle" 
-            @location-selected="locationMapStore.setLocation($event)"
-            @update-map-title="locationMapStore.setMapTitle($event)"
-            @update-map-subtitle="locationMapStore.setMapSubtitle($event)"
-          />
 
-          <!-- Step: Design -->
-          <LocationMapStepDesign 
-            v-else-if="getCurrentStep?.name === step.design"
-            key="design"
-            :layout="locationMapStore.layout"
-            :design="locationMapStore.design"
-            @layout-selected="locationMapStore.setLayout($event)" 
-            @design-selected="locationMapStore.setDesign($event)"
-          />
+      <!-- Step: Design -->
+      <LocationMapStepDesign
+          v-else-if="stepper.getCurrentStep.value?.name === step.design"
+          key="design"
+          :layout="locationMapStore.layout"
+          :design="locationMapStore.design"
+          @layout-selected="locationMapStore.setLayout($event)"
+          @design-selected="locationMapStore.setDesign($event)"
+      />
 
-           <!-- Step: Choose -->
-          <LocationMapStepChoose
-            v-else-if="getCurrentStep?.name === step.choose" 
-            key="choose"
-            @layout-selected="locationMapStore.setLayout($event)"
-            @color-scheme-selected="locationMapStore.setColorScheme($event)" 
-            @total-updated="handleTotalUpdate" 
-          />
-        </template>
-        <template #content-tab-2>
-            Jewellery options coming soon...
-        </template>
-      </ControlPanelSwitcher>
-
-      <!-- TODO: split this html to small reusable components -->
-       <!-- Desktop price display -->
-      <div v-if="!isMobile" class="container-info">
-        <p class="black mb-1">
-          <span class="price-title mr-2">Total £{{ totalPrice }}</span>
-          Free Shipping
-        </p>
-        <p class="sub-title sub-title-spacing">
-          <span class="mr-2">or Pay in 3 interest free payments for £{{ installmentPrice }}</span>
-          <img class="mb-1" src="/images/icons/info.svg" alt="info">
-        </p>
-
-        <!-- Desktop navigation -->
-        <div v-if="!isMobile" class="navigation">
-          <button
-            class="btn-nav btn-back"
-            :disabled="!canGoToPreviousStep"
-            @click="handleGoBack"
-            v-if="getCurrentStep?.name !== step.design"
-          >
-            Back
-          </button>
-          <button
-            class="btn-nav btn-continue"
-            :disabled="!canProceedToNextStep"
-            @click="handleContinue"
-          >
-            {{ continueButtonText }}
-          </button>
-        </div>
-
-        <!-- Desktop Trustpilot -->
-        <div v-if="!isMobile" class="trustpilot-section">
-          <img class="mr-3" src="/images/icons/5stars.svg" alt="Trustpilot 5 stars">
-          <span class="mr-3">Excellent</span>
-          <span class="mr-3">4.9 out of 5</span>
-          <img class="mb-1" src="/images/icons/trustpilot.svg" alt="Trustpilot">
-        </div>
-      </div>
-      
-      <!-- mobile only - bottom section -->
-      <div v-else class="mobile-bottom-section">
-        <!-- First step (design) has gray background section -->
-        <div v-if="getCurrentStep?.name === step.design" class="mobile-gray-section">
-          <div class="mobile-price-info">
-            <p class="price-line">
-              <span class="price-title">Total £{{ totalPrice }}</span>
-              <span class="price-subtitle">Free Shipping included</span>
-            </p>
-            <p class="payment-line">
-              or Pay in 3 interest free payments for £{{ installmentPrice }}
-              <img src="/images/icons/info.svg" alt="info" class="info-icon">
-            </p>
-          </div>
-          
-          <!-- Product features on white background -->
-          <div class="mobile-product-features">
-            <div class="feature-item">
-              <span class="feature-icon">∞</span>
-              <span>Lifetime Warranty</span>
-            </div>
-            <div class="feature-item">
-              <span class="feature-icon">↗</span>
-              <span>Ultra HD Prints</span>
-            </div>
-            <div class="feature-item">
-              <span class="feature-icon">↗</span>
-              <span>Milky Way +</span>
-            </div>
-          </div>
-          
-          <button
-            class="btn-nav btn-continue mobile-continue"
-            :disabled="!canProceedToNextStep"
-            @click="handleContinue"
-          >
-            CHOOSE LOCATION
-          </button>
-          
-          <div class="trustpilot-section mobile-trustpilot">
-            <img src="/images/icons/5stars.svg" alt="5 stars">
-            <span>Excellent</span>
-            <span>4.9 out of 5</span>
-            <img src="/images/icons/trustpilot.svg" alt="Trustpilot">
-          </div>
-        </div>
-        
-        <!-- Second and third steps (location, choose) -->
-        <div v-else class="mobile-white-section">
-          <button
-            class="btn-nav btn-continue mobile-continue"
-            :disabled="!canProceedToNextStep"
-            @click="handleContinue"
-          >
-            CONTINUE
-          </button>
-          
-          <div class="trustpilot-section mobile-trustpilot">
-            <img src="/images/icons/5stars.svg" alt="5 stars">
-            <span>Excellent</span>
-            <span>4.9 out of 5</span>
-            <img src="/images/icons/trustpilot.svg" alt="Trustpilot">
-          </div>
-        </div>
-        
-        <!-- Free shipping bar only for location and choose steps -->
-        <div v-if="getCurrentStep?.name !== step.design" class="free-shipping-bar">
-          FREE SHIPPING (1-2 DAY)
-        </div>
-      </div>
+      <!-- Step: Choose -->
+      <LocationMapStepChoose
+          v-else-if="stepper.getCurrentStep.value?.name === step.choose"
+          key="choose"
+          @layout-selected="locationMapStore.setLayout($event)"
+          @color-scheme-selected="locationMapStore.setColorScheme($event)"
+          @total-updated="handleTotalUpdate"
+      />
     </template>
-  </ControlPanelContainer>
+
+    <template #panel-switcher-tab-2="{stepper}">
+      Jewellery options coming soon...
+    </template>
+
+  </SharedControlPanel>
 </template>
 
 <style scoped>
@@ -334,17 +233,6 @@ function handleContinue() {
 
 /* mobile specific styles */
 @media (max-width: 768px) {
-  .controls-section {
-    padding-bottom: 0px;
-    background-color: #FFFFFF !important;
-  }
-
-  .controls-section .content-area {
-    padding: 0px;
-    padding-bottom: 0;
-    background-color: #FFFFFF !important;
-  }
-
   .container-info {
     margin: 12px 16px;
   }
@@ -356,11 +244,6 @@ function handleContinue() {
   .controls-section .tab-content {
     min-height: auto;
     padding: 16px 16px 8px;
-    background-color: #FFFFFF !important;
-  }
-
-  .controls-section .tab-pane,
-  .controls-section .w-full {
     background-color: #FFFFFF !important;
   }
 
@@ -623,34 +506,8 @@ function handleContinue() {
 
 /* mobile specific styles */
 @media (max-width: 768px) {
-  .controls-section {
-    padding-bottom: 0px;
-    background-color: #FFFFFF !important;
-  }
-  
-  .controls-section .content-area {
-    padding: 0px;
-    padding-bottom: 0;
-    background-color: #FFFFFF !important;
-  }
-  
   .container-info {
     margin: 12px 16px;
-  }
-  
-  .product-title {
-    margin-top: 8px;
-  }
-  
-  .controls-section .tab-content {
-    min-height: auto;
-    padding: 16px 16px 8px;
-    background-color: #FFFFFF !important;
-  }
-  
-  .controls-section .tab-pane,
-  .controls-section .w-full {
-    background-color: #FFFFFF !important;
   }
   
   .mobile-bottom-section {

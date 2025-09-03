@@ -1,11 +1,11 @@
-interface Step {
+export interface StepperStep {
     name: string;
     isDisabled?: boolean;
 }
 
 export const useStepper = () => {
-    const _steps = ref<Step[]>([]);
-    const _currentStep = ref<Step | undefined>(undefined);
+    const _steps = ref<StepperStep[]>([]);
+    const _currentStep = ref<StepperStep | undefined>(undefined);
 
     const getCurrentStep = computed(() => {
         return _currentStep.value;
@@ -15,7 +15,7 @@ export const useStepper = () => {
         return _currentStep.value?.isDisabled;
     });
 
-    function setSteps(steps: Step[], initialStep?: Step) {
+    function setSteps(steps: StepperStep[], initialStep?: StepperStep) {
         _steps.value = steps;
 
         if (initialStep) {

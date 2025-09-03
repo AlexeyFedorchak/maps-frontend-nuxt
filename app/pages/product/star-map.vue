@@ -4,7 +4,9 @@
           <StarMap/>
       </template>
 
-<!--      <template #controls></template>-->
+      <template #controls>
+        <StarMapControlsPanel/>
+      </template>
     </NuxtLayout>
 </template>
 

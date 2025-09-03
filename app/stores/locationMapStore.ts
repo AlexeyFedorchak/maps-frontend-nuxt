@@ -1,6 +1,6 @@
-import type { ColorScheme, Design, Layout, Location, MapShape } from '~/types';
+import type { ColorScheme, Theme, Layout, Location, MapShape } from '~/types';
 import { computed, ref } from 'vue';
-import { LOCATION_MAP_DEFAULT_LOCATION, LOCATION_MAP_LAYOUTS, LOCATION_MAP_DESIGNS } from '~/constants/location-map';
+import { LOCATION_MAP_DEFAULT_LOCATION, LOCATION_MAP_LAYOUTS, LOCATION_MAP_THEMES } from '~/constants/location-map';
 
 type LayoutName = 'rectangle-layout'
     | 'circle-layout'
@@ -14,7 +14,7 @@ type LayoutName = 'rectangle-layout'
 export const useLocationMapStore = defineStore('locationMapStore', () => {
     const location = ref<Location | null>(LOCATION_MAP_DEFAULT_LOCATION);
     const layout = ref<Layout | null>(LOCATION_MAP_LAYOUTS[0] || null);
-    const design = ref<Design | null>(LOCATION_MAP_DESIGNS[0] || null);
+    const theme = ref<Theme | null>(LOCATION_MAP_THEMES[0] || null);
     const colorScheme = ref<ColorScheme | null>(null);
     const mapTitle = ref<string | undefined>(LOCATION_MAP_DEFAULT_LOCATION.name);
     const mapSubtitle = ref<string | undefined>('');
@@ -62,10 +62,10 @@ export const useLocationMapStore = defineStore('locationMapStore', () => {
         console.log(`Layout set: ${newLayout.name}`)
     }
 
-    function setDesign(newDesign: Design) {
-        design.value = newDesign
+    function setTheme(newTheme: Theme) {
+        theme.value = newTheme
         // saveToHistory()
-        console.log(`Design set: ${newDesign.name}`)
+        console.log(`Theme set: ${newTheme.name}`)
     }
 
     function setColorScheme(newColorScheme: ColorScheme) {
@@ -88,7 +88,7 @@ export const useLocationMapStore = defineStore('locationMapStore', () => {
         // State
         location,
         layout,
-        design,
+        theme,
         mapTitle,
         mapSubtitle,
         colorScheme,
@@ -101,7 +101,7 @@ export const useLocationMapStore = defineStore('locationMapStore', () => {
         setLocation,
         setMapTitle,
         setMapSubtitle,
-        setDesign,
+        setTheme,
         setColorScheme,
     };
 });

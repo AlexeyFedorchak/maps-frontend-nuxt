@@ -461,13 +461,15 @@ onMounted(() => {
                            :title="getMapTitle || ''"
                            :subtitle="mapSubtitle || ''"
                            :coordinates="getCoordinatesText">
-      <div id="starmap-canvas" style="width:100%;aspect-ratio:1/1;">
+      <div>
         <StarMapBackground image-url="/images/milky-way/milky_black.jpg"
                            :phi="phi"
                            :lambda="lambda"
                            :zoom="zoom"
                            :auto-resize="true"
-        />
+                           :width="400"
+                           :height="400"/>
+        <div id="starmap-canvas"></div>
       </div>
     </ProductFrameContainer>
     <div v-if="frame" class="map-border" :class="borderClasses"></div>
@@ -481,10 +483,16 @@ onMounted(() => {
 }
 
 #starmap-canvas {
-  position: relative;
+  position: absolute;
+  width: calc(100% + 8px) !important;
+  height: calc(100% + 8px) !important;
+  top: -4px;
+  left: -4px;
+  aspect-ratio: 1/1;
 }
 
 #starmap-canvas canvas {
   width: 100%;
+  height: 100%;
 }
 </style>

@@ -72,9 +72,9 @@ function handleContinue() {
     }"
     :stepper="{
       steps: [
+          { name: step.choose },
           { name: step.design },
           { name: step.location },
-          { name: step.choose }
       ]
     }"
     :panel-price="{
@@ -100,16 +100,15 @@ function handleContinue() {
           v-else-if="stepper.getCurrentStep.value?.name === step.design"
           key="design"
           :layout="locationMapStore.layout"
-          :design="locationMapStore.design"
+          :theme="locationMapStore.theme"
           @layout-selected="locationMapStore.setLayout($event)"
-          @design-selected="locationMapStore.setDesign($event)"
+          @theme-selected="locationMapStore.setTheme($event)"
       />
 
       <!-- Step: Choose -->
       <LocationMapStepChoose
           v-else-if="stepper.getCurrentStep.value?.name === step.choose"
           key="choose"
-          @layout-selected="locationMapStore.setLayout($event)"
           @color-scheme-selected="locationMapStore.setColorScheme($event)"
           @total-updated="handleTotalUpdate"
       />

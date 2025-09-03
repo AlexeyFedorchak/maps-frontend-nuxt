@@ -1,6 +1,6 @@
 <template>
   <div id="designContent">
-    <UiControlPanelThemes :themes="LOCATION_MAP_THEMES"
+    <UiControlPanelThemes :themes="STAR_MAP_THEMES"
                           :theme="props.theme"
                           @theme-selected="emit('theme-selected', $event)"/>
     <UiControlPanelLayout :title="'Layout'"
@@ -12,7 +12,8 @@
 
 <script setup lang="ts">
 import type { Theme, Layout } from '~/types';
-import { LOCATION_MAP_LAYOUTS, LOCATION_MAP_THEMES } from '~/constants/location-map';
+import { LOCATION_MAP_LAYOUTS } from '~/constants/location-map';
+import { STAR_MAP_THEMES } from '~/constants/star-map/themes';
 
 const props = defineProps<{
   layout: Layout | null;

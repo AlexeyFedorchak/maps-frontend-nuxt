@@ -5,7 +5,7 @@ export * from './components'
 export type Coordinates = [number, number]
 
 export type LocationId = string
-export type DesignId = number
+export type ThemeId = number
 export type LayoutId = number
 export type ColorSchemeId = string
 
@@ -25,8 +25,8 @@ export interface Location {
   region?: string
 }
 
-export interface Design {
-  id: DesignId
+export interface Theme {
+  id: ThemeId
   name: string
   description?: string
   badge?: string
@@ -36,6 +36,12 @@ export interface Design {
   mapboxStyle?: string
   isActive?: boolean
   sortOrder?: number
+  bg?: string
+  fg?: string
+  stars?: string
+  col?: string
+  milkyLarge?: string
+  milkySmall?: string
 }
 
 export interface Layout {
@@ -77,7 +83,7 @@ export interface ColorScheme {
 export interface MapState {
   currentStep: AppStep
   selectedLocation: Location | null
-  selectedDesign: Design | null
+  selectedTheme: Theme | null
   selectedLayout: Layout | null
   selectedColorScheme: ColorScheme | null
   loadingState: LoadingState

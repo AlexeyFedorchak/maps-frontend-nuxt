@@ -1,11 +1,7 @@
-import type { ColorScheme, Design, Layout, Location, MapShape } from '~/types';
+import type { ColorScheme, Theme, Layout, Location, MapShape } from '~/types';
 import { computed, ref } from 'vue';
-import { LOCATION_MAP_DEFAULT_LOCATION, LOCATION_MAP_LAYOUTS, LOCATION_MAP_DESIGNS } from '~/constants/location-map';
-
-type LayoutName = 'rectangle-layout'
-    | 'circle-layout'
-    | 'horizontal-layout'
-    | 'full-page-layout';
+import { LOCATION_MAP_DEFAULT_LOCATION, LOCATION_MAP_LAYOUTS } from '~/constants/location-map';
+import { STAR_MAP_THEMES } from '~/constants/star-map/themes';
 
 /**
  * @description
@@ -13,26 +9,14 @@ type LayoutName = 'rectangle-layout'
  * */
 export const useStarMapStore = defineStore('starMapStore', () => {
     const location = ref<Location | null>(LOCATION_MAP_DEFAULT_LOCATION);
-    const layout = ref<Layout | null>(LOCATION_MAP_LAYOUTS[0] || null);
-    const design = ref<Design | null>(LOCATION_MAP_DESIGNS[0] || null);
+    const layout = ref<Layout | null>(LOCATION_MAP_LAYOUTS[1] || null);
+    const theme = ref<Theme | null>(STAR_MAP_THEMES[0] || null);
     const colorScheme = ref<ColorScheme | null>(null);
     const mapTitle = ref<string | undefined>(LOCATION_MAP_DEFAULT_LOCATION.name);
     const mapSubtitle = ref<string | undefined>('');
 
     const getLayoutName = computed(() => {
-        const shape = layout.value?.shape;
-        const defaultLayout: LayoutName = 'rectangle-layout';
-        const layoutName: Partial<Record<MapShape, LayoutName>> = {
-            'circle': 'circle-layout',
-            'horizontal': 'horizontal-layout',
-            'full-page': 'full-page-layout',
-        };
-
-        if (shape) {
-            return layoutName[shape] || defaultLayout;
-        }
-
-        return defaultLayout;
+        return 'circle-layout';
     });
     const getMapTitle = computed(() => {
         return mapTitle.value || location.value?.name;
@@ -54,14 +38,9 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         console.log(`Location set: ${newLocation.name}`)
     }
 
-    function setLayout(newLayout: Layout) {
-        layout.value = newLayout
-        console.log(`Layout set: ${newLayout.name}`)
-    }
-
-    function setDesign(newDesign: Design) {
-        design.value = newDesign
-        console.log(`Design set: ${newDesign.name}`)
+    function setTheme(newTheme: Theme) {
+        theme.value = newTheme
+        console.log(`Theme set: ${newTheme.name}`)
     }
 
     function setColorScheme(newColorScheme: ColorScheme) {
@@ -80,18 +59,17 @@ export const useStarMapStore = defineStore('starMapStore', () => {
     return {
         location,
         layout,
-        design,
+        theme,
         mapTitle,
         mapSubtitle,
         colorScheme,
         getLayoutName,
         getMapTitle,
         getCoordinatesText,
-        setLayout,
         setLocation,
         setMapTitle,
         setMapSubtitle,
-        setDesign,
+        setTheme,
         setColorScheme,
     };
 });

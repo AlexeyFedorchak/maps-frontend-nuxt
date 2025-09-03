@@ -1,6 +1,6 @@
-import type { Design } from '~/types';
+import type { Theme } from '~/types';
 
-export const LOCATION_MAP_DESIGNS: Design[] = [
+export const LOCATION_MAP_THEMES: Theme[] = [
     {
         id: 1,
         name: 'Original Black',

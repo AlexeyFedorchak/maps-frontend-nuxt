@@ -41,13 +41,13 @@ let disposed = false
 const cssWidth = computed(() => props.width ?? hostRef.value?.clientWidth ?? 512)
 const cssHeight = computed(() => props.height ?? hostRef.value?.clientHeight ?? 512)
 
-function setRendererSize(w: number, h: number) {
-  if (!renderer || !hostRef.value) return
-  renderer.domElement.style.width = `${w}px`
-  renderer.domElement.style.height = `${h}px`
-  const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 3))
-  renderer.setPixelRatio(dpr)
-  renderer.setSize(w, h, false)
+function setRendererSize() {
+  if (!renderer || !hostRef.value) return;
+  renderer.domElement.style.width = `100%`;
+  renderer.domElement.style.height = `100%`;
+  const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 3));
+  renderer.setPixelRatio(dpr);
+  // renderer.setSize('100%', '100%', false);
 }
 
 function renderOnce() {
@@ -145,7 +145,7 @@ async function init() {
     )
   })
 
-  setRendererSize(cssWidth.value, cssHeight.value)
+  setRendererSize()
   renderOnce()
 }
 
@@ -184,7 +184,7 @@ onBeforeUnmount(() => {
 
 function handleResize() {
   if (!renderer) return
-  setRendererSize(cssWidth.value, cssHeight.value)
+  setRendererSize()
   renderOnce()
 }
 
@@ -224,25 +224,26 @@ watch(() => props.zoom, (v) => {
 
 watch([() => props.width, () => props.height], () => {
   if (!renderer) return
-  setRendererSize(cssWidth.value, cssHeight.value)
+  setRendererSize()
   renderOnce()
 })
 </script>
 
 <template>
-  <div ref="hostRef" class="mw-host" />
+  <div ref="hostRef" class="mw-host" ></div>
 </template>
 
 <style scoped>
 .mw-host {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
   border-radius: 50%;
+  width: 400px;
+  height: 400px;
   overflow: hidden;
+  position: relative;
+}
+
+.mw-host canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 </style>

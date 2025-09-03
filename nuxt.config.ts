@@ -1,8 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite';
+
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: {enabled: true},
-    modules: ['@nuxt/image', '@nuxtjs/tailwindcss', '@pinia/nuxt'],
+    modules: ['@nuxt/image', '@pinia/nuxt', 'shadcn-nuxt', '@vueuse/nuxt'],
     runtimeConfig: {
         public: {
             mapboxToken: process.env.NUXT_MAPBOX_TOKEN,
@@ -19,6 +21,12 @@ export default defineNuxtConfig({
         },
     },
     css: [
-        'assets/css/maps.css',
+        '~/assets/css/tailwind.css',
+        '~/assets/css/maps.css',
     ],
-})
+    vite: {
+        plugins: [
+            tailwindcss(),
+        ],
+    },
+});

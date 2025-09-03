@@ -1,7 +1,43 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { ref, onMounted, watch, computed, nextTick } from 'vue';
+import { useLocationMapStore, useMapStore } from '~/stores';
+import type { FeatureItem } from '~/components/product-frame/Highlights.vue';
 
-const props = defineProps<{ width?: number; datapath?: string; options?: any }>()
+const mapStore = useMapStore()
+const { frame, hasRibbon } = storeToRefs(mapStore)
+
+const locationMapStore = useLocationMapStore();
+const { layout, getMapTitle, getCoordinatesText, mapSubtitle } = storeToRefs(locationMapStore);
+
+const showDetails = computed(() => {
+  const layoutShape = layout.value?.shape || 'rectangle';
+  return layoutShape !== 'full-page';
+});
+
+const icons = ref<FeatureItem[]>([
+  { icon: 'lifetime', label: 'Lifetime Warranty' },
+  { icon: 'hd', label: 'Ultra Hd Print' },
+  { icon: 'stars', label: 'Milky Way+' },
+])
+
+const phi = -0.7244338002677777
+const lambda = -1.758795622139907
+const zoom = 0.5
+
+const borderClasses = computed(() => {
+  const classes = []
+
+  if (frame.value) {
+    classes.push(frame.value.borderClass)
+  }
+
+  if (hasRibbon.value) {
+    classes.push('gift-wrap-active')
+  }
+
+  return classes
+})
+
 onMounted(() => {
   const { $celestial } = useNuxtApp()
   const Celestial = $celestial || (window as any).Celestial
@@ -418,13 +454,37 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="starmap-container">
-    <div id="starmap-canvas" style="width:100%;aspect-ratio:1/1;"></div>
+  <div class="map-preview-section">
+    <ProductFrameHighlights :items="icons"/>
+    <ProductFrameContainer :shape="layout?.shape || 'rectangle'"
+                           :showDetails="showDetails || false"
+                           :title="getMapTitle || ''"
+                           :subtitle="mapSubtitle || ''"
+                           :coordinates="getCoordinatesText">
+      <div id="starmap-canvas" style="width:100%;aspect-ratio:1/1;">
+        <StarMapBackground image-url="/images/milky-way/milky_black.jpg"
+                           :phi="phi"
+                           :lambda="lambda"
+                           :zoom="zoom"
+                           :auto-resize="true"
+        />
+      </div>
+    </ProductFrameContainer>
+    <div v-if="frame" class="map-border" :class="borderClasses"></div>
   </div>
+
 </template>
 
 <style>
 #celestial-form {
   display: none !important;
+}
+
+#starmap-canvas {
+  position: relative;
+}
+
+#starmap-canvas canvas {
+  width: 100%;
 }
 </style>

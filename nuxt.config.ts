@@ -24,5 +24,6 @@ export default defineNuxtConfig({
     },
     css: [
         'assets/css/maps.css',
+        'assets/css/styles.css',
     ],
 })

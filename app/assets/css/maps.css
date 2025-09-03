@@ -87,47 +87,7 @@ button {
     width: 100%;
 }
 
-.map-preview-title {
-    position: absolute;
-    font-weight: 700;
-    top: 24px;
-    background-color: #F7F7F7;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px 5px #E4E3DB;
-}
 
-.map-preview-title > div > .icons {
-    display: inline-block;
-    background-color: #E4E3DB;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: auto;
-}
-
-.icons.water-drop {
-    background-image: url("/images/water-drop.svg");
-}
-
-.icons.feather {
-    background-image: url("/images/feather.svg");
-}
-
-.icons.lifetime {
-    background-image: url("/images/lifetime.svg");
-}
-
-.map-preview-title > div {
-    margin: 8px 0;
-    padding: 0 12px;
-    border-right: 1px solid #BFB7B7;
-}
-
-.map-preview-title > div:last-child {
-    border-right: unset;
-}
 
 /* CSS Variables for easy adjustment */
 :root {
@@ -1026,10 +986,6 @@ ul.nav-tabs .nav-link.active {
     .controls-section ul.nav.nav-tabs.nav-tab-icons {
         display: none !important;
         visibility: hidden !important;
-    }
-
-    .map-preview-title {
-        display: none !important;
     }
 
     .main-container {

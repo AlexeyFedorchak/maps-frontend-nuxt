@@ -6252,7 +6252,7 @@ function cross(a, b) {
   ];
 }
 
-// Like d3.dispatch, but for custom events abstracting native UI events. These
+// Like d3.dispatch, but for custom events abstracting native ui events. These
 // events have a target component (such as a brush), a target element (such as
 // the svg:g element containing the brush) and the standard arguments `d` (the
 // target element's data) and `i` (the selection index of the target element).

@@ -69,25 +69,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="['map-frame', `${layout?.shape}-container`]">
+  <ProductFrameContainer :shape="layout?.shape || 'rectangle'"
+                         :showDetails="showDetails || false"
+                         :title="getMapTitle || ''"
+                         :subtitle="mapSubtitle || ''"
+                         :coordinates="getCoordinatesText" >
     <div ref="mapContainer"
          id="interactiveMap"
          :class="[getLayoutName]">
     </div>
-    <div class="map-details" v-if="showDetails">
-      <template v-if="layout?.shape === 'rectangle' && mapSubtitle">
-        <div class="map-title">{{ getMapTitle }}</div>
-        <div class="map-subtitle">{{ mapSubtitle }}</div>
-        <div class="map-coordinates-below">{{ getCoordinatesText }}</div>
-      </template>
-      <template v-else>
-        <div class="map-title">{{ getMapTitle }}</div>
-        <div class="map-subtitle" v-if="mapSubtitle">{{ mapSubtitle }}</div>
-        <div class="map-coordinates">{{ getCoordinatesText }}</div>
-      </template>
-    </div>
-  </div>
-
+  </ProductFrameContainer>
 </template>
 
 <style scoped>

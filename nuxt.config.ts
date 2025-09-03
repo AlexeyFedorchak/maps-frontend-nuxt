@@ -1,10 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite';
+
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: {enabled: true},
-    modules: ['@nuxt/image', '@nuxtjs/tailwindcss', '@pinia/nuxt'],
+    modules: ['@nuxt/image', '@pinia/nuxt', 'shadcn-nuxt', '@vueuse/nuxt'],
     pinia: {
-        // Prevent autoimport for good indexit usage file via IDE
+        // Prevent auto import.
         storesDirs: [],
     },
     runtimeConfig: {
@@ -23,7 +25,13 @@ export default defineNuxtConfig({
         },
     },
     css: [
-        'assets/css/maps.css',
-        'assets/css/styles.css',
+        '~/assets/css/tailwind.css',
+        '~/assets/css/maps.css',
+        '~/assets/css/styles.css',
     ],
-})
+    vite: {
+        plugins: [
+            tailwindcss(),
+        ],
+    },
+});

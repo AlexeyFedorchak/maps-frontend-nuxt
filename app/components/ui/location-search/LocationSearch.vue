@@ -78,8 +78,8 @@
 <script setup lang="ts">
 import { ref, nextTick, onMounted, onUnmounted } from 'vue'
 import { MapPin, Search, AlertCircle } from 'lucide-vue-next'
-import { useLocationSearch } from '../../composables/useLocationSearch'
-import type { Location, Coordinates } from '../../types'
+import { useLocationSearch } from '~/composables/useLocationSearch'
+import type { Location, Coordinates } from '~/types'
 
 interface Emits {
   (e: 'location-selected', location: Location): void

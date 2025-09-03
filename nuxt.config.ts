@@ -34,4 +34,7 @@ export default defineNuxtConfig({
             tailwindcss(),
         ],
     },
+    shadcn: {
+
+    }
 });

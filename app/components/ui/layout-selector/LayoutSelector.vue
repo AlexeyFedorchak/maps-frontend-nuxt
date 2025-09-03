@@ -67,8 +67,8 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { AlertCircle } from 'lucide-vue-next'
-import { useMapStyles } from '../../composables/useMapStyles'
-import type { Layout } from '../../types'
+import { useMapStyles } from '~/composables/useMapStyles'
+import type { Layout } from '~/types'
 
 interface Props {
   selectedLayoutId?: number | null

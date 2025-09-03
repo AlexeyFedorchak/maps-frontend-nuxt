@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ICON_NAMES, IconName } from '~/constants/icons'
+import { ICON_NAMES, type IconName } from '~/constants/icons'
 
 export interface IconProps {
   name: IconName

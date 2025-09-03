@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { MapPin, Palette, Settings } from 'lucide-vue-next'
-import type { Step } from '../../types'
+import type { Step } from '~/types'
 
 interface StepDefinition {
   id: Step

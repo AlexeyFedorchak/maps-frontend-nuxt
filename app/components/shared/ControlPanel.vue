@@ -21,15 +21,15 @@ const { isMobile } = useBreakpoints()
 </script>
 
 <template>
-  <BaseControlPanelContainer
+  <UiControlPanelContainer
       :stepper="{ steps: props.stepper.steps }"
   >
     <template #content="contentProps">
-      <BaseControlPanelInfo
+      <UiControlPanelInfo
           :title="props.panelInfo.title"
           :description="props.panelInfo.description"
       />
-      <BaseControlPanelSwitcher
+      <UiControlPanelSwitcher
           :is-hide-buttons="isMobile"
           :tabs="props.panelSwitcher.tabs">
         <template #content-tab-1>
@@ -38,9 +38,9 @@ const { isMobile } = useBreakpoints()
         <template #content-tab-2>
           <slot name="panel-switcher-tab-2" :stepper="contentProps.stepper" />
         </template>
-      </BaseControlPanelSwitcher>
+      </UiControlPanelSwitcher>
 
-      <BaseControlPanelPrice
+      <UiControlPanelPrice
           class="p-7"
           :totalPrice="props.panelPrice.totalPrice"
           :installmentPrice="props.panelPrice.installmentPrice"
@@ -147,7 +147,7 @@ const { isMobile } = useBreakpoints()
 <!--        </div>-->
 <!--      </div>-->
     </template>
-  </BaseControlPanelContainer>
+  </UiControlPanelContainer>
 </template>
 
 <style scoped>

@@ -12,7 +12,7 @@ stepper.setSteps(props.stepper.steps);
 <template>
   <div class="controls-section">
     <slot name="header">
-      <BaseControlPanelHeader logo="/images/logo.svg" alt="Logo"/>
+      <UiControlPanelHeader logo="/images/logo.svg" alt="Logo"/>
     </slot>
     <div class="content-area">
       <slot name="content" :stepper="stepper" />

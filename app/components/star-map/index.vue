@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, computed, nextTick } from 'vue';
-import { useLocationMapStore, useMapStore } from '~/stores';
+import { ref, onMounted, computed } from 'vue';
+import { useLocationMapStore } from '~/stores';
 import type { FeatureItem } from '~/components/product-frame/Highlights.vue';
 
-const mapStore = useMapStore()
-const { frame, hasRibbon } = storeToRefs(mapStore)
-
 const locationMapStore = useLocationMapStore();
-const { layout, getMapTitle, getCoordinatesText, mapSubtitle } = storeToRefs(locationMapStore);
+const { frame, hasRibbon, layout, getMapTitle, getCoordinatesText, mapSubtitle } = storeToRefs(locationMapStore);
 
 const showDetails = computed(() => {
   const layoutShape = layout.value?.shape || 'rectangle';

@@ -85,14 +85,16 @@ const installmentPrice = computed(() => {
     }"
   >
     <template #panel-switcher-tab-1>
-      <!-- Step: Design -->
-      <StarMapStepDesign
-          v-if="stepper.getCurrentStep.value?.name === step.design"
-          key="design"
-          :layout="starMapStore.layout"
-          :theme="starMapStore.theme"
-          @theme-selected="starMapStore.setTheme($event)"
-      />
+      <Transition name="step" mode="out-in">
+        <!-- Step: Design -->
+        <StarMapStepDesign
+            v-if="stepper.getCurrentStep.value?.name === step.design"
+            key="design"
+            :layout="starMapStore.layout"
+            :theme="starMapStore.theme"
+            @theme-selected="starMapStore.setTheme($event)"
+        />
+      </Transition>
     </template>
 
     <template #panel-switcher-tab-2>

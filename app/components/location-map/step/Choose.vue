@@ -3,32 +3,30 @@
     <UiControlPanelSize @size-selected="selectSize($event)"/>
     <UiControlPanelMount v-if="selectedSize"
                          :selected-size="selectedSize"
-                         @set-frame="mapStore.setFrame($event)"
-                         @select-ribbon="mapStore.setRibbon($event)"/>
+                         @set-frame="locationMapStore.setFrame($event)"
+                         @select-ribbon="locationMapStore.setRibbon($event)"/>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useMapStore } from '~/stores';
+import { useLocationMapStore } from '~/stores';
 import type { Size } from '~/components/ui/control-panel/Size.vue';
 import type { Frame } from '~/types'
 import { FramePrices } from '~/constants/prices';
 
-interface Emits {
-  (e: 'layout-selected', layout: any): void
-  (e: 'color-scheme-selected', colorScheme: any): void
-  (e: 'total-updated', total: number): void
-}
+const emit = defineEmits<{
+  (e: 'layout-selected', layout: any): void;
+  (e: 'color-scheme-selected', colorScheme: any): void;
+  (e: 'total-updated', total: number): void;
+}>();
 
-const emit = defineEmits<Emits>();
-
-const mapStore = useMapStore();
+const locationMapStore = useLocationMapStore();
 const {
   frame: selectedFrame,
   hasRibbon: selectedRibbon
-} = storeToRefs(mapStore);
+} = storeToRefs(locationMapStore);
 
 const selectedSize = ref<Size | null>(null);
 
@@ -67,10 +65,10 @@ onMounted(() => {
   emit('total-updated', totalPrice.value);
   
   if (selectedFrame.value) {
-    mapStore.setFrame(null);
+    locationMapStore.setFrame(null);
   }
   if (selectedRibbon.value) {
-    mapStore.setRibbon(false);
+    locationMapStore.setRibbon(false);
   }
 })
 </script>

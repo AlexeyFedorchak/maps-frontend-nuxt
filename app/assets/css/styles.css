@@ -50,3 +50,12 @@
 .icon-stars:before {
     content: "\e906";
 }
+
+.step-enter-active,
+.step-leave-active {
+    transition: opacity 0.3s ease;
+}
+.step-enter-from,
+.step-leave-to {
+    opacity: 0;
+}

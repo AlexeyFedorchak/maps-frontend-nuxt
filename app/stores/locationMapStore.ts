@@ -1,4 +1,4 @@
-import type { ColorScheme, Theme, Layout, Location, MapShape } from '~/types';
+import type { ColorScheme, Theme, Layout, Location, MapShape, Frame } from '~/types';
 import { computed, ref } from 'vue';
 import { LOCATION_MAP_DEFAULT_LOCATION, LOCATION_MAP_LAYOUTS, LOCATION_MAP_THEMES } from '~/constants/location-map';
 
@@ -12,6 +12,8 @@ type LayoutName = 'rectangle-layout'
  * This store save all map configuration for location map.
  * */
 export const useLocationMapStore = defineStore('locationMapStore', () => {
+    const frame = ref<Frame | null>(null);
+    const hasRibbon = ref(false);
     const location = ref<Location | null>(LOCATION_MAP_DEFAULT_LOCATION);
     const layout = ref<Layout | null>(LOCATION_MAP_LAYOUTS[0] || null);
     const theme = ref<Theme | null>(LOCATION_MAP_THEMES[0] || null);
@@ -48,44 +50,43 @@ export const useLocationMapStore = defineStore('locationMapStore', () => {
         return `${Math.abs(lat).toFixed(3)}°${latDir} ${Math.abs(lng).toFixed(3)}°${lngDir}`;
     });
 
+    function setFrame(newFrame: Frame | null) {
+        frame.value = newFrame
+    }
+
+    function setRibbon(enabled: boolean) {
+        hasRibbon.value = enabled
+    }
+
     function setLocation(newLocation: Location) {
         location.value = newLocation
         mapTitle.value = newLocation.name
-        // saveToHistory()
-        console.log(`Location set: ${newLocation.name}`)
     }
 
     function setLayout(newLayout: Layout) {
-        console.log('newLayout', newLayout)
         layout.value = newLayout
-        // saveToHistory()
-        console.log(`Layout set: ${newLayout.name}`)
     }
 
     function setTheme(newTheme: Theme) {
         theme.value = newTheme
-        // saveToHistory()
-        console.log(`Theme set: ${newTheme.name}`)
     }
 
     function setColorScheme(newColorScheme: ColorScheme) {
         colorScheme.value = newColorScheme
-        // saveToHistory()
-        console.log(`Color scheme set: ${newColorScheme.name}`)
     }
 
     function setMapTitle(title: string | undefined) {
         mapTitle.value = title
-        // saveToHistory()
     }
 
     function setMapSubtitle(subtitle: string | undefined) {
         mapSubtitle.value = subtitle
-        // saveToHistory()
     }
 
     return {
         // State
+        frame,
+        hasRibbon,
         location,
         layout,
         theme,
@@ -97,6 +98,8 @@ export const useLocationMapStore = defineStore('locationMapStore', () => {
         getMapTitle,
         getCoordinatesText,
         // Actions
+        setFrame,
+        setRibbon,
         setLayout,
         setLocation,
         setMapTitle,

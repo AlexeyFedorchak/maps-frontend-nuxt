@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useMapStore } from '~/stores';
+import { useLocationMapStore } from '~/stores';
 import type { FeatureItem } from '~/components/product-frame/Highlights.vue';
 
 interface Props {
@@ -14,17 +14,17 @@ const props = withDefaults(defineProps<Props>(), {
   locationName: 'London, UK',
   coordinates: '51.507°N 0.128°W',
   layoutShape: 'rectangle',
-  showDetails: true
-})
+  showDetails: true,
+});
 
-const mapStore = useMapStore()
-const { frame, hasRibbon } = storeToRefs(mapStore)
+const locationMapStore = useLocationMapStore();
+const { frame, hasRibbon } = storeToRefs(locationMapStore);
 
 const icons = ref<FeatureItem[]>([
   {icon: 'water-drop', label: 'Ultra Hd Print'},
   {icon: 'lifetime', label: 'Lifetime Warranty'},
   {icon: 'feather', label: 'Gicelle Art Prints'},
-])
+]);
 
 const borderClasses = computed(() => {
   const classes = []

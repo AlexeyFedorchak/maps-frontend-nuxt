@@ -33,9 +33,9 @@ const getStepper = computed(() => {
 });
 
 const features = [
-  { text: 'Lifetime Warranty', icon: '∞'},
-  { text: 'Ultra HD Prints', icon: '↗'},
-  { text: 'Milky Way +', icon: '↗'},
+  { text: 'Lifetime Warranty', icon: '/images/icons/infinity.svg'},
+  { text: 'Ultra HD Prints', icon: '/images/icons/hd.svg'},
+  { text: 'Milky Way +', icon: '/images/icons/milky-way.svg'},
 ];
 
 const getFeatures = computed(() => {

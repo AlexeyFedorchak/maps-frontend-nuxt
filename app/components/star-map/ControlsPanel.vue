@@ -1,24 +1,65 @@
 <script setup lang="ts">
-import { useLocationMapStore, useMapStore } from '~/stores';
-import { useStepper } from '~/composables/useStepper';
+import { NavigationDirection, useStepper } from '~/composables/useStepper';
 import { LOCATION_MAP_TAB } from '~/constants/location-map/tabs';
 import { useStarMapStore } from '~/stores/starMapStore';
+import { CONTROL_PANEL_STEPPER } from '~/components/shared/control-panel/constants';
 
 const starMapStore = useStarMapStore();
-const { setSteps, getCurrentStep, prevStep, nextStep } = useStepper();
-const { isMobile } = useBreakpoints();
-const mapStore = useMapStore();
-const {
-  canProceedToNextStep,
-  canGoToPreviousStep,
-} = storeToRefs(mapStore);
-const dynamicTotal = ref(21.99);
 const step = {
+  location: 'location',
   design: 'design',
+  choose: 'choose',
 };
-setSteps([
-  { name: step.design },
+const stepper = useStepper([
+  {
+    name: step.location,
+    buttons: [
+      {
+        name: 'Choose Location',
+        isDisabled: ref(false),
+        direction: NavigationDirection.forward,
+        className: 'w-full',
+      }
+    ],
+  },
+  {
+    name: step.design,
+    buttons: [
+      {
+        name: 'back',
+        isDisabled: ref(false),
+        direction: NavigationDirection.backward,
+        className: 'max-w-[200px] w-[40%] md:w-[162.5px] bg-[#A5A5A5]',
+      },
+      {
+        name: 'CONTINUE',
+        isDisabled: ref(false),
+        direction: NavigationDirection.forward,
+        className: 'max-w-[490px] w-[50%] md:w-[282.5px]',
+      },
+    ],
+  },
+  {
+    name: step.choose,
+    buttons: [
+      {
+        name: 'back',
+        isDisabled: ref(false),
+        direction: NavigationDirection.backward,
+        className: 'w-[162.5px] bg-[#A5A5A5]',
+      },
+      {
+        name: 'CONTINUE',
+        isDisabled: ref(false),
+        direction: NavigationDirection.forward,
+        className: 'w-[282.5px]',
+      },
+    ],
+  },
 ]);
+provide(CONTROL_PANEL_STEPPER, stepper);
+
+const dynamicTotal = ref(21.99);
 
 const totalPrice = computed(() => {
   return dynamicTotal.value.toFixed(2)
@@ -38,17 +79,12 @@ const installmentPrice = computed(() => {
       :panel-switcher="{
       tabs: [LOCATION_MAP_TAB.print, LOCATION_MAP_TAB.jewellery]
     }"
-      :stepper="{
-      steps: [
-          { name: step.design },
-      ]
-    }"
       :panel-price="{
       totalPrice: totalPrice,
       installmentPrice: installmentPrice,
     }"
   >
-    <template #panel-switcher-tab-1="{stepper}">
+    <template #panel-switcher-tab-1>
       <!-- Step: Design -->
       <StarMapStepDesign
           v-if="stepper.getCurrentStep.value?.name === step.design"
@@ -59,10 +95,9 @@ const installmentPrice = computed(() => {
       />
     </template>
 
-    <template #panel-switcher-tab-2="{stepper}">
+    <template #panel-switcher-tab-2>
       Jewellery options coming soon...
     </template>
-
   </SharedControlPanel>
 </template>
 

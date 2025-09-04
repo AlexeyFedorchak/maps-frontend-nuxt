@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
   tabs: [string, string];
-  isHideButtons: boolean;
 }>();
 
 const emmit = defineEmits<{
@@ -17,9 +16,7 @@ function changeTab(tab: string): void {
 </script>
 
 <template>
-  <ul
-      v-if="!props.isHideButtons"
-      class="flex border-b border-[#D6D6D6] border-solid" role="tablist">
+  <ul class="hidden md:flex border-b border-[#D6D6D6] border-solid" role="tablist">
     <li class="flex-1" role="presentation">
       <div class="flex h-full rounded-tl-[20px] rounded-tr-[20px]"
            :class="{ 'bg-[#EFEFEF]': activeTab === props.tabs?.[0] }"

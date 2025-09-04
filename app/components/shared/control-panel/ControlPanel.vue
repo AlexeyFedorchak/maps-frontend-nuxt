@@ -12,14 +12,13 @@ const props = defineProps<{
   };
   stepper?: Stepper;
   panelPrice: {
-    totalPrice: string;
-    installmentPrice: string;
+    totalPrice?: string;
+    installmentPrice?: string;
+    features?: Array<{icon: string; text: string}>;
   };
 }>();
 
 const _stepperService = inject<Stepper>(CONTROL_PANEL_STEPPER);
-
-const {isMobile} = useBreakpoints();
 
 const getStepper = computed(() => {
   if (props?.stepper) {
@@ -31,6 +30,16 @@ const getStepper = computed(() => {
   }
 
   return _stepperService;
+});
+
+const features = [
+  { text: 'Lifetime Warranty', icon: '∞'},
+  { text: 'Ultra HD Prints', icon: '↗'},
+  { text: 'Milky Way +', icon: '↗'},
+];
+
+const getFeatures = computed(() => {
+  return props?.panelPrice?.features || features;
 });
 
 function changeStep(direction: NavigationDirection) {
@@ -50,7 +59,6 @@ function changeStep(direction: NavigationDirection) {
           :description="props.panelInfo.description"
       />
       <UiControlPanelSwitcher
-          :is-hide-buttons="isMobile"
           :tabs="props.panelSwitcher.tabs">
         <template #content-tab-1>
           <slot name="panel-switcher-tab-1" />
@@ -59,26 +67,39 @@ function changeStep(direction: NavigationDirection) {
           <slot name="panel-switcher-tab-2" />
         </template>
       </UiControlPanelSwitcher>
+      <div class="p-7">
+        <slot name="price-info">
+          <UiControlPanelPrice
+              v-if="props?.panelPrice?.totalPrice && props?.panelPrice?.installmentPrice"
+              class="mb-4"
+              :totalPrice="props.panelPrice.totalPrice"
+              :installmentPrice="props.panelPrice.installmentPrice"
+          />
 
-      <UiControlPanelPrice
-          class="p-7"
-          :totalPrice="props.panelPrice.totalPrice"
-          :installmentPrice="props.panelPrice.installmentPrice"
-      />
+          <MobileProductFeatures
+              class="mb-4"
+              :features="getFeatures"
+          />
+        </slot>
 
-      <slot name="bottom-buttons">
-        <div class="flex px-7 justify-between gap-1">
-          <UiButton
-              v-for="button of getStepper?.getCurrentStep?.value?.buttons"
-              class="uppercase"
-              size="lg"
-              @click="changeStep(button.direction)"
-              :class="button.className"
-              :disabled="button.isDisabled"
-          >
-            {{ button.name }}
-          </UiButton>
-        </div>
+        <slot name="bottom-buttons">
+          <div class="flex mb-4 justify-between gap-1">
+            <UiButton
+                v-for="button of getStepper?.getCurrentStep?.value?.buttons"
+                class="uppercase"
+                size="lg"
+                @click="changeStep(button.direction)"
+                :class="button.className"
+                :disabled="button.isDisabled"
+            >
+              {{ button.name }}
+            </UiButton>
+          </div>
+        </slot>
+      </div>
+
+      <slot name="footer">
+
       </slot>
 
       <!-- TODO: split this html to small reusable components -->

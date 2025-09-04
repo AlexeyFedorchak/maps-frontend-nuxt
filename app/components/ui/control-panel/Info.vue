@@ -7,7 +7,7 @@ const props = defineProps<{
 
 <template>
   <div class="p-7">
-        <p class="uppercase tracking-wider font-extrabold">{{ props.title }}</p>
+        <p class="uppercase tracking-wider font-extrabold mb-4">{{ props.title }}</p>
         <p class="text-[#787878] leading-6">
           {{ props.description }}
         </p>

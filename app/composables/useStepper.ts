@@ -1,30 +1,49 @@
-export interface StepperStep {
+export const NavigationDirection = {
+    backward: 'backward',
+    forward: 'forward',
+};
+
+export type NavigationDirection = typeof NavigationDirection[keyof typeof NavigationDirection];
+
+export interface StepperStepButton {
     name: string;
-    isDisabled?: boolean;
+    isDisabled: Ref<boolean>;
+    direction: NavigationDirection;
+    className: string;
 }
 
-export const useStepper = () => {
-    const _steps = ref<StepperStep[]>([]);
-    const _currentStep = ref<StepperStep | undefined>(undefined);
+export interface StepperStep {
+    name: string;
+    buttons?: Array<StepperStepButton>;
+}
+
+export const useStepper = (steps: StepperStep[]) => {
+    const _steps = ref<StepperStep[]>(steps);
+    const _currentStep = ref<StepperStep>(steps[0]!);
+
+    const getAllSteps = computed(() => _steps.value);
 
     const getCurrentStep = computed(() => {
         return _currentStep.value;
     });
 
-    const isCurrentStepDisabled = computed(() => {
-        return _currentStep.value?.isDisabled;
-    });
+    const isClickOnLastStep = ref(false);
 
-    function setSteps(steps: StepperStep[], initialStep?: StepperStep) {
-        _steps.value = steps;
-
-        if (initialStep) {
-            _currentStep.value = initialStep;
-            return;
+    function disableButton(index: number) {
+        if (_currentStep.value?.buttons?.[index]) {
+            _currentStep.value.buttons[index].isDisabled = true;
         }
+    }
 
-        if (steps.length) {
-            _currentStep.value = steps[0];
+    function enableButton(index: number) {
+        if (_currentStep.value?.buttons?.[index]) {
+            _currentStep.value.buttons[index].isDisabled = false;
+        }
+    }
+
+    function setActiveStep(index: number) {
+        if (_steps.value[index]) {
+            _currentStep.value = _steps.value[index];
         }
     }
 
@@ -36,11 +55,13 @@ export const useStepper = () => {
         }
 
         const nextStep = currentStep + 1;
-        if (nextStep > _steps.value.length) {
+        if (nextStep >= _steps.value.length) {
             return;
+        } else {
+            isClickOnLastStep.value = true;
         }
 
-        _currentStep.value = _steps.value[nextStep];
+        _currentStep.value = _steps.value[nextStep]!;
     }
 
     function prevStep() {
@@ -55,54 +76,17 @@ export const useStepper = () => {
             return;
         }
 
-        _currentStep.value = _steps.value[prevStep];
-    }
-
-    function disableAllSteps() {
-        _steps.value = _steps.value.map(step => {
-            return {
-                ...step,
-                isDisabled: true,
-            };
-        });
-    }
-
-    function enableAllSteps() {
-        _steps.value = _steps.value.map(step => {
-            return {
-                ...step,
-                isDisabled: false,
-            };
-        });
-    }
-
-    function disableCurrentStep() {
-        if (_currentStep.value) {
-            _currentStep.value = {
-                ..._currentStep.value,
-                isDisabled: true,
-            }
-        }
-    }
-
-    function enableCurrentStep() {
-        if (_currentStep.value) {
-            _currentStep.value = {
-                ..._currentStep.value,
-                isDisabled: false,
-            }
-        }
+        _currentStep.value = _steps.value[prevStep]!;
     }
 
     return {
         getCurrentStep,
-        setSteps,
+        getAllSteps,
+        setActiveStep,
+        isClickOnLastStep,
         nextStep,
         prevStep,
-        isCurrentStepDisabled,
-        disableAllSteps,
-        enableAllSteps,
-        disableCurrentStep,
-        enableCurrentStep,
-    }
+    };
 };
+
+export type Stepper = ReturnType<typeof useStepper>;

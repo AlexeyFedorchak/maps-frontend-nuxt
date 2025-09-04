@@ -21,8 +21,8 @@ function changeTab(tab: string): void {
       v-if="!props.isHideButtons"
       class="flex border-b border-[#D6D6D6] border-solid" role="tablist">
     <li class="flex-1" role="presentation">
-      <div class="flex rounded-tl-[20px] rounded-tr-[20px]"
-           :class="{ active: activeTab === props.tabs?.[0] }"
+      <div class="flex h-full rounded-tl-[20px] rounded-tr-[20px]"
+           :class="{ 'bg-[#EFEFEF]': activeTab === props.tabs?.[0] }"
            @click="changeTab(props.tabs?.[0])" role="tab">
         <slot name="btn-tab-1">
           <img src="/images/icons/print.svg" alt="print">
@@ -34,8 +34,8 @@ function changeTab(tab: string): void {
       </div>
     </li>
     <li class="flex-1" role="presentation">
-      <div class="flex rounded-tl-[20px] rounded-tr-[20px]"
-           :class="{ active: activeTab === props.tabs?.[1] }"
+      <div class="flex h-full rounded-tl-[20px] rounded-tr-[20px]"
+           :class="{ 'bg-[#EFEFEF]': activeTab === props.tabs?.[1] }"
            @click="changeTab(props.tabs?.[1])" role="tab">
         <slot name="btn-tab-2">
           <img src="/images/icons/jewellery.svg" alt="jewellery">
@@ -48,22 +48,15 @@ function changeTab(tab: string): void {
     </li>
   </ul>
 
-  <div class="tab-content">
-    <div v-if="activeTab === props.tabs?.[0]" class="tab-pane fade show active w-full">
+  <div class="flex justify-center items-center bg-[#fff] min-h-[31.25rem] px-6">
+    <div v-if="activeTab === props.tabs?.[0]" class="fade show active w-full">
       <slot name="content-tab-1"></slot>
     </div>
 
-    <div v-if="activeTab === props.tabs?.[1]" class="tab-pane fade w-full">
+    <div v-if="activeTab === props.tabs?.[1]" class="fade w-full">
       <div class="text-center py-5">
         <slot name="content-tab-2"></slot>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-  /** TODO: implement active state*/
-  .active {
-
-  }
-</style>

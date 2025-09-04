@@ -7,13 +7,13 @@
     "css": "app/assets/css/tailwind.css",
     "baseColor": "neutral",
     "cssVariables": true,
-    "prefix": "ui"
+    "prefix": ""
   },
   "aliases": {
-    "components": "@/components",
+    "components": "@/app/components",
     "composables": "@/composables",
     "utils": "@/lib/utils",
-    "ui": "@/components/ui",
+    "ui": "@/app/components/ui",
     "lib": "@/lib"
   },
   "iconLibrary": "lucide"

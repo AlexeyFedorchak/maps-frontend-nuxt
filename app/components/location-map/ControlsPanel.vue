@@ -1,27 +1,65 @@
 <script setup lang="ts">
-import { useLocationMapStore, useMapStore } from '~/stores';
-import { useStepper } from '~/composables/useStepper';
+import { useLocationMapStore } from '~/stores';
+import { useStepper, NavigationDirection } from '~/composables/useStepper';
 import { LOCATION_MAP_TAB } from '~/constants/location-map/tabs';
+import { CONTROL_PANEL_STEPPER } from '~/components/shared/control-panel/constants';
 
 const locationMapStore = useLocationMapStore();
-const { setSteps, getCurrentStep, prevStep, nextStep } = useStepper();
-const { isMobile } = useBreakpoints()
-const mapStore = useMapStore()
-const {
-  canProceedToNextStep,
-  canGoToPreviousStep,
-} = storeToRefs(mapStore);
-const dynamicTotal = ref(21.99);
 const step = {
   location: 'location',
   design: 'design',
   choose: 'choose',
 };
- setSteps([
-    { name: step.design },
-    { name: step.location },
-    { name: step.choose },
-  ]);
+const stepper = useStepper([
+  {
+    name: step.location,
+    buttons: [
+      {
+        name: 'Choose Location',
+        isDisabled: ref(false),
+        direction: NavigationDirection.forward,
+        className: 'w-full',
+      }
+    ],
+  },
+  {
+    name: step.design,
+    buttons: [
+      {
+        name: 'back',
+        isDisabled: ref(false),
+        direction: NavigationDirection.backward,
+        className: 'max-w-[200px] w-[40%] md:w-[162.5px] bg-[#A5A5A5]',
+      },
+      {
+        name: 'CONTINUE',
+        isDisabled: ref(false),
+        direction: NavigationDirection.forward,
+        className: 'max-w-[490px] w-[50%] md:w-[282.5px]',
+      },
+    ],
+  },
+  {
+    name: step.choose,
+    buttons: [
+      {
+        name: 'back',
+        isDisabled: ref(false),
+        direction: NavigationDirection.backward,
+        className: 'w-[162.5px] bg-[#A5A5A5]',
+      },
+      {
+        name: 'CONTINUE',
+        isDisabled: ref(false),
+        direction: NavigationDirection.forward,
+        className: 'w-[282.5px]',
+      },
+    ],
+  },
+]);
+provide(CONTROL_PANEL_STEPPER, stepper);
+
+const dynamicTotal = ref(21.99);
 
 function handleTotalUpdate(newTotal: number): void {
   dynamicTotal.value = newTotal;
@@ -34,31 +72,6 @@ const totalPrice = computed(() => {
 const installmentPrice = computed(() => {
   return (dynamicTotal.value / 3).toFixed(2)
 });
-
-// TODO: Refactor:
-const continueButtonText = computed(() => {
-  switch(getCurrentStep.value?.name) {
-    case step.design:
-      return 'Choose Location'
-    case step.location:
-      return 'Continue'
-    case step.choose:
-      return 'Add to Cart'
-    default:
-      return 'Continue'
-  }
-});
-
-function handleGoBack() {
-  prevStep();
-}
-
-function handleContinue() {
-  if (getCurrentStep.value?.name === step.choose) {
-  } else {
-    nextStep();
-  }
-}
 </script>
 
 <template>
@@ -70,19 +83,12 @@ function handleContinue() {
     :panel-switcher="{
       tabs: [LOCATION_MAP_TAB.print, LOCATION_MAP_TAB.jewellery]
     }"
-    :stepper="{
-      steps: [
-          { name: step.choose },
-          { name: step.design },
-          { name: step.location },
-      ]
-    }"
     :panel-price="{
       totalPrice: totalPrice,
       installmentPrice: installmentPrice,
     }"
   >
-    <template #panel-switcher-tab-1="{stepper}">
+    <template #panel-switcher-tab-1>
       <!-- Step: Location -->
       <LocationMapStepLocation
           v-if="stepper.getCurrentStep.value?.name === step.location"
@@ -114,7 +120,7 @@ function handleContinue() {
       />
     </template>
 
-    <template #panel-switcher-tab-2="{stepper}">
+    <template #panel-switcher-tab-2>
       Jewellery options coming soon...
     </template>
 
@@ -122,70 +128,6 @@ function handleContinue() {
 </template>
 
 <style scoped>
-.step-enter-active,
-.step-leave-active {
-  transition: all 0.3s ease;
-}
-
-.step-enter-from {
-  opacity: 0;
-  transform: translateX(20px);
-}
-
-.step-leave-to {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-
-.text-center {
-  text-align: center;
-}
-
-.py-5 {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
-}
-
-.m-0 {
-  margin: 0;
-}
-
-.mb-1 {
-  margin-bottom: 0.25rem;
-}
-
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
-.block {
-  display: block;
-}
-
-.flex {
-  display: flex;
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-.mobile-product-features {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 6px;
-  background-color: #F7F7F7;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px 2px #E4E3DB;
-  padding: 8px 10px;
-  margin: 12px 0 16px;
-  font-weight: 700;
-  font-size: 11px;
-  width: 100%;
-  flex-wrap: nowrap;
-}
-
 .mobile-product-features .flex-c {
   display: flex;
   align-items: center;

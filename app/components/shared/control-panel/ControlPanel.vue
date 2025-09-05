@@ -2,52 +2,60 @@
 import { NavigationDirection, type Stepper } from '~/composables/useStepper';
 import { CONTROL_PANEL_STEPPER } from '~/components/shared/control-panel/constants';
 
+/**
+ * This component required define provide(CONTROL_PANEL_STEPPER, useStepper(configuration)); in parent component.
+ * */
 const props = defineProps<{
-  panelInfo: {
+  // This section display title and description on the top of panel
+  panelInfo?: {
     title: string;
     description: string;
   };
-  panelSwitcher: {
-    tabs: [string, string];
-  };
-  stepper?: Stepper;
-  panelPrice: {
+  panelPrice?: {
     totalPrice?: string;
     installmentPrice?: string;
     features?: Array<{icon: string; text: string}>;
   };
 }>();
 
-const _stepperService = inject<Stepper>(CONTROL_PANEL_STEPPER);
+const emmit = defineEmits<{
+  (e: 'tab-changes', tab: string): void;
+}>();
 
-const getStepper = computed(() => {
-  if (props?.stepper) {
-    return props.stepper;
-  }
+const stepper = inject<Stepper>(CONTROL_PANEL_STEPPER)!;
+if (!stepper) {
+  throw new Error('[ControlPanel.vue] inject: Stepper is missing. Provide stepper in parent component like: provide(CONTROL_PANEL_STEPPER, useStepper(configuration)));');
+}
 
-  if (!_stepperService) {
-    throw new Error('Stepper is missing. ControlPanel.vue should have props.stepper or parent component should provide provide(CONTROL_PANEL_STEPPER, useStepper());');
-  }
-
-  return _stepperService;
-});
-
-const features = [
+const defaultFeatures = [
   { text: 'Lifetime Warranty', icon: '/images/icons/infinity.svg'},
   { text: 'Ultra HD Prints', icon: '/images/icons/hd.svg'},
   { text: 'Milky Way +', icon: '/images/icons/milky-way.svg'},
 ];
 
+const defaultPanelInfo = {
+  title: 'Custom Location Map',
+  description: 'Your special chosen place, captured in the finest detail. High quality archival grade paper. Giclee print to last a lifetime.',
+};
+
 const getFeatures = computed(() => {
-  return props?.panelPrice?.features || features;
+  return props?.panelPrice?.features || defaultFeatures;
+});
+
+const getPanelInfo = computed(() => {
+  return props?.panelInfo || defaultPanelInfo;
 });
 
 function changeStep(direction: NavigationDirection) {
   if (direction === NavigationDirection.forward) {
-    getStepper.value.nextStep();
+    stepper.nextStep();
   } else {
-    getStepper.value.prevStep();
+    stepper.prevStep();
   }
+}
+
+function tabChanges(tab: string): void {
+  emmit('tab-changes', tab);
 }
 </script>
 
@@ -55,11 +63,12 @@ function changeStep(direction: NavigationDirection) {
   <UiControlPanelContainer>
     <template #content>
       <UiControlPanelInfo
-          :title="props.panelInfo.title"
-          :description="props.panelInfo.description"
+          :title="getPanelInfo.title"
+          :description="getPanelInfo.description"
       />
       <UiControlPanelSwitcher
-          :tabs="props.panelSwitcher.tabs">
+          @tab-changes="tabChanges($event)"
+      >
         <template #content-tab-1>
           <slot name="panel-switcher-tab-1" />
         </template>
@@ -85,7 +94,7 @@ function changeStep(direction: NavigationDirection) {
         <slot name="bottom-buttons">
           <div class="flex mb-4 justify-between gap-1">
             <UiButton
-                v-for="button of getStepper?.getCurrentStep?.value?.buttons"
+                v-for="button of stepper?.getCurrentStep?.value?.buttons"
                 class="uppercase"
                 size="lg"
                 @click="changeStep(button.direction)"
@@ -101,107 +110,6 @@ function changeStep(direction: NavigationDirection) {
       <slot name="footer">
 
       </slot>
-
-      <!-- TODO: split this html to small reusable components -->
-      <!--      <div class="container-info">-->
-      <!--        &lt;!&ndash; Desktop navigation &ndash;&gt;-->
-      <!--        <div class="navigation">-->
-      <!--          <button-->
-      <!--              class="btn-nav btn-back"-->
-      <!--              :disabled="!canGoToPreviousStep"-->
-      <!--              @click="handleGoBack"-->
-      <!--              v-if="stepper.getCurrentStep.value?.name !== step.design"-->
-      <!--          >-->
-      <!--            Back-->
-      <!--          </button>-->
-      <!--          <button-->
-      <!--              class="btn-nav btn-continue"-->
-      <!--              :disabled="!canProceedToNextStep"-->
-      <!--              @click="handleContinue"-->
-      <!--          >-->
-      <!--            {{ continueButtonText }}-->
-      <!--          </button>-->
-      <!--        </div>-->
-
-      <!--        &lt;!&ndash; Desktop Trustpilot &ndash;&gt;-->
-      <!--        <div class="trustpilot-section">-->
-      <!--          <img class="mr-3" src="/images/icons/5stars.svg" alt="Trustpilot 5 stars">-->
-      <!--          <span class="mr-3">Excellent</span>-->
-      <!--          <span class="mr-3">4.9 out of 5</span>-->
-      <!--          <img class="mb-1" src="/images/icons/trustpilot.svg" alt="Trustpilot">-->
-      <!--        </div>-->
-      <!--      </div>-->
-
-      <!-- mobile only - bottom section -->
-      <!--      <div class="mobile-bottom-section">-->
-      <!--        &lt;!&ndash; First step (design) has gray background section &ndash;&gt;-->
-      <!--        <div v-if="getCurrentStep?.name === step.design" class="mobile-gray-section">-->
-      <!--          <div class="mobile-price-info">-->
-      <!--            <p class="price-line">-->
-      <!--              <span class="price-title">Total £{{ totalPrice }}</span>-->
-      <!--              <span class="price-subtitle">Free Shipping included</span>-->
-      <!--            </p>-->
-      <!--            <p class="payment-line">-->
-      <!--              or Pay in 3 interest free payments for £{{ installmentPrice }}-->
-      <!--              <img src="/images/icons/info.svg" alt="info" class="info-icon">-->
-      <!--            </p>-->
-      <!--          </div>-->
-
-      <!--          &lt;!&ndash; Product features on white background &ndash;&gt;-->
-      <!--          <div class="mobile-product-features">-->
-      <!--            <div class="feature-item">-->
-      <!--              <span class="feature-icon">∞</span>-->
-      <!--              <span>Lifetime Warranty</span>-->
-      <!--            </div>-->
-      <!--            <div class="feature-item">-->
-      <!--              <span class="feature-icon">↗</span>-->
-      <!--              <span>Ultra HD Prints</span>-->
-      <!--            </div>-->
-      <!--            <div class="feature-item">-->
-      <!--              <span class="feature-icon">↗</span>-->
-      <!--              <span>Milky Way +</span>-->
-      <!--            </div>-->
-      <!--          </div>-->
-
-      <!--          <button-->
-      <!--              class="btn-nav btn-continue mobile-continue"-->
-      <!--              :disabled="!canProceedToNextStep"-->
-      <!--              @click="handleContinue"-->
-      <!--          >-->
-      <!--            CHOOSE LOCATION-->
-      <!--          </button>-->
-
-      <!--          <div class="trustpilot-section mobile-trustpilot">-->
-      <!--            <img src="/images/icons/5stars.svg" alt="5 stars">-->
-      <!--            <span>Excellent</span>-->
-      <!--            <span>4.9 out of 5</span>-->
-      <!--            <img src="/images/icons/trustpilot.svg" alt="Trustpilot">-->
-      <!--          </div>-->
-      <!--        </div>-->
-
-      <!--        &lt;!&ndash; Second and third steps (location, choose) &ndash;&gt;-->
-      <!--        <div v-else class="mobile-white-section">-->
-      <!--          <button-->
-      <!--              class="btn-nav btn-continue mobile-continue"-->
-      <!--              :disabled="!canProceedToNextStep"-->
-      <!--              @click="handleContinue"-->
-      <!--          >-->
-      <!--            CONTINUE-->
-      <!--          </button>-->
-
-      <!--          <div class="trustpilot-section mobile-trustpilot">-->
-      <!--            <img src="/images/icons/5stars.svg" alt="5 stars">-->
-      <!--            <span>Excellent</span>-->
-      <!--            <span>4.9 out of 5</span>-->
-      <!--            <img src="/images/icons/trustpilot.svg" alt="Trustpilot">-->
-      <!--          </div>-->
-      <!--        </div>-->
-
-      <!--        &lt;!&ndash; Free shipping bar only for location and choose steps &ndash;&gt;-->
-      <!--        <div v-if="getCurrentStep?.name !== step.design" class="free-shipping-bar">-->
-      <!--          FREE SHIPPING (1-2 DAY)-->
-      <!--        </div>-->
-      <!--      </div>-->
     </template>
   </UiControlPanelContainer>
 </template>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useLocationMapStore } from '~/stores';
 import { useStepper, NavigationDirection } from '~/composables/useStepper';
-import { LOCATION_MAP_TAB } from '~/constants/location-map/tabs';
 import { CONTROL_PANEL_STEPPER } from '~/components/shared/control-panel/constants';
 
 const locationMapStore = useLocationMapStore();
@@ -76,13 +75,6 @@ const installmentPrice = computed(() => {
 
 <template>
   <SharedControlPanel
-      :panel-info="{
-      title: 'Custom Location Map',
-      description: 'Your special chosen place, captured in the finest detail. High quality archival grade paper. Giclee print to last a lifetime.',
-    }"
-      :panel-switcher="{
-      tabs: [LOCATION_MAP_TAB.print, LOCATION_MAP_TAB.jewellery]
-    }"
       :panel-price="{
       totalPrice: totalPrice,
       installmentPrice: installmentPrice,

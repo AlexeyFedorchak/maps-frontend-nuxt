@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { NavigationDirection, useStepper } from '~/composables/useStepper';
-import { LOCATION_MAP_TAB } from '~/constants/location-map/tabs';
 import { useStarMapStore } from '~/stores/starMapStore';
 import { CONTROL_PANEL_STEPPER } from '~/components/shared/control-panel/constants';
 
@@ -72,13 +71,6 @@ const installmentPrice = computed(() => {
 
 <template>
   <SharedControlPanel
-      :panel-info="{
-      title: 'Personalised Star Map',
-      description: 'Create your star map, capture the stars on your special moment. The unique and beautiful bespoke picture of the stars.',
-    }"
-      :panel-switcher="{
-      tabs: [LOCATION_MAP_TAB.print, LOCATION_MAP_TAB.jewellery]
-    }"
       :panel-price="{
       totalPrice: totalPrice,
       installmentPrice: installmentPrice,

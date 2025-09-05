@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 
-type PageName = string;
+type ConfigName = string;
 type Tab = string;
 type Tabs = Tab[];
 
@@ -11,33 +11,38 @@ type Tabs = Tab[];
  * const tabStore = useTabStore();
  * const {
  *   activeTab,
- * } = useNavigationTabs(navigationStore, 'page1', ['tab1', 'tab2']);
+ * } = useNavigationTabs(navigationStore, 'configName', ['tab1', 'tab2']);
  * // Set active tab
  * activeTab.value = 'tab2';
  * // Get active tab
  * const active = activeTab.value;
  * */
 export const useTabStore = defineStore('tabStore', () => {
-    const tabs = ref<Record<PageName, Tabs>>({});
-    const activeTab = ref<Record<PageName, Tab>>({});
+    const tabs = ref<Record<ConfigName, Tabs>>({});
+    const activeTab = ref<Record<ConfigName, Tab>>({});
 
-    function setActiveTab(pageName: string, tab: Tab) {
+    function getTabs(configName: ConfigName): string[] {
+        return tabs.value[configName]!;
+    }
+
+    function setActiveTab(configName: ConfigName, tab: Tab) {
         activeTab.value = {
             ...activeTab.value,
-            [pageName]: tab,
+            [configName]: tab,
         };
     }
 
-    function setTabs(pageName: string, tabsConfig: Tabs) {
+    function setTabs(configName: ConfigName, tabsConfig: Tabs) {
         tabs.value = {
             ...tabs.value,
-            [pageName]: tabsConfig,
+            [configName]: tabsConfig,
         };
     }
 
     return {
         // State
         tabs,
+        getTabs,
         activeTab,
         // Actions
         setActiveTab,

@@ -1,10 +1,9 @@
 <template>
-  <MobileNavigation v-if="isMobile"/>
+  <UiControlPanelMobileExternalTabs />
   <div class="main-container" :class="{ 'mobile-layout': isMobile }">
     <slot name="preview"></slot>
     <slot name="controls"></slot>
   </div>
-
 </template>
 
 <script setup lang="ts">

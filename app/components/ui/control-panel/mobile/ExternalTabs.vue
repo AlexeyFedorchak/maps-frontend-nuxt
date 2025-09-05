@@ -1,52 +1,52 @@
 <script setup lang="ts">
-import { LOCATION_MAP_TABS, LOCATION_MAP_TAB, LOCATION_MAP_TAB_PAGE_NAME } from '~/constants/location-map/tabs';
-import { useNavigationTabs } from '~/composables/useNavigationTabs';
-import { useTabStore } from '~/stores';
+import { CONTROL_PANEL_TAB, useControlPanelStore } from '~/stores';
 
-const tabStore = useTabStore();
-const {
-  activeTab,
-} = useNavigationTabs(tabStore, LOCATION_MAP_TAB_PAGE_NAME, LOCATION_MAP_TABS);
-
+const controlPanelStore = useControlPanelStore();
 </script>
 
 <template>
-  <div class="mobile-navigation-overlay">
-    <!-- mobile Logo -->
-    <div class="mobile-logo">
-      <img src="/images/logo.svg" alt="Logo">
+  <div class="md:hidden">
+    <div class="mobile-navigation-overlay">
+      <!-- mobile Logo -->
+      <div class="mobile-logo">
+        <img src="/images/logo.svg" alt="Logo">
+      </div>
     </div>
-  </div>
 
-  <div class="mobile-nav-tabs">
-    <ul class="nav nav-tabs nav-tab-icons flex" role="tablist">
-      <li class="nav-item" role="presentation">
-        <div
-            class="nav-link"
-            :class="{ active: activeTab === LOCATION_MAP_TAB.print }"
-            @click="() => activeTab = LOCATION_MAP_TAB.print"
-            role="tab"
-        >
-          <img src="/images/icons/print.svg" alt="print">
-          <div class="block">
-            <p class="m-0 font-extrabold black">PRINT</p>
+    <div class="mobile-nav-tabs">
+      <ul class="nav nav-tabs nav-tab-icons flex" role="tablist">
+        <li class="nav-item" role="presentation">
+          <div
+              class="nav-link"
+              :class="{ active: controlPanelStore.activeTab === CONTROL_PANEL_TAB.TAB_1 }"
+              @click="() => controlPanelStore.setActiveTab(CONTROL_PANEL_TAB.TAB_1)"
+              role="tab"
+          >
+            <slot name="tab-1">
+              <img src="/images/icons/print.svg" alt="print">
+              <div class="block">
+                <p class="m-0 font-extrabold black">PRINT</p>
+              </div>
+            </slot>
           </div>
-        </div>
-      </li>
-      <li class="nav-item" role="presentation">
-        <div
-            class="nav-link"
-            :class="{ active: activeTab === LOCATION_MAP_TAB.jewellery }"
-            @click="activeTab = LOCATION_MAP_TAB.jewellery"
-            role="tab"
-        >
-          <img src="/images/icons/jewellery.svg" alt="jewellery">
-          <div class="block">
-            <p class="m-0 font-extrabold black">JEWELLERY</p>
+        </li>
+        <li class="nav-item" role="presentation">
+          <div
+              class="nav-link"
+              :class="{ active: controlPanelStore.activeTab === CONTROL_PANEL_TAB.TAB_2 }"
+              @click="controlPanelStore.setActiveTab(CONTROL_PANEL_TAB.TAB_2)"
+              role="tab"
+          >
+            <slot name="tab-2">
+              <img src="/images/icons/jewellery.svg" alt="jewellery">
+              <div class="block">
+                <p class="m-0 font-extrabold black">JEWELLERY</p>
+              </div>
+            </slot>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 

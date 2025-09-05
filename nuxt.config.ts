@@ -3,9 +3,17 @@ export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: {enabled: true},
     modules: ['@nuxt/image', '@nuxtjs/tailwindcss', '@pinia/nuxt'],
+    devServer: {
+        port: 3000
+    },
     runtimeConfig: {
+        // Private keys (only available on server-side)
+        trustpilotApiKey: process.env.NUXT_TRUSTPILOT_API_KEY,
+        trustpilotSecret: process.env.NUXT_TRUSTPILOT_SECRET,
+        
         public: {
             mapboxToken: process.env.NUXT_MAPBOX_TOKEN,
+            trustpilotBusinessUnitId: process.env.NUXT_TRUSTPILOT_BUSINESS_UNIT_ID,
         },
     },
     app: {

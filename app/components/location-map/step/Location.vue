@@ -49,7 +49,7 @@
         </span>
         <input
           v-model="mapTitle"
-          @input="updateMapTitle"
+          @input="emit('update-map-title', ($event?.target as HTMLInputElement)?.value)"
           type="text"
           class="form-control border-radius-r"
           placeholder="Custom title"
@@ -67,7 +67,7 @@
         </span>
         <input
           v-model="mapSubtitle"
-          @input="updateMapSubtitle"
+          @input="emit('update-map-subtitle', ($event?.target as HTMLInputElement)?.value)"
           type="text"
           class="form-control border-radius-r"
           placeholder="Type here..."
@@ -81,99 +81,89 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
-import { storeToRefs } from 'pinia'
-import type { Location } from '../../../types'
+import type { Location } from '~/types'
 
-const { isMobile } = useBreakpoints()
+const { isMobile } = useBreakpoints();
 
-interface Emits {
-  (e: 'location-selected', location: Location): void
-}
+const props = defineProps<{
+  location: Location | null;
+  mapTitle: string | undefined;
+  mapSubtitle: string | undefined;
+}>();
 
-const emit = defineEmits<Emits>()
+const emit = defineEmits<{
+  (e: 'location-selected', location: Location): void;
+  (e: 'update-map-title', value: string | undefined): void;
+  (e: 'update-map-subtitle', value: string | undefined): void;
+}>()
 
-const mapStore = useMapStore()
-const { location: selectedLocation, mapTitle: storeMapTitle, mapSubtitle: storeMapSubtitle } = storeToRefs(mapStore)
+const searchQuery = ref('');
+const mapTitle = ref<string | undefined>('');
+const mapSubtitle = ref<string | undefined>('');
+const showResults = ref(false);
+const searchResults = ref<Location[]>([]);
+const isSearching = ref(false);
 
-const searchQuery = ref('')
-const mapTitle = ref('')
-const mapSubtitle = ref('')
-const showResults = ref(false)
-const searchResults = ref<Location[]>([])
-const isSearching = ref(false)
+const { searchLocations } = useLocationSearch();
 
-const { searchLocations } = useLocationSearch()
-
-let searchTimeout: ReturnType<typeof setTimeout>
-
-function updateMapTitle() {
-  mapStore.setMapTitle(mapTitle.value)
-}
-
-function updateMapSubtitle() {
-  mapStore.setMapSubtitle(mapSubtitle.value)
-}
+let searchTimeout: ReturnType<typeof setTimeout>;
 
 async function handleSearch() {
-  clearTimeout(searchTimeout)
+  clearTimeout(searchTimeout);
 
   if (searchQuery.value.length < 2) {
-    searchResults.value = []
-    return
+    searchResults.value = [];
+    return;
   }
 
   searchTimeout = setTimeout(async () => {
-    isSearching.value = true
+    isSearching.value = true;
     try {
-      searchResults.value = await searchLocations(searchQuery.value)
+      searchResults.value = await searchLocations(searchQuery.value);
     } catch (error) {
       console.error('Search error:', error)
-      searchResults.value = []
+      searchResults.value = [];
     } finally {
-      isSearching.value = false
+      isSearching.value = false;
     }
   }, 300)
 }
 
 function selectLocation(location: Location) {
-  searchQuery.value = location.name
-  searchResults.value = []
-  showResults.value = false
-
-  mapStore.setLocation(location)
-  mapTitle.value = location.name
-  
-  emit('location-selected', location)
+  searchQuery.value = location.name;
+  searchResults.value = [];
+  showResults.value = false;
+  mapTitle.value = location.name;
+  emit('location-selected', location);
 }
 
 function hideResults() {
   setTimeout(() => {
-    showResults.value = false
-  }, 200)
+    showResults.value = false;
+  }, 200);
 }
 
-watch(selectedLocation, (newLocation) => {
+watch(() => props.location, (newLocation) => {
   if (newLocation) {
-    searchQuery.value = newLocation.name
-    mapTitle.value = newLocation.name
+    searchQuery.value = newLocation.name;
+    mapTitle.value = newLocation.name;
   }
-})
+});
 
-watch(storeMapTitle, (newTitle) => {
-  mapTitle.value = newTitle
-})
+watch(() => props.mapTitle, (newTitle) => {
+  mapTitle.value = newTitle;
+});
 
-watch(storeMapSubtitle, (newSubtitle) => {
-  mapSubtitle.value = newSubtitle
-})
+watch(() => props.mapSubtitle, (newSubtitle) => {
+  mapSubtitle.value = newSubtitle;
+});
 
-if (selectedLocation.value) {
-  searchQuery.value = selectedLocation.value.name
+if (props.location) {
+  searchQuery.value = props.location.name;
 }
 
-mapTitle.value = storeMapTitle.value
-mapSubtitle.value = storeMapSubtitle.value
+mapTitle.value = props.mapTitle;
+mapSubtitle.value = props.mapSubtitle;
 </script>
 
 <style scoped>

@@ -1,9 +1,7 @@
 <template>
     <NuxtLayout name="product-layout">
       <template #preview>
-        <NuxtLayout name="product-frame">
-          <LocationMapInteractive/>
-        </NuxtLayout>
+          <LocationMap/>
       </template>
 
       <template #controls>

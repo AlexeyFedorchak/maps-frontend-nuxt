@@ -5,6 +5,10 @@ export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: {enabled: true},
     modules: ['@nuxt/image', '@pinia/nuxt', 'shadcn-nuxt', '@vueuse/nuxt'],
+    pinia: {
+        // Prevent auto import.
+        storesDirs: [],
+    },
     runtimeConfig: {
         public: {
             mapboxToken: process.env.NUXT_MAPBOX_TOKEN,
@@ -23,10 +27,14 @@ export default defineNuxtConfig({
     css: [
         '~/assets/css/tailwind.css',
         '~/assets/css/maps.css',
+        '~/assets/css/styles.css',
     ],
     vite: {
         plugins: [
             tailwindcss(),
         ],
+    },
+    shadcn: {
+        componentDir: './app/components/ui',
     },
 });

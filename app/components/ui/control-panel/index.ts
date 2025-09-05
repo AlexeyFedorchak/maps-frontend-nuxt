@@ -1,0 +1,10 @@
+export { default as ControlPanelContainer } from './Container.vue';
+export { default as ControlPanelHeader } from './Header.vue';
+export { default as ControlPanelInfo } from './Info.vue';
+export { default as ControlPanelLayout } from './Layout.vue';
+export { default as ControlPanelMount } from './Mount.vue';
+export { default as ControlPanelPrice } from './Price.vue';
+export { default as ControlPanelSize } from './Size.vue';
+export { default as ControlPanelSwitcher } from './Switcher.vue';
+export { default as ControlPanelThemes } from './Themes.vue';
+export { default as ControlPanelMobileExternalTabs } from './mobile/ExternalTabs.vue';

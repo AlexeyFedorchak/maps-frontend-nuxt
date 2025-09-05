@@ -1,27 +1,27 @@
 import { ref, computed, type Ref } from 'vue'
-import type { Design, Layout, ColorScheme } from '../types'
+import type { Theme, Layout, ColorScheme } from '../types'
 
 export interface UseMapStylesReturn {
-  designs: Ref<Design[]>
+  themes: Ref<Theme[]>
   layouts: Ref<Layout[]>
   colorSchemes: Ref<ColorScheme[]>
   isLoading: Ref<boolean>
   error: Ref<string | null>
   loadStyles: () => Promise<void>
-  getDesignById: (id: number) => Design | undefined
+  getThemeById: (id: number) => Theme | undefined
   getLayoutById: (id: number) => Layout | undefined
   getColorSchemeById: (id: string) => ColorScheme | undefined
 }
 
 export function useMapStyles(): UseMapStylesReturn {
-  const designs = ref<Design[]>([])
+  const themes = ref<Theme[]>([])
   const layouts = ref<Layout[]>([])
   const colorSchemes = ref<ColorScheme[]>([])
   const isLoading = ref(false)
   const error = ref<string | null>(null)
 
-  const activeDesigns = computed(() => 
-    designs.value.filter(design => design.isActive)
+  const activethemes = computed(() =>
+    themes.value.filter(theme => theme.isActive)
   )
 
   const activeLayouts = computed(() => 
@@ -37,7 +37,7 @@ export function useMapStyles(): UseMapStylesReturn {
     error.value = null
 
     try {
-      designs.value = [
+      themes.value = [
         {
           id: 1,
           name: 'Modern',
@@ -145,8 +145,8 @@ export function useMapStyles(): UseMapStylesReturn {
     }
   }
 
-  function getDesignById(id: number): Design | undefined {
-    return designs.value.find(design => design.id === id)
+  function getThemeById(id: number): Theme | undefined {
+    return themes.value.find(theme => theme.id === id)
   }
 
   function getLayoutById(id: number): Layout | undefined {
@@ -158,13 +158,13 @@ export function useMapStyles(): UseMapStylesReturn {
   }
 
   return {
-    designs,
+    themes,
     layouts,
     colorSchemes,
     isLoading,
     error,
     loadStyles,
-    getDesignById,
+    getThemeById,
     getLayoutById,
     getColorSchemeById
   }

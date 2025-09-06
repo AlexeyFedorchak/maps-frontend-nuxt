@@ -11,7 +11,7 @@ const step = {
 };
 const stepper = useStepper([
   {
-    name: step.location,
+    name: step.design,
     buttons: [
       {
         name: 'Choose Location',
@@ -22,7 +22,7 @@ const stepper = useStepper([
     ],
   },
   {
-    name: step.design,
+    name: step.location,
     buttons: [
       {
         name: 'back',
@@ -82,9 +82,10 @@ const installmentPrice = computed(() => {
         <StarMapStepDesign
             v-if="stepper.getCurrentStep.value?.name === step.design"
             key="design"
-            :layout="starMapStore.layout"
+            :features="starMapStore.features"
             :theme="starMapStore.theme"
             @theme-selected="starMapStore.setTheme($event)"
+            @feature-selected="starMapStore.setFeature($event)"
         />
       </Transition>
     </template>

@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import { useLocationMapStore } from '~/stores';
+import { useStarMapStore } from '~/stores';
 import type { FeatureItem } from '~/components/product-frame/Highlights.vue';
+import { COORDINATES } from '~/constants/star-map/coordinates';
 
-const locationMapStore = useLocationMapStore();
-const { frame, hasRibbon, layout, getMapTitle, getCoordinatesText, mapSubtitle } = storeToRefs(locationMapStore);
+const starMapStore = useStarMapStore();
+const { frame, theme, hasRibbon, getMapTitle, getCoordinatesText, mapSubtitle } = storeToRefs(starMapStore);
+
+const coordsColor = ref<string>('#ffffff');
+const coordsSvg = computed(() => COORDINATES(coordsColor.value));
 
 const showDetails = computed(() => {
-  const layoutShape = layout.value?.shape || 'rectangle';
-  return layoutShape !== 'full-page';
+  return true;
 });
 
 const icons = ref<FeatureItem[]>([
@@ -17,23 +20,23 @@ const icons = ref<FeatureItem[]>([
   { icon: 'stars', label: 'Milky Way+' },
 ])
 
-const phi = -0.7244338002677777
-const lambda = -1.758795622139907
-const zoom = 0.5
+const phi = -0.872699499130249;
+const lambda = -2.132190227508545;
+const zoom = 0.5;
 
 const borderClasses = computed(() => {
-  const classes = []
+  const classes = [];
 
   if (frame.value) {
-    classes.push(frame.value.borderClass)
+    classes.push(frame.value.borderClass);
   }
 
   if (hasRibbon.value) {
-    classes.push('gift-wrap-active')
+    classes.push('gift-wrap-active');
   }
 
   return classes
-})
+});
 
 onMounted(() => {
   const { $celestial } = useNuxtApp()
@@ -41,7 +44,7 @@ onMounted(() => {
   if (!Celestial) return console.error('Celestial not loaded')
 
   Celestial.display({
-    "width": 1000,
+    "width": 700,
     "projection": "azimuthalEquidistant",
     "projectionRatio": null,
     "transform": "equatorial",
@@ -446,27 +449,29 @@ onMounted(() => {
       },
       "namesType": "en"
     }
-  })
-})
+  });
+
+  document.getElementById('starmap-canvas')?.classList.add('coordinates-map');
+});
 </script>
 
 <template>
-  <div class="map-preview-section">
+  <div class="map-preview-section flex-col grow h-screen flex items-center p-[27px]">
     <ProductFrameHighlights :items="icons"/>
-    <ProductFrameContainer :shape="layout?.shape || 'rectangle'"
+    <ProductFrameContainer shape="circle"
+                           bg-class="bg-black"
                            :showDetails="showDetails || false"
                            :title="getMapTitle || ''"
                            :subtitle="mapSubtitle || ''"
                            :coordinates="getCoordinatesText">
-      <div>
-        <StarMapBackground image-url="/images/milky-way/milky_black.jpg"
+      <div class="map-preview w-[74%] aspect-square absolute z-1 top-[8.5%] left-[50%]">
+        <StarMapBackground :image-url="theme?.milkyLarge!"
                            :phi="phi"
                            :lambda="lambda"
                            :zoom="zoom"
-                           :auto-resize="true"
-                           :width="400"
-                           :height="400"/>
+                           :auto-resize="true"/>
         <div id="starmap-canvas"></div>
+
       </div>
     </ProductFrameContainer>
     <div v-if="frame" class="map-border" :class="borderClasses"></div>
@@ -481,15 +486,23 @@ onMounted(() => {
 
 #starmap-canvas {
   position: absolute;
-  width: calc(100% + 8px) !important;
-  height: calc(100% + 8px) !important;
-  top: -4px;
-  left: -4px;
+  width: 100% !important;
+  height: 100% !important;
+  top: 0;
   aspect-ratio: 1/1;
 }
 
 #starmap-canvas canvas {
   width: 100%;
   height: 100%;
+}
+
+.coords-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.map-preview {
+  transform: translate(-50%, 0);
 }
 </style>

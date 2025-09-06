@@ -1,6 +1,6 @@
 <template>
   <UiControlPanelMobileExternalTabs />
-  <div class="main-container" :class="{ 'mobile-layout': isMobile }">
+  <div class="main-container w-full" :class="{ 'mobile-layout': isMobile }">
     <slot name="preview"></slot>
     <slot name="controls"></slot>
   </div>
@@ -10,7 +10,7 @@
 const { isMobile } = useBreakpoints();
 </script>
 
-<style scoped>
+<style>
 .main-container.mobile-layout {
   padding-top: 0;
   flex-direction: column;

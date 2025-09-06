@@ -11,7 +11,7 @@ const step = {
 };
 const stepper = useStepper([
   {
-    name: step.location,
+    name: step.design,
     buttons: [
       {
         name: 'Choose Location',
@@ -22,7 +22,7 @@ const stepper = useStepper([
     ],
   },
   {
-    name: step.design,
+    name: step.location,
     buttons: [
       {
         name: 'back',
@@ -38,6 +38,7 @@ const stepper = useStepper([
       },
     ],
   },
+
   {
     name: step.choose,
     buttons: [

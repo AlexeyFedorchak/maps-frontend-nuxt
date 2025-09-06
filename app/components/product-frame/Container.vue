@@ -8,11 +8,13 @@ const props = defineProps<{
   subtitle: string
   title: string
   coordinates: string
+  bgClass?: string
 }>()
 </script>
 
 <template>
-  <div :class="['map-frame', `${props.shape}-container`]">
+  <div class="w-[175px] md:w-[90%] lg:w-[450px] aspect-[9/13] relative"
+       :class="['map-frame', `${props.shape}-container`, props.bgClass || 'bg-white']">
     <slot></slot>
     <div class="map-details" v-if="showDetails">
       <template v-if="props.shape === 'rectangle' && props.subtitle">

@@ -1,7 +1,8 @@
-import type { ColorScheme, Theme, Layout, Location, MapShape } from '~/types';
+import type { ColorScheme, Theme, Layout, Location, MapShape, Frame } from '~/types';
 import { computed, ref } from 'vue';
 import { LOCATION_MAP_DEFAULT_LOCATION, LOCATION_MAP_LAYOUTS } from '~/constants/location-map';
 import { STAR_MAP_THEMES } from '~/constants/star-map/themes';
+import { STAR_MAP_FEATURES } from '~/constants/star-map/features';
 
 /**
  * @description
@@ -14,6 +15,9 @@ export const useStarMapStore = defineStore('starMapStore', () => {
     const colorScheme = ref<ColorScheme | null>(null);
     const mapTitle = ref<string | undefined>(LOCATION_MAP_DEFAULT_LOCATION.name);
     const mapSubtitle = ref<string | undefined>('');
+    const frame = ref<Frame | null>(null);
+    const hasRibbon = ref(false);
+    const features = ref<any[]>(STAR_MAP_FEATURES);
 
     const getLayoutName = computed(() => {
         return 'circle-layout';
@@ -56,20 +60,39 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         mapSubtitle.value = subtitle
     }
 
+    function setFrame(newFrame: Frame | null) {
+        frame.value = newFrame
+    }
+
+    function setRibbon(enabled: boolean) {
+        hasRibbon.value = enabled
+    }
+
+    function setFeature(feature) {
+        const idx = features.value.findIndex(item => item.id === feature.id);
+        features.value[idx].isSelected = !features.value[feature.id].isSelected;
+    }
+
     return {
+        frame,
+        hasRibbon,
         location,
         layout,
         theme,
+        features,
         mapTitle,
         mapSubtitle,
         colorScheme,
         getLayoutName,
         getMapTitle,
         getCoordinatesText,
+        setFrame,
+        setRibbon,
         setLocation,
         setMapTitle,
         setMapSubtitle,
         setTheme,
         setColorScheme,
+        setFeature,
     };
 });

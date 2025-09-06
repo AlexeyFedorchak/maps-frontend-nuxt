@@ -56,6 +56,12 @@ export interface Layout {
   priceModifier?: number
 }
 
+export interface StarFeature {
+    id: number
+    name: string
+    isSelected: boolean
+}
+
 export interface Frame {
   id: string
   name: string

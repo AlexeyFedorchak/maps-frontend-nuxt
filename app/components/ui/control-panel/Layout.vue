@@ -34,12 +34,12 @@ const selectedNames = computed(() => {
 
 <template>
   <div class="layout-section">
-    <div>
+    <div class="mb-4">
       <span class="section-title uppercase mr-2">{{ props.title }}:</span>
       <span class="sub-title">{{ isMultiselect ? selectedNames : props?.layout?.name }}</span>
     </div>
 
-    <div class="layout-grid mt-4">
+    <div class="layout-grid">
       <div
           v-for="layout in layouts"
           :key="layout.id"
@@ -56,5 +56,31 @@ const selectedNames = computed(() => {
 </template>
 
 <style scoped>
+.layout-section {
+  margin-bottom: 25px;
+}
 
+.layout-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.layout-option {
+  text-align: center;
+  cursor: pointer;
+  padding: 9px;
+  border-radius: 12px;
+  background: #F7F7F7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  min-width: 145px;
+}
+
+.layout-option:hover {
+  border-color: #B5B2A1;
+}
+
+.layout-option.selected {
+  border: 2px solid #B5B2A1;
+}
 </style>

@@ -1,4 +1,4 @@
-import type { ColorScheme, Theme, Layout, Location, MapShape, Frame } from '~/types';
+import type {ColorScheme, Theme, Layout, Location, MapShape, Frame, StarFeature} from '~/types';
 import { computed, ref } from 'vue';
 import { LOCATION_MAP_DEFAULT_LOCATION, LOCATION_MAP_LAYOUTS } from '~/constants/location-map';
 import { STAR_MAP_THEMES } from '~/constants/star-map/themes';
@@ -17,7 +17,7 @@ export const useStarMapStore = defineStore('starMapStore', () => {
     const mapSubtitle = ref<string | undefined>('');
     const frame = ref<Frame | null>(null);
     const hasRibbon = ref(false);
-    const features = ref<any[]>(STAR_MAP_FEATURES);
+    const features = ref<StarFeature[]>(STAR_MAP_FEATURES);
 
     const getLayoutName = computed(() => {
         return 'circle-layout';
@@ -68,9 +68,10 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         hasRibbon.value = enabled
     }
 
-    function setFeature(feature) {
-        const idx = features.value.findIndex(item => item.id === feature.id);
-        features.value[idx].isSelected = !features.value[feature.id].isSelected;
+    function setFeature(feature: StarFeature) {
+        const idx: number = features.value.findIndex(item => item.id === feature.id);
+        if (!features.value[idx]) return;
+        features.value[idx].isSelected = !features.value[idx].isSelected;
     }
 
     return {

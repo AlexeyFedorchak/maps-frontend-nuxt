@@ -87,6 +87,18 @@ const installmentPrice = computed(() => {
             @theme-selected="starMapStore.setTheme($event)"
             @feature-selected="starMapStore.setFeature($event)"
         />
+
+        <!-- Step: Location -->
+        <StarMapStepLocation
+            v-else-if="stepper.getCurrentStep.value?.name === step.location"
+            key="location"
+            :location="starMapStore.location"
+            :date="starMapStore.mapDate"
+            :time="starMapStore.mapTime"
+            @location-selected="starMapStore.setLocation($event)"
+            @date-selected="starMapStore.setMapDate($event)"
+            @time-selected="starMapStore.setMapTime($event)"
+        />
       </Transition>
     </template>
 

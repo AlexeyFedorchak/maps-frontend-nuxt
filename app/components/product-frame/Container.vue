@@ -8,8 +8,8 @@ const props = defineProps<{
   subtitle: string
   title: string
   coordinates: string
-  customText: string
-  border: boolean
+  customText?: string
+  border?: boolean
   bg?: string
   fg?: string
 }>()
@@ -24,7 +24,7 @@ const props = defineProps<{
     <slot></slot>
     <div class="map-details" v-if="showDetails"
          :style="{ backgroundColor: props.bg || '#ffffff', color: props.fg || '#000000' }">
-      <div class="map-custom-text absolute top-[75%] w-full text-center">{{customText}}</div>
+      <div v-if="customText" class="map-custom-text absolute top-[75%] w-full text-center">{{customText}}</div>
       <div class="absolute top-[85%] w-full">
         <div class="map-title text-center">{{ props.title }}</div>
         <div class="map-subtitle text-center" v-if="props.subtitle">{{ props.subtitle }}</div>
@@ -45,6 +45,7 @@ const props = defineProps<{
   font-family: 'Montserrat', 'Lato', 'Inter', sans-serif;
 }
 
+.map-subtitle,
 .map-coordinates {
   font-size: 11px;
   font-family: 'Montserrat', 'Lato', 'Inter', sans-serif;

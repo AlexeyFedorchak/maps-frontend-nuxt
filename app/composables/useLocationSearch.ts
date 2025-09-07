@@ -1,5 +1,6 @@
 import { ref, computed, type Ref } from 'vue'
 import type { Location } from '../types'
+import {MOCK_LOCATIONS} from "~/constants/mock/location";
 
 export interface UseLocationSearchOptions {
   minQueryLength?: number
@@ -79,32 +80,7 @@ export function useLocationSearch(
             showResults.value = true
             resolve(locations)
           } else {
-            const mockResults: Location[] = [
-              {
-                id: '1',
-                name: 'London',
-                coords: [-0.1276, 51.5074],
-                zoom: 12,
-                fullName: 'London, United Kingdom',
-                country: 'United Kingdom'
-              },
-              {
-                id: '2', 
-                name: 'Paris',
-                coords: [2.3522, 48.8566],
-                zoom: 12,
-                fullName: 'Paris, France',
-                country: 'France'
-              },
-              {
-                id: '3',
-                name: 'New York',
-                coords: [-74.006, 40.7128],
-                zoom: 12,
-                fullName: 'New York, USA',
-                country: 'USA'
-              }
-            ].filter(location => 
+            const mockResults: Location[] = MOCK_LOCATIONS.filter(location =>
               location.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
               location.country?.toLowerCase().includes(searchQuery.toLowerCase())
             )
@@ -117,16 +93,7 @@ export function useLocationSearch(
         } catch (error) {
           console.error('Search error:', error)
           
-          const mockResults: Location[] = [
-            {
-              id: '1',
-              name: 'London',
-              coords: [-0.1276, 51.5074],
-              zoom: 12,
-              fullName: 'London, United Kingdom',
-              country: 'United Kingdom'
-            }
-          ].filter(location => 
+          const mockResults: Location[] = MOCK_LOCATIONS.filter(location =>
             location.name.toLowerCase().includes(searchQuery.toLowerCase())
           )
           

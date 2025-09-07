@@ -70,6 +70,7 @@ onMounted(() => {
 
 <template>
   <ProductFrameContainer :shape="layout?.shape || 'rectangle'"
+                         :frame="locationMapStore.frame"
                          :showDetails="showDetails || false"
                          :title="getMapTitle || ''"
                          :subtitle="mapSubtitle || ''"

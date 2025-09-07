@@ -62,13 +62,6 @@ const lambda = computed(function () {
 });
 const zoom = ref(0.5);
 
-const borderClasses = computed(function () {
-  const classes: string[] = [];
-  if (frame.value) classes.push(frame.value.borderClass);
-  if (hasRibbon.value) classes.push('gift-wrap-active');
-  return classes;
-});
-
 function buildDate(d?: Date, t?: string): Date {
   const date = d ? new Date(d) : new Date();
   let h = 0, m = 0;
@@ -140,6 +133,8 @@ onMounted(function () {
         shape="circle"
         :bg="bgColor"
         :fg="fgColor"
+        :frame="frame"
+        :has-ribbon="hasRibbon"
         :border="isShowBorder"
         :showDetails="showDetails || false"
         :title="getMapTitle || ''"
@@ -160,7 +155,6 @@ onMounted(function () {
         <NuxtImg v-if="isShowCoordinates" :src="svgDataUrl" class="absolute top-0 left-0 scale-[1.1]" />
       </div>
     </ProductFrameContainer>
-    <div v-if="frame" class="map-border" :class="borderClasses"></div>
   </div>
 </template>
 

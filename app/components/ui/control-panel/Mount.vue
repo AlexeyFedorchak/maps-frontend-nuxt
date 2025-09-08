@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import type { Size } from '~/components/ui/control-panel/Size.vue';
 import type { Frame } from '~/types'
 import { FramePrices } from '~/constants/prices';
+import {FRAMES} from "~/constants/frames";
 
 const props = defineProps<{
   selectedSize: Size;
@@ -10,11 +11,7 @@ const props = defineProps<{
 
 const ribbonPrice = '2.49';
 
-const frames = ref<Frame[]>([
-  { id: 'black', name: 'Black Frame', className: 'black-frame', borderClass: 'map-border-black', price: '0.0' },
-  { id: 'white', name: 'White Frame', className: 'white-frame', borderClass: 'map-border-white', price: '0.0' },
-  { id: 'natural', name: 'Natural Frame', className: 'natural-frame', borderClass: 'map-border-wood', price: '0.0' },
-]);
+const frames = ref<Frame[]>(FRAMES);
 
 const selectedFrame = ref<Frame | null>(null);
 const selectedRibbon = ref<boolean>(false);

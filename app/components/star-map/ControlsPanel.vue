@@ -11,7 +11,7 @@ const step = {
 };
 const stepper = useStepper([
   {
-    name: step.location,
+    name: step.design,
     buttons: [
       {
         name: 'Choose Location',
@@ -22,7 +22,7 @@ const stepper = useStepper([
     ],
   },
   {
-    name: step.design,
+    name: step.location,
     buttons: [
       {
         name: 'back',
@@ -48,7 +48,7 @@ const stepper = useStepper([
         className: 'w-[162.5px] bg-[#A5A5A5]',
       },
       {
-        name: 'CONTINUE',
+        name: 'ADD TO BASKET',
         isDisabled: ref(false),
         direction: NavigationDirection.forward,
         className: 'w-[282.5px]',
@@ -59,6 +59,10 @@ const stepper = useStepper([
 provide(CONTROL_PANEL_STEPPER, stepper);
 
 const dynamicTotal = ref(21.99);
+
+function handleTotalUpdate(newTotal: number): void {
+  dynamicTotal.value = newTotal;
+}
 
 const totalPrice = computed(() => {
   return dynamicTotal.value.toFixed(2)
@@ -82,9 +86,31 @@ const installmentPrice = computed(() => {
         <StarMapStepDesign
             v-if="stepper.getCurrentStep.value?.name === step.design"
             key="design"
-            :layout="starMapStore.layout"
+            :features="starMapStore.features"
             :theme="starMapStore.theme"
             @theme-selected="starMapStore.setTheme($event)"
+            @feature-selected="starMapStore.setFeature($event)"
+        />
+
+        <!-- Step: Location -->
+        <StarMapStepLocation
+            v-else-if="stepper.getCurrentStep.value?.name === step.location"
+            key="location"
+            :location="starMapStore.location"
+            :date="starMapStore.mapDate"
+            :time="starMapStore.mapTime"
+            @location-selected="starMapStore.setLocation($event)"
+            @date-selected="starMapStore.setMapDate($event)"
+            @time-selected="starMapStore.setMapTime($event)"
+        />
+
+        <!-- Step: Choose -->
+        <LocationMapStepChoose
+            v-else-if="stepper.getCurrentStep.value?.name === step.choose"
+            key="choose"
+            @set-frame="starMapStore.setFrame($event)"
+            @select-ribbon="starMapStore.setRibbon($event)"
+            @total-updated="handleTotalUpdate"
         />
       </Transition>
     </template>

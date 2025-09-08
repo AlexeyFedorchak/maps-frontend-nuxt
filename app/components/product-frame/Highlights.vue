@@ -14,7 +14,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="map-preview-title flex-c">
+  <div class="map-preview-title flex-c mb-[10vh]">
     <div
         v-for="(item, idx) in items"
         :key="idx"
@@ -31,7 +31,6 @@ const props = defineProps<{
 
 <style scoped>
 .map-preview-title {
-  position: absolute;
   font-weight: 700;
   top: 24px;
   background-color: #F7F7F7;

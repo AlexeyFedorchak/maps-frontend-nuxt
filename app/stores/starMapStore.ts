@@ -1,7 +1,8 @@
-import type { ColorScheme, Theme, Layout, Location, MapShape } from '~/types';
+import type {ColorScheme, Theme, Layout, Location, MapShape, Frame, StarFeature} from '~/types';
 import { computed, ref } from 'vue';
 import { LOCATION_MAP_DEFAULT_LOCATION, LOCATION_MAP_LAYOUTS } from '~/constants/location-map';
 import { STAR_MAP_THEMES } from '~/constants/star-map/themes';
+import { STAR_MAP_FEATURES } from '~/constants/star-map/features';
 
 /**
  * @description
@@ -13,7 +14,11 @@ export const useStarMapStore = defineStore('starMapStore', () => {
     const theme = ref<Theme | null>(STAR_MAP_THEMES[0] || null);
     const colorScheme = ref<ColorScheme | null>(null);
     const mapTitle = ref<string | undefined>(LOCATION_MAP_DEFAULT_LOCATION.name);
-    const mapSubtitle = ref<string | undefined>('');
+    const mapDate = ref<Date | undefined>(new Date());
+    const mapTime = ref<string | undefined>('');
+    const frame = ref<Frame | null>(null);
+    const hasRibbon = ref(false);
+    const features = ref<StarFeature[]>(STAR_MAP_FEATURES);
 
     const getLayoutName = computed(() => {
         return 'circle-layout';
@@ -30,6 +35,12 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         const lngDir = lng >= 0 ? 'E' : 'W';
 
         return `${Math.abs(lat).toFixed(3)}°${latDir} ${Math.abs(lng).toFixed(3)}°${lngDir}`;
+    });
+
+    const mapSubtitle = computed<string>(() => {
+        if (!mapDate.value) return '';
+        if (!mapTime.value) return formatDate(mapDate.value);
+        return `${formatDate(mapDate.value)} - ${mapTime.value}`;
     });
 
     function setLocation(newLocation: Location) {
@@ -52,24 +63,51 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         mapTitle.value = title
     }
 
-    function setMapSubtitle(subtitle: string | undefined) {
-        mapSubtitle.value = subtitle
+    function setMapDate(subtitle: Date | undefined) {
+        mapDate.value = subtitle
+    }
+
+    function setMapTime(subtitle: string | undefined) {
+        mapTime.value = subtitle
+    }
+
+    function setFrame(newFrame: Frame | null) {
+        frame.value = newFrame
+    }
+
+    function setRibbon(enabled: boolean) {
+        hasRibbon.value = enabled
+    }
+
+    function setFeature(feature: StarFeature) {
+        const idx: number = features.value.findIndex(item => item.id === feature.id);
+        if (!features.value[idx]) return;
+        features.value[idx].isSelected = !features.value[idx].isSelected;
     }
 
     return {
+        frame,
+        hasRibbon,
         location,
         layout,
         theme,
+        features,
         mapTitle,
-        mapSubtitle,
+        mapDate,
+        mapTime,
         colorScheme,
+        mapSubtitle,
         getLayoutName,
         getMapTitle,
         getCoordinatesText,
+        setFrame,
+        setRibbon,
         setLocation,
         setMapTitle,
-        setMapSubtitle,
+        setMapDate,
+        setMapTime,
         setTheme,
         setColorScheme,
+        setFeature,
     };
 });

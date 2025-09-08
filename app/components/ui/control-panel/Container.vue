@@ -2,7 +2,7 @@
 const { isMobile } = useBreakpoints();
 </script>
 <template>
-  <div class="controls-section">
+  <div class="h-screen bg-white p-0 flex flex-col shadow-lg">
     <slot name="header">
       <UiControlPanelHeader v-if="!isMobile" logo="/images/logo.svg" alt="Logo"/>
     </slot>

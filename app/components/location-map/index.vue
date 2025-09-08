@@ -42,7 +42,7 @@ const borderClasses = computed(() => {
 </script>
 
 <template>
-  <div class="map-preview-section flex-col grow h-screen flex items-center p-[27px]">
+  <div class="flex-col grow h-screen flex items-center p-[27px]">
     <ProductFrameHighlights :items="icons"/>
     <LocationMapInteractive/>
     <div v-if="frame" class="map-border" :class="borderClasses"></div>

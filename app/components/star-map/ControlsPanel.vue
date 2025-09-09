@@ -28,13 +28,13 @@ const stepper = useStepper([
         name: 'back',
         isDisabled: ref(false),
         direction: NavigationDirection.backward,
-        className: 'max-w-[200px] w-[40%] md:w-[162.5px] bg-[#A5A5A5]',
+        className: 'w-[34%] bg-[#A5A5A5]',
       },
       {
         name: 'CONTINUE',
         isDisabled: ref(false),
         direction: NavigationDirection.forward,
-        className: 'max-w-[490px] w-[50%] md:w-[282.5px]',
+        className: 'w-[64%]',
       },
     ],
   },
@@ -45,13 +45,13 @@ const stepper = useStepper([
         name: 'back',
         isDisabled: ref(false),
         direction: NavigationDirection.backward,
-        className: 'w-[162.5px] bg-[#A5A5A5]',
+        className: 'w-[34%] bg-[#A5A5A5]',
       },
       {
         name: 'ADD TO BASKET',
         isDisabled: ref(false),
         direction: NavigationDirection.forward,
-        className: 'w-[282.5px]',
+        className: 'w-[64%]',
       },
     ],
   },
@@ -137,10 +137,6 @@ const installmentPrice = computed(() => {
   transform: translateX(-20px);
 }
 
-.text-center {
-  text-align: center;
-}
-
 .py-5 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
@@ -164,10 +160,6 @@ const installmentPrice = computed(() => {
 
 .flex {
   display: flex;
-}
-
-.uppercase {
-  text-transform: uppercase;
 }
 
 .mobile-product-features {

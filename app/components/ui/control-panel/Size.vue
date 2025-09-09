@@ -39,26 +39,31 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mb-3">
-    <span class="section-title uppercase mr-2">Size:</span>
-    <span class="sub-title">{{ selectedSize?.name || 'A4' }} ({{
+<div>
+  <div class="min-h-14">
+    <span class="font-extrabold mb-2 uppercase mr-2">Size:</span>
+    <span class="text-[#787878]">{{ selectedSize?.name || 'A4' }} ({{
         selectedSize?.dimensions || '21x29.7cm'
       }}) + £{{ selectedSize?.price || '21.99' }}</span>
   </div>
 
-  <div class="option-section">
+  <div class="flex flex-wrap items-center gap-2.5 lg:gap-5">
     <div
         v-for="size in sizes"
         :key="size.id"
-        class="option mr-4"
+        class="rounded-full"
         :class="{ active: selectedSize?.id === size.id }"
         @click="selectSize(size)"
     >
-      <div>{{ size.label }}</div>
+      <div class="size-[56px] flex justify-center items-center bg-[#F7F7F7] rounded-full font-bold text-xl">{{ size.label }}</div>
     </div>
   </div>
+</div>
 </template>
 
 <style scoped>
-
+.active {
+  outline: 2px solid #A8A490;
+  outline-offset: 2px;
+}
 </style>

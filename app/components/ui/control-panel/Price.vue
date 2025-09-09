@@ -8,7 +8,7 @@ const props = defineProps<{
 <template>
   <div>
     <p class="black mb-2">
-      <span class="text-xl font-bold mr-2">Total £{{ props.totalPrice }}</span>
+      <span class="font-bold mr-2">Total £{{ props.totalPrice }}</span>
       Free Shipping and Gift Box included
     </p>
     <p class="text-[#818181] mr-2 flex gap-1 items-center">

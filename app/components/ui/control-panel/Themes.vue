@@ -14,8 +14,8 @@ const emit = defineEmits<{
 
 <template>
   <div class="mb-4">
-    <span class="section-title uppercase mr-2">Theme:</span>
-    <span class="sub-title">{{ props?.theme?.name || 'Original-black' }}</span>
+    <span class="font-extrabold mb-2 uppercase mr-2">Theme:</span>
+    <span class="text-[#787878]">{{ props?.theme?.name || 'Original-black' }}</span>
   </div>
 
   <div class="flex flex-wrap gap-5 mb-14">

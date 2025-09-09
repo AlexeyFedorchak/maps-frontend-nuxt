@@ -35,8 +35,8 @@ const selectedNames = computed(() => {
 <template>
   <div class="mb-14">
     <div class="mb-4">
-      <span class="section-title uppercase mr-2">{{ props.title }}:</span>
-      <span class="sub-title">{{ isMultiselect ? selectedNames : props?.layout?.name }}</span>
+      <span class="font-extrabold mb-2 uppercase mr-2">{{ props.title }}:</span>
+      <span class="text-[#787878]">{{ isMultiselect ? selectedNames : props?.layout?.name }}</span>
     </div>
 
     <div class="flex flex-wrap gap-3">

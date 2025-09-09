@@ -45,43 +45,63 @@ function removeFrame(): void {
 </script>
 
 <template>
-  <div class="mt-5 mb-3">
-    <span class="section-title uppercase mr-2">Frame & Mount:</span>
-    <span class="sub-title">
+  <div class="min-h-14">
+    <span class="font-extrabold mb-2 uppercase mr-2">Frame & Mount:</span>
+    <span class="text-[#787878]">
         {{ selectedFrame ? `${selectedFrame.name} + £${getFramePrice(selectedFrame)}` : 'No Frame' }}
         {{ selectedRibbon ? ` & Ribbon + £${ribbonPrice}` : '' }}
       </span>
   </div>
 
-  <div class="option-section">
+  <div class="flex flex-wrap items-center gap-2.5 lg:gap-5">
     <div
-        class="option mr-4"
+        class="size-[56px] flex justify-center items-center bg-[#F7F7F7] rounded-full font-bold text-xl"
         :class="{ active: !selectedFrame }"
         @click="removeFrame"
     >
-      <div class="sub-title">X</div>
+      <div class="text-[#818181]">X</div>
     </div>
 
     <div v-for="frame in frames"
         :key="frame.id"
-        class="option mr-4"
+        class="size-[56px] flex justify-center items-center bg-[#F7F7F7] rounded-full font-bold text-xl"
         :class="{ active: selectedFrame?.id === frame.id }"
         @click="selectFrame(frame)">
-      <div :class="frame.className"></div>
+      <div class="size-full" :class="frame.className"></div>
     </div>
 
-    <p class="plus-sign">+</p>
+    <p class="text-[#787878] font-medium text-2xl">+</p>
 
     <div
-        class="option flex-c"
+        class="size-[56px] flex justify-center items-center bg-[#F7F7F7] rounded-full font-bold text-xl"
         :class="{ active: selectedRibbon }"
         @click="toggleRibbon"
     >
-      <div class="ribbon"></div>
+      <div class="size-full ribbon"></div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.active {
+  outline: 2px solid #A8A490;
+  outline-offset: 2px;
+}
 
+/** classes black-frame, white-frame, natural-frame - takes from props  */
+.black-frame {
+  background-image: url("/images/black-frame.svg");
+}
+
+.white-frame {
+  background-image: url("/images/white-frame.svg");
+}
+
+.natural-frame {
+  background-image: url("/images/natural-frame.svg");
+}
+
+.ribbon {
+  background-image: url("/images/ribbon.svg");
+}
 </style>

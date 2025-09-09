@@ -1,6 +1,6 @@
 <template>
   <UiControlPanelMobileExternalTabs />
-  <div class="min-h-dvh w-screen grid grid-cols-1 md:grid-cols-[60%_40%]">
+  <div class="min-h-dvh w-screen grid grid-cols-1 md:grid-cols-[50%_50%] lg:grid-cols-[auto_520px]">
     <slot name="preview"></slot>
     <slot name="controls"></slot>
   </div>

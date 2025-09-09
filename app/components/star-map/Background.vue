@@ -197,12 +197,16 @@ watch(() => props.zoom,   v => { if (uniforms) { uniforms.u_zoom.value    = v; r
   <div ref="hostRef" class="mw-host w-full h-full"></div>
 </template>
 
-<style scoped>
+<style>
 .mw-host {
   position: relative;
   overflow: hidden;
   border-radius: 50%;
 }
 
-.mw-host canvas { display: block; }
+.mw-host canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
 </style>

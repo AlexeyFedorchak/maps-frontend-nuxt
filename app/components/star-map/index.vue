@@ -61,6 +61,8 @@ const lambda = computed(function () {
   return -observer.value.lon * Math.PI / 180;
 });
 const zoom = ref(0.5);
+const debouncedRender = useDebounceFn(renderCelestial, 200);
+const preview = ref<HTMLImageElement | null>(null);
 
 function buildDate(d?: Date, t?: string): Date {
   const date = d ? new Date(d) : new Date();
@@ -90,6 +92,7 @@ function renderCelestial() {
 
   cfg.geopos = [observer.value.lat, observer.value.lon];
   cfg.follow = 'zenith';
+  cfg.background.width = isShowCoordinates.value ? 0.1 : 700 * 2 / preview.value!.offsetWidth;
 
   Celestial.clear();
   Celestial.display(cfg);
@@ -99,19 +102,19 @@ function renderCelestial() {
   Celestial.redraw?.();
 }
 
-watch(function () { return features.value[0]?.isSelected; }, function () {
-  renderCelestial();
+watch(() => features.value[0]?.isSelected, () => {
+  debouncedRender();
 });
 
-watch(function () { return features.value[4]?.isSelected; }, function () {
-  renderCelestial();
+watch(() => features.value[4]?.isSelected, () => {
+  debouncedRender();
 });
 
-watch(location, function () {
-  renderCelestial();
+watch(location, () => {
+  debouncedRender();
 }, { deep: true });
 
-watch([mapDate, mapTime], function () {
+watch([mapDate, mapTime], () => {
   const el = document.getElementById('starmap-canvas') as HTMLElement | null;
   const { $celestial } = useNuxtApp();
   const Celestial = $celestial || (window as any).Celestial;
@@ -121,8 +124,16 @@ watch([mapDate, mapTime], function () {
   Celestial.redraw?.();
 });
 
+watch(isShowCoordinates, () => {
+  debouncedRender();
+});
+
+useEventListener(window, 'resize', () => {
+  debouncedRender();
+});
+
 onMounted(function () {
-  renderCelestial();
+  debouncedRender();
 });
 </script>
 
@@ -142,7 +153,7 @@ onMounted(function () {
         :customText="'The night our adventure started'"
         :coordinates="getCoordinatesText"
     >
-      <div class="star-map-preview w-[74%] aspect-square absolute z-1 top-[8.5%] left-[50%]">
+      <div ref="preview" class="star-map-preview w-[74%] aspect-square absolute z-1 top-[8.5%] left-[50%]">
         <StarMapBackground
             :class="{ 'scaled-bg': isShowCoordinates }"
             :image-url="imageUrl"
@@ -165,8 +176,8 @@ onMounted(function () {
 
 #starmap-canvas {
   position: absolute;
-  width: calc(100% + 4px) !important;
-  height: calc(100% + 4px) !important;
+  width: calc(100% + 8px) !important;
+  height: calc(100% + 8px) !important;
   top: -4px;
   left: -4px;
   aspect-ratio: 1/1;

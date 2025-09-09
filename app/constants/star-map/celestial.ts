@@ -16,7 +16,7 @@ export const CELESTIAL_DEFAULT_CONFIG = {
     "orientationfixed": false,
     "zoomlevel": null,
     "zoomextend": 10,
-    "adaptable": true,
+    "adaptable": false,
     "interactive": false,
     "disableAnimations": true,
     "form": false,

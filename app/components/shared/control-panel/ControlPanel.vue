@@ -28,9 +28,9 @@ if (!stepper) {
 }
 
 const defaultFeatures = [
-  { text: 'Lifetime Warranty', icon: '/images/icons/infinity.svg'},
-  { text: 'Ultra HD Prints', icon: '/images/icons/hd.svg'},
-  { text: 'Milky Way +', icon: '/images/icons/milky-way.svg'},
+  { text: 'Lifetime Warranty', icon: 'lifetime'},
+  { text: 'Ultra HD Prints', icon: 'hd'},
+  { text: 'Milky Way +', icon: 'stars'},
 ];
 
 const defaultPanelInfo = {

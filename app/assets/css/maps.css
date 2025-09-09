@@ -58,19 +58,7 @@ body {
 }
 
 /* Left Side - Map Preview */
-.map-preview-section {
-    /*    flex: 1;*/
-    background-image: url('/images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /*    position: relative;*/
-    /*    display: flex;*/
-    /*    align-items: center;*/
-    /*    justify-content: center;*/
-    /*    height: 100vh;*/
-    /*    width: 100%;*/
-}
+
 
 
 /* CSS Variables for easy adjustment */

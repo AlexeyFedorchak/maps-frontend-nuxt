@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useStarMapStore } from '~/stores';
-import type { FeatureItem } from '~/components/product-frame/Highlights.vue';
-import { COORDINATES } from '~/constants/star-map/coordinates';
-import { CELESTIAL_DEFAULT_CONFIG } from '~/constants/star-map/celestial';
+import {ref, onMounted, computed, watch} from 'vue';
+import {storeToRefs} from 'pinia';
+import {useStarMapStore} from '~/stores';
+import type {FeatureItem} from '~/components/product-frame/Highlights.vue';
+import {COORDINATES} from '~/constants/star-map/coordinates';
+import {CELESTIAL_DEFAULT_CONFIG} from '~/constants/star-map/celestial';
 
 const starMapStore = useStarMapStore();
 const {
@@ -44,14 +44,14 @@ const isShowBorder = computed(function () {
 });
 
 const icons = ref<FeatureItem[]>([
-  { icon: 'lifetime', label: 'Lifetime Warranty' },
-  { icon: 'hd', label: 'Ultra Hd Print' },
-  { icon: 'stars', label: 'Milky Way+' },
+  {icon: 'lifetime', label: 'Lifetime Warranty'},
+  {icon: 'hd', label: 'Ultra Hd Print'},
+  {icon: 'stars', label: 'Milky Way+'},
 ]);
 
 const observer = computed(function () {
   const [lon, lat] = location.value?.coords ?? [0, 0];
-  return { lat, lon };
+  return {lat, lon};
 });
 
 const phi = computed(function () {
@@ -61,8 +61,9 @@ const lambda = computed(function () {
   return -observer.value.lon * Math.PI / 180;
 });
 const zoom = ref(0.5);
-const debouncedRender = useDebounceFn(renderCelestial, 200);
+const debouncedRender = useDebounceFn(renderCelestial, 1000);
 const preview = ref<HTMLImageElement | null>(null);
+const isCalculating = ref(true);
 
 function buildDate(d?: Date, t?: string): Date {
   const date = d ? new Date(d) : new Date();
@@ -78,7 +79,7 @@ function buildDate(d?: Date, t?: string): Date {
 
 function renderCelestial() {
   const el = document.getElementById('starmap-canvas') as HTMLElement | null;
-  const { $celestial } = useNuxtApp();
+  const {$celestial} = useNuxtApp();
   const Celestial = $celestial || (window as any).Celestial;
   if (!el || !Celestial) return;
 
@@ -92,7 +93,7 @@ function renderCelestial() {
 
   cfg.geopos = [observer.value.lat, observer.value.lon];
   cfg.follow = 'zenith';
-  cfg.background.width = isShowCoordinates.value ? 0.1 : 700 * 2 / preview.value!.offsetWidth;
+  cfg.background.width = isShowCoordinates.value ? 1 : 700 * 2 / preview.value!.offsetWidth;
 
   Celestial.clear();
   Celestial.display(cfg);
@@ -100,31 +101,38 @@ function renderCelestial() {
   const dt = buildDate(mapDate.value, mapTime.value);
   Celestial.date(dt);
   Celestial.redraw?.();
+  isCalculating.value = false;
 }
 
 watch(() => features.value[0]?.isSelected, () => {
+  isCalculating.value = true;
   debouncedRender();
 });
 
 watch(() => features.value[4]?.isSelected, () => {
+  isCalculating.value = true;
   debouncedRender();
 });
 
 watch(location, () => {
+  isCalculating.value = true;
   debouncedRender();
-}, { deep: true });
+}, {deep: true});
 
 watch([mapDate, mapTime], () => {
+  isCalculating.value = true;
   const el = document.getElementById('starmap-canvas') as HTMLElement | null;
-  const { $celestial } = useNuxtApp();
+  const {$celestial} = useNuxtApp();
   const Celestial = $celestial || (window as any).Celestial;
   if (!el || !Celestial) return;
   const dt = buildDate(mapDate.value, mapTime.value);
   Celestial.date(dt);
   Celestial.redraw?.();
+  setTimeout(() => isCalculating.value = false, 1000); // small delay added to improve user experience
 });
 
 watch(isShowCoordinates, () => {
+  isCalculating.value = true;
   debouncedRender();
 });
 
@@ -138,8 +146,8 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="map-preview-section flex-col grow h-screen flex items-center p-[27px]">
-    <ProductFrameHighlights :items="icons" />
+  <div class="map-preview-section flex-col grow md:h-screen flex items-center p-[27px] md:pt-[27px] md:pb-[27px] pt-[190px] pb-[90px]">
+    <ProductFrameHighlights :items="icons"/>
     <ProductFrameContainer
         shape="circle"
         :bg="bgColor"
@@ -150,10 +158,15 @@ onMounted(function () {
         :showDetails="showDetails || false"
         :title="getMapTitle || ''"
         :subtitle="mapSubtitle || ''"
-        :customText="'The night our adventure started'"
-        :coordinates="getCoordinatesText"
-    >
-      <div ref="preview" class="star-map-preview w-[74%] aspect-square absolute z-1 top-[8.5%] left-[50%]">
+        :customText="'The Night Our Adventure Started'"
+        :coordinates="getCoordinatesText">
+      <div :style="{ visibility: isCalculating ? 'visible' : 'hidden' }"
+           class="star-map-preview w-[84%] aspect-square absolute z-1 top-[8.5%] left-[50%] flex items-center justify-center">
+        <span :class="[`text-${fgColor}`, 'text-[17px]', 'md:text-[28px]', 'uppercase', 'tracking-[0.05em]']">Calculating...</span>
+      </div>
+      <div :style="{ visibility: !isCalculating ? 'visible' : 'hidden'}"
+           ref="preview"
+           class="star-map-preview w-[84%] aspect-square absolute z-1 top-[8.5%] left-[50%]">
         <StarMapBackground
             :class="{ 'scaled-bg': isShowCoordinates }"
             :image-url="imageUrl"
@@ -163,7 +176,7 @@ onMounted(function () {
             :auto-resize="true"
         />
         <div id="starmap-canvas" :class="{ 'coordinates-map': isShowCoordinates }"></div>
-        <NuxtImg v-if="isShowCoordinates" :src="svgDataUrl" class="absolute top-0 left-0 scale-[1.1]" />
+        <NuxtImg v-if="isShowCoordinates" :src="svgDataUrl" class="absolute top-0 left-0 scale-[1.1] w-full"/>
       </div>
     </ProductFrameContainer>
   </div>
@@ -201,5 +214,12 @@ onMounted(function () {
 
 .star-map-preview {
   transform: translate(-50%, 0);
+}
+
+.map-preview-section {
+  background-image: url('/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 </style>

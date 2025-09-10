@@ -42,7 +42,7 @@ const borderClasses = computed(() => {
 </script>
 
 <template>
-  <div class="flex-col grow h-screen flex items-center p-[27px]">
+  <div class="map-preview-section flex-col grow md:h-screen flex items-center p-[27px] md:pt-[27px] md:pb-[27px] pt-[190px] pb-[90px]">
     <ProductFrameHighlights :items="icons"/>
     <LocationMapInteractive/>
     <div v-if="frame" class="map-border" :class="borderClasses"></div>
@@ -50,5 +50,10 @@ const borderClasses = computed(() => {
 </template>
 
 <style scoped>
-
+.map-preview-section {
+  background-image: url('/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 </style>

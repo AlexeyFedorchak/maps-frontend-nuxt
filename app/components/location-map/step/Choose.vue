@@ -1,6 +1,6 @@
 <template>
   <div id="chooseContent">
-    <UiControlPanelSize @size-selected="selectSize($event)"/>
+    <UiControlPanelSize class="mb-12" @size-selected="selectSize($event)"/>
     <UiControlPanelMount v-if="selectedSize"
                          :selected-size="selectedSize"
                          @set-frame="emit('set-frame', $event)"

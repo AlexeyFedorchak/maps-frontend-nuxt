@@ -14,6 +14,8 @@ const {
   hasRibbon,
   getMapTitle,
   getCoordinatesText,
+  mapMessageLine1,
+  mapMessageLine2,
   mapSubtitle,
   mapDate,
   mapTime,
@@ -44,14 +46,14 @@ const isShowBorder = computed(function () {
 });
 
 const icons = ref<FeatureItem[]>([
-  { icon: 'lifetime', label: 'Lifetime Warranty' },
-  { icon: 'hd', label: 'Ultra Hd Print' },
-  { icon: 'stars', label: 'Milky Way+' },
+  {icon: 'lifetime', label: 'Lifetime Warranty'},
+  {icon: 'hd', label: 'Ultra Hd Print'},
+  {icon: 'stars', label: 'Milky Way+'},
 ]);
 
 const observer = computed(function () {
   const [lon, lat] = location.value?.coords ?? [0, 0];
-  return { lat, lon };
+  return {lat, lon};
 });
 
 const phi = computed(function () {
@@ -61,6 +63,9 @@ const lambda = computed(function () {
   return -observer.value.lon * Math.PI / 180;
 });
 const zoom = ref(0.5);
+const debouncedRender = useDebounceFn(renderCelestial, 1000);
+const preview = ref<HTMLImageElement | null>(null);
+const isCalculating = ref(true);
 
 function buildDate(d?: Date, t?: string): Date {
   const date = d ? new Date(d) : new Date();
@@ -76,7 +81,7 @@ function buildDate(d?: Date, t?: string): Date {
 
 function renderCelestial() {
   const el = document.getElementById('starmap-canvas') as HTMLElement | null;
-  const { $celestial } = useNuxtApp();
+  const {$celestial} = useNuxtApp();
   const Celestial = $celestial || (window as any).Celestial;
   if (!el || !Celestial) return;
 
@@ -90,6 +95,7 @@ function renderCelestial() {
 
   cfg.geopos = [observer.value.lat, observer.value.lon];
   cfg.follow = 'zenith';
+  cfg.background.width = isShowCoordinates.value ? 1 : 700 * 2 / preview.value!.offsetWidth;
 
   Celestial.clear();
   Celestial.display(cfg);
@@ -97,38 +103,54 @@ function renderCelestial() {
   const dt = buildDate(mapDate.value, mapTime.value);
   Celestial.date(dt);
   Celestial.redraw?.();
+  isCalculating.value = false;
 }
 
-watch(function () { return features.value[0]?.isSelected; }, function () {
-  renderCelestial();
+watch(() => features.value[0]?.isSelected, () => {
+  isCalculating.value = true;
+  debouncedRender();
 });
 
-watch(function () { return features.value[4]?.isSelected; }, function () {
-  renderCelestial();
+watch(() => features.value[4]?.isSelected, () => {
+  isCalculating.value = true;
+  debouncedRender();
 });
 
-watch(location, function () {
-  renderCelestial();
-}, { deep: true });
+watch(location, () => {
+  isCalculating.value = true;
+  debouncedRender();
+}, {deep: true});
 
-watch([mapDate, mapTime], function () {
+watch([mapDate, mapTime], () => {
+  isCalculating.value = true;
   const el = document.getElementById('starmap-canvas') as HTMLElement | null;
-  const { $celestial } = useNuxtApp();
+  const {$celestial} = useNuxtApp();
   const Celestial = $celestial || (window as any).Celestial;
   if (!el || !Celestial) return;
   const dt = buildDate(mapDate.value, mapTime.value);
   Celestial.date(dt);
   Celestial.redraw?.();
+  setTimeout(() => isCalculating.value = false, 1000); // small delay added to improve user experience
+});
+
+watch(isShowCoordinates, () => {
+  isCalculating.value = true;
+  debouncedRender();
+});
+
+useEventListener(window, 'resize', () => {
+  debouncedRender();
 });
 
 onMounted(function () {
-  renderCelestial();
+  debouncedRender();
 });
 </script>
 
 <template>
-  <div class="map-preview-section flex-col grow h-screen flex items-center p-[27px]">
-    <ProductFrameHighlights :items="icons" />
+  <div
+      class="map-preview-section flex-col grow md:h-screen flex items-center p-[27px] md:pt-[27px] md:pb-[27px] pt-[190px] pb-[90px]">
+    <ProductFrameHighlights :items="icons"/>
     <ProductFrameContainer
         shape="circle"
         :bg="bgColor"
@@ -139,20 +161,28 @@ onMounted(function () {
         :showDetails="showDetails || false"
         :title="getMapTitle || ''"
         :subtitle="mapSubtitle || ''"
-        :customText="'The night our adventure started'"
-        :coordinates="getCoordinatesText"
-    >
-      <div class="star-map-preview w-[74%] aspect-square absolute z-1 top-[8.5%] left-[50%]">
+        :customText="mapMessageLine1 || ''"
+        :customText2="mapMessageLine2 || ''"
+        :coordinates="getCoordinatesText">
+      <div :style="{ visibility: isCalculating ? 'visible' : 'hidden' }"
+           class="star-map-preview w-[84%] aspect-square absolute z-1 top-[8.5%] left-[50%]">
+        <span :class="[`text-${fgColor}`, `border-[${fgColor}]`, 'border-2', 'text-[17px]', 'md:text-[28px]',
+        'uppercase', 'tracking-[0.05em]', 'rounded-full', 'w-full', 'h-full', 'flex', 'items-center', 'justify-center']">
+          Calculating...
+        </span>
+      </div>
+      <div :style="{ visibility: !isCalculating ? 'visible' : 'hidden'}"
+           ref="preview"
+           class="star-map-preview w-[84%] aspect-square absolute z-1 top-[8.5%] left-[50%]">
         <StarMapBackground
             :class="{ 'scaled-bg': isShowCoordinates }"
             :image-url="imageUrl"
             :phi="phi"
             :lambda="lambda"
             :zoom="zoom"
-            :auto-resize="true"
-        />
+            :auto-resize="true"/>
         <div id="starmap-canvas" :class="{ 'coordinates-map': isShowCoordinates }"></div>
-        <NuxtImg v-if="isShowCoordinates" :src="svgDataUrl" class="absolute top-0 left-0 scale-[1.1]" />
+        <NuxtImg v-if="isShowCoordinates" :src="svgDataUrl" class="absolute top-0 left-0 scale-[1.1] w-full"/>
       </div>
     </ProductFrameContainer>
   </div>
@@ -165,8 +195,8 @@ onMounted(function () {
 
 #starmap-canvas {
   position: absolute;
-  width: calc(100% + 4px) !important;
-  height: calc(100% + 4px) !important;
+  width: calc(100% + 8px) !important;
+  height: calc(100% + 8px) !important;
   top: -4px;
   left: -4px;
   aspect-ratio: 1/1;
@@ -190,5 +220,12 @@ onMounted(function () {
 
 .star-map-preview {
   transform: translate(-50%, 0);
+}
+
+.map-preview-section {
+  background-image: url('/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 </style>

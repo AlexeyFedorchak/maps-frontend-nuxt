@@ -1,17 +1,16 @@
 <template>
   <UiControlPanelMobileExternalTabs />
-  <div class="main-container w-full" :class="{ 'mobile-layout': isMobile }">
+  <div class="min-h-dvh w-screen grid grid-cols-1 md:grid-cols-[50%_50%] lg:grid-cols-[auto_520px]">
     <slot name="preview"></slot>
     <slot name="controls"></slot>
   </div>
 </template>
 
 <script setup lang="ts">
-const { isMobile } = useBreakpoints();
 </script>
 
 <style>
-.main-container.mobile-layout {
+/*.main-container.mobile-layout {
   padding-top: 0;
   flex-direction: column;
 }
@@ -42,5 +41,5 @@ const { isMobile } = useBreakpoints();
     box-shadow: 0 -5px 15px -5px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
   }
-}
+}*/
 </style>

@@ -33,17 +33,17 @@ const selectedNames = computed(() => {
 </script>
 
 <template>
-  <div class="layout-section">
+  <div class="mb-14">
     <div class="mb-4">
-      <span class="section-title uppercase mr-2">{{ props.title }}:</span>
-      <span class="sub-title">{{ isMultiselect ? selectedNames : props?.layout?.name }}</span>
+      <span class="font-extrabold mb-2 uppercase mr-2">{{ props.title }}:</span>
+      <span class="text-[#787878]">{{ isMultiselect ? selectedNames : props?.layout?.name }}</span>
     </div>
 
-    <div class="layout-grid">
+    <div class="flex flex-wrap gap-3">
       <div
           v-for="layout in layouts"
           :key="layout.id"
-          class="layout-option"
+          class="layout-option hover:outline-[#B5B2A1] hover:outline-2 text-center cursor-pointer p-2 rounded-xl bg-[#F7F7F7] shadow-md min-w-[135px]"
           :class="{ selected: isMultiselect ? selectedIds.has(layout.id) : props?.layout?.id === layout.id }"
           @click="emit('layout-selected', layout)"
       >
@@ -56,31 +56,7 @@ const selectedNames = computed(() => {
 </template>
 
 <style scoped>
-.layout-section {
-  margin-bottom: 25px;
-}
-
-.layout-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.layout-option {
-  text-align: center;
-  cursor: pointer;
-  padding: 9px;
-  border-radius: 12px;
-  background: #F7F7F7;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  min-width: 145px;
-}
-
-.layout-option:hover {
-  border-color: #B5B2A1;
-}
-
 .layout-option.selected {
-  border: 2px solid #B5B2A1;
+  outline: 2px solid #B5B2A1;
 }
 </style>

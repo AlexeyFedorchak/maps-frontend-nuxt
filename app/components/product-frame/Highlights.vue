@@ -21,7 +21,8 @@ const props = defineProps<{
         class="flex-c"
     >
       <div class="flex-c">
-        <span class="map-preview-icon mr-2"><UiIcon :name="item.icon" :width="'16px'"/></span>
+        <span class="map-preview-icon aspect-square mr-2">
+          <UiIcon :name="item.icon" width="16px"/></span>
         <span :class="item.showInfo ? 'mr-2' : null">{{ item.label }}</span>
         <img v-if="item.showInfo" src="/images/icons/info.svg" alt="info">
       </div>

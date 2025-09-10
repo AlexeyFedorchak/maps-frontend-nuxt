@@ -1,6 +1,6 @@
 <template>
   <div id="locationContent">
-    <div class="section-title mb-3">Star map data</div>
+    <div class="font-extrabold uppercase mb-3">Star map data</div>
 
     <div class="mb-[12px]">
       <Autocomplete :model-value="searchQuery"
@@ -9,9 +9,9 @@
                     @location-selected="selectLocation($event)"/>
     </div>
 
-    <div class="w-full flex flex-col sm:flex-row sm:items-stretch gap-3">
-      <DatePicker class="w-full sm:flex-1" :model-value="date" @update:model-value="emit('date-selected', $event)"/>
-      <TimePicker class="w-full sm:flex-1" :model-value="time" @update:model-value="emit('time-selected', $event)"/>
+    <div class="w-full flex flex-col lg:flex-row lg:items-stretch gap-3">
+      <DatePicker class="w-full lg:flex-1" :model-value="date" @update:model-value="emit('date-selected', $event)"/>
+      <TimePicker class="w-full lg:flex-1" :model-value="time" @update:model-value="emit('time-selected', $event)"/>
     </div>
   </div>
 </template>

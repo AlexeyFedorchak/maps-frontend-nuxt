@@ -1,6 +1,6 @@
 <template>
   <div id="locationContent" :style="isMobile ? 'background-color: #FFFFFF !important' : ''">
-    <div class="section-title mb-3">Location map data</div>
+    <div class="font-extrabold uppercase mb-2">Location map data</div>
 
     <div class="mb-[12px]">
       <Autocomplete :model-value="searchQuery"

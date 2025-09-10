@@ -58,19 +58,7 @@ body {
 }
 
 /* Left Side - Map Preview */
-.map-preview-section {
-    /*    flex: 1;*/
-    background-image: url('/images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /*    position: relative;*/
-    /*    display: flex;*/
-    /*    align-items: center;*/
-    /*    justify-content: center;*/
-    /*    height: 100vh;*/
-    /*    width: 100%;*/
-}
+
 
 
 /* CSS Variables for easy adjustment */
@@ -213,14 +201,12 @@ body {
 
 /* Right Side - Controls */
 .controls-section {
-    width: 537px;
     background: white;
     padding: 0;
     display: flex;
     flex-direction: column;
     box-shadow: 15px 0px 30px rgba(0, 0, 0, 0.25),
     inset -5px 0px 15px -7px rgba(0, 0, 0, 0.18);
-    height: 100vh;
 }
 
 /* Header with Logo */
@@ -335,10 +321,10 @@ ul.nav-tabs .nav-link.active {
     font-weight: 800;
 }
 
-.sub-title {
-    color: #818181;
-    font-weight: 400;
-}
+/*.sub-title {*/
+/*    color: #818181;*/
+/*    font-weight: 400;*/
+/*}*/
 
 
 /* Steps */
@@ -382,15 +368,6 @@ ul.nav-tabs .nav-link.active {
     border-radius: 20px;
 }
 
-/* Section Styles */
-.section-title {
-    font-size: 16px;
-    font-weight: 800;
-    margin-bottom: 8px;
-    color: #000000;
-    text-transform: uppercase;
-}
-
 .section-subtitle {
     font-size: 13px;
     color: #666;
@@ -401,26 +378,6 @@ ul.nav-tabs .nav-link.active {
     font-size: 22px;
     font-weight: 700;
 }
-
-/*.mr-1 {*/
-/*    margin-right: 4px;*/
-/*}*/
-
-/*.mr-2 {*/
-/*    margin-right: 8px;*/
-/*}*/
-
-/*.mr-3 {*/
-/*    margin-right: 12px;*/
-/*}*/
-
-/*.mr-4 {*/
-/*    margin-right: 16px;*/
-/*}*/
-
-/*.mr-5 {*/
-/*    margin-right: 20px;*/
-/*}*/
 
 /* Design Grid */
 .design-grid {
@@ -561,57 +518,6 @@ ul.nav-tabs .nav-link.active {
     text-transform: uppercase;
     font-weight: 500;
     letter-spacing: 0.5px;
-}
-
-/* Size and Price Section */
-.option-section {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-}
-
-.option-section .plus-sign {
-    margin: 0 12px 0 0;
-    font-size: 24px;
-    font-weight: 500;
-    color: #787878;
-}
-
-.option-section .option {
-    border-radius: 100%;
-}
-
-.option-section .option.active {
-    border: 2px solid #A8A490;
-    padding: 4px;
-}
-
-.option-section .option > div {
-    width: 56px;
-    height: 56px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #F7F7F7;
-    border-radius: 100%;
-    font-weight: 700;
-    font-size: 18px;
-}
-
-.option-section .option > div.black-frame {
-    background-image: url("/images/black-frame.svg");
-}
-
-.option-section .option > div.white-frame {
-    background-image: url("/images/white-frame.svg");
-}
-
-.option-section .option > div.natural-frame {
-    background-image: url("/images/natural-frame.svg");
-}
-
-.option-section .option > div.ribbon {
-    background-image: url("/images/ribbon.svg");
 }
 
 .shape-circle img {

@@ -2,6 +2,7 @@
   <ul>
     <li><a href="/product/location-map">Location map</a></li>
     <li><a href="/product/star-map">Star map</a></li>
+    <li><a href="/checkout">checkout</a></li>
   </ul>
 
 </template>

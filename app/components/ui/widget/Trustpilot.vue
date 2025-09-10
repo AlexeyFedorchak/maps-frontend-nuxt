@@ -19,6 +19,14 @@ const props = withDefaults(
     },
 );
 
+const trustpilot = ref<HTMLElement | null>(null);
+
+watch(trustpilot, () => {
+  if (window.Trustpilot) {
+    window.Trustpilot.loadFromElement(trustpilot.value);
+  }
+}, { once: true });
+
 const getIframeSrc = computed(() => {
   return `https://widget.trustpilot.com/trustboxes/${props.templateId}/index.html?templateId=${props.templateId}&businessunitId=${props.businessunitId}#locale=${props.locale}&styleHeight=${props.height}&styleWidth=${props.width}&theme=${props.theme}`;
 });
@@ -27,6 +35,7 @@ const getIframeSrc = computed(() => {
 <template>
   <ClientOnly>
     <div class="trustpilot-widget relative inline-block max-w-[235px]"
+         ref="trustpilot"
          :data-locale="props.locale"
          :data-template-id="props.templateId"
          :data-businessunit-id="props.businessunitId"

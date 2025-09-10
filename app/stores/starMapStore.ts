@@ -13,6 +13,8 @@ export const useStarMapStore = defineStore('starMapStore', () => {
     const layout = ref<Layout | null>(LOCATION_MAP_LAYOUTS[1] || null);
     const theme = ref<Theme | null>(STAR_MAP_THEMES[0] || null);
     const colorScheme = ref<ColorScheme | null>(null);
+    const mapMessageLine1 = ref<string | null>('The Night Our Adventure Started');
+    const mapMessageLine2 = ref<string | null>('');
     const mapTitle = ref<string | undefined>(LOCATION_MAP_DEFAULT_LOCATION.name);
     const mapDate = ref<Date | undefined>(new Date());
     const mapTime = ref<string | undefined>('');
@@ -59,6 +61,14 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         console.log(`Color scheme set: ${newColorScheme.name}`)
     }
 
+    function setMapMessageLine1(newMessage: string) {
+        mapMessageLine1.value = newMessage
+    }
+
+    function setMapMessageLine2(newMessage: string) {
+        mapMessageLine2.value = newMessage
+    }
+
     function setMapTitle(title: string | undefined) {
         mapTitle.value = title
     }
@@ -92,6 +102,8 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         layout,
         theme,
         features,
+        mapMessageLine1,
+        mapMessageLine2,
         mapTitle,
         mapDate,
         mapTime,
@@ -103,6 +115,8 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         setFrame,
         setRibbon,
         setLocation,
+        setMapMessageLine1,
+        setMapMessageLine2,
         setMapTitle,
         setMapDate,
         setMapTime,

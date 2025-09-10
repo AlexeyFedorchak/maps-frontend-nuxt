@@ -12,6 +12,7 @@ const props = defineProps<{
   title: string
   coordinates: string
   customText?: string
+  customText2?: string
   border?: boolean
   bg?: string
   fg?: string
@@ -42,15 +43,15 @@ onMounted(async () => {
   <div
       ref="rootEl"
       class="relative aspect-[3/4] w-[240px] md:w-[90%] lg:w-[450px] text-[calc(1rem*var(--fs-scale))]"
-      :class="['map-frame', `${props.shape}-container`, props.border ? 'map-border' : '']"
+      :class="['map-frame', `${shape}-container`, border ? 'map-border' : '']"
       :style="{
-        backgroundColor: props.bg || '#000000',
-        color: props.fg || '#ffffff',
+        backgroundColor: bg || '#000000',
+        color: fg || '#ffffff',
       }">
     <div
-        v-if="props.border"
+        v-if="border"
         class="absolute top-[2.31%] left-[3.333%] right-[3.333%] bottom-[2.31%] border-[2px]"
-        :style="{ borderColor: props.fg || '#000000' }"
+        :style="{ borderColor: fg || '#000000' }"
     />
     <slot></slot>
     <div
@@ -58,26 +59,27 @@ onMounted(async () => {
         v-if="props.showDetails"
         :style="{ backgroundColor: props.bg || '#000000', color: props.fg || '#ffffff' }">
       <div v-if="customText"
-           class="map-custom-text absolute left-1/2 -translate-x-1/2 top-[77.5%] w-full
-            text-center font-medium tracking-[0.01em] text-[1em] leading-[1.20]"
+           class="map-custom-text absolute left-1/2 -translate-x-1/2 bottom-[19%] w-full
+            text-center font-medium tracking-[0.01em] text-[1rem] leading-[1.20]"
            :style="{ transform: `scale(${scaleRatio})`, transformOrigin: 'top center' }">
-        {{ customText }}
+        <div class="mb-[0.5rem]">{{ customText }}</div>
+        <div v-if="customText2">{{ customText2 }}</div>
       </div>
       <div class="absolute left-1/2 -translate-x-1/2 top-[87.4%] w-full text-center leading-[1.24]"
            :style="{ transform: `scale(${scaleRatio})`, transformOrigin: 'top center' }">
-        <div class="text-[0.6em]">{{ props.title }}</div>
-        <div class="text-[0.6em]">{{ props.subtitle }}</div>
-        <div class="mt-[0.25em] text-[0.6em]">{{ props.coordinates }}</div>
+        <div class="text-[0.6rem]">{{ title }}</div>
+        <div class="text-[0.6rem] mb-[0.25rem]">{{ subtitle }}</div>
+        <div class="text-[0.6rem]">{{ coordinates }}</div>
       </div>
     </div>
     <div class="absolute inset-y-[-5%] inset-x-[-6%]">
       <NuxtImg
-          v-if="props.frame?.backgroundImage"
+          v-if="frame?.backgroundImage"
           class="absolute inset-0 w-full h-full object-fill"
-          :src="props.frame?.backgroundImage"
+          :src="frame?.backgroundImage"
       />
       <NuxtImg
-          v-if="props.hasRibbon && props.frame?.backgroundImage"
+          v-if="hasRibbon && frame?.backgroundImage"
           class="absolute inset-0 w-full h-full object-fill z-2"
           src="/images/frames/giftwrap_large_red.png"
       />

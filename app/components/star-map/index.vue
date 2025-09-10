@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {ref, onMounted, computed, watch} from 'vue';
-import {storeToRefs} from 'pinia';
-import {useStarMapStore} from '~/stores';
-import type {FeatureItem} from '~/components/product-frame/Highlights.vue';
-import {COORDINATES} from '~/constants/star-map/coordinates';
-import {CELESTIAL_DEFAULT_CONFIG} from '~/constants/star-map/celestial';
+import { ref, onMounted, computed, watch } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useStarMapStore } from '~/stores';
+import type { FeatureItem } from '~/components/product-frame/Highlights.vue';
+import { COORDINATES } from '~/constants/star-map/coordinates';
+import { CELESTIAL_DEFAULT_CONFIG } from '~/constants/star-map/celestial';
 
 const starMapStore = useStarMapStore();
 const {
@@ -14,6 +14,8 @@ const {
   hasRibbon,
   getMapTitle,
   getCoordinatesText,
+  mapMessageLine1,
+  mapMessageLine2,
   mapSubtitle,
   mapDate,
   mapTime,
@@ -146,7 +148,8 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="map-preview-section flex-col grow md:h-screen flex items-center p-[27px] md:pt-[27px] md:pb-[27px] pt-[190px] pb-[90px]">
+  <div
+      class="map-preview-section flex-col grow md:h-screen flex items-center p-[27px] md:pt-[27px] md:pb-[27px] pt-[190px] pb-[90px]">
     <ProductFrameHighlights :items="icons"/>
     <ProductFrameContainer
         shape="circle"
@@ -158,11 +161,15 @@ onMounted(function () {
         :showDetails="showDetails || false"
         :title="getMapTitle || ''"
         :subtitle="mapSubtitle || ''"
-        :customText="'The Night Our Adventure Started'"
+        :customText="mapMessageLine1 || ''"
+        :customText2="mapMessageLine2 || ''"
         :coordinates="getCoordinatesText">
       <div :style="{ visibility: isCalculating ? 'visible' : 'hidden' }"
-           class="star-map-preview w-[84%] aspect-square absolute z-1 top-[8.5%] left-[50%] flex items-center justify-center">
-        <span :class="[`text-${fgColor}`, 'text-[17px]', 'md:text-[28px]', 'uppercase', 'tracking-[0.05em]']">Calculating...</span>
+           class="star-map-preview w-[84%] aspect-square absolute z-1 top-[8.5%] left-[50%]">
+        <span :class="[`text-${fgColor}`, `border-[${fgColor}]`, 'border-2', 'text-[17px]', 'md:text-[28px]',
+        'uppercase', 'tracking-[0.05em]', 'rounded-full', 'w-full', 'h-full', 'flex', 'items-center', 'justify-center']">
+          Calculating...
+        </span>
       </div>
       <div :style="{ visibility: !isCalculating ? 'visible' : 'hidden'}"
            ref="preview"
@@ -173,8 +180,7 @@ onMounted(function () {
             :phi="phi"
             :lambda="lambda"
             :zoom="zoom"
-            :auto-resize="true"
-        />
+            :auto-resize="true"/>
         <div id="starmap-canvas" :class="{ 'coordinates-map': isShowCoordinates }"></div>
         <NuxtImg v-if="isShowCoordinates" :src="svgDataUrl" class="absolute top-0 left-0 scale-[1.1] w-full"/>
       </div>

@@ -4,8 +4,12 @@
 
 <template>
   <div class="flex items-center justify-center">
-    <UiStars />
-    <UiWidgetTrustpilot />
+    <NuxtLink
+        target="_blank"
+        to="https://uk.trustpilot.com/review/picturethestars.com?utm_medium=trustbox&amp;utm_source=Horizontal">
+      <UiStars/>
+    </NuxtLink>
+    <UiWidgetTrustpilot/>
   </div>
 </template>
 

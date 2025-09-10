@@ -33,8 +33,16 @@ export default defineNuxtConfig({
         plugins: [
             tailwindcss(),
         ],
+        build: {
+            sourcemap: process.env.NODE_ENV !== 'production',
+        },
     },
     shadcn: {
         componentDir: './app/components/ui',
+    },
+    nitro: {
+        prerender: {
+            routes: ['/product/location-map', '/product/star-map'],
+        },
     },
 });

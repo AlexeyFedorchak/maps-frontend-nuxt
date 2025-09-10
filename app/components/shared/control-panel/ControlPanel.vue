@@ -92,7 +92,7 @@ function tabChanges(tab: string): void {
         </slot>
 
         <slot name="bottom-buttons">
-          <div class="flex mb-4 justify-between gap-2">
+          <div class="flex justify-between gap-2">
             <UiButton
                 v-for="button of stepper?.getCurrentStep?.value?.buttons"
                 class="uppercase min-h-[3.438rem] md:min-h-[4.25rem]"
@@ -107,8 +107,8 @@ function tabChanges(tab: string): void {
         </slot>
       </div>
 
-      <slot name="footer">
-
+      <slot name="trustpilot">
+        <UiControlPanelWidgetTrustpilot />
       </slot>
     </template>
   </UiControlPanelContainer>

@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import { LOCATION_MAP_DEFAULT_LOCATION, LOCATION_MAP_LAYOUTS } from '~/constants/location-map';
 import { STAR_MAP_THEMES } from '~/constants/star-map/themes';
 import { STAR_MAP_FEATURES } from '~/constants/star-map/features';
+import { FONTS_OPTIONS } from '~/constants/fonts';
 
 /**
  * @description
@@ -12,6 +13,7 @@ export const useStarMapStore = defineStore('starMapStore', () => {
     const location = ref<Location | null>(LOCATION_MAP_DEFAULT_LOCATION);
     const layout = ref<Layout | null>(LOCATION_MAP_LAYOUTS[1] || null);
     const theme = ref<Theme | null>(STAR_MAP_THEMES[0] || null);
+    const font = ref<Font | null>(FONTS_OPTIONS[0] || null);
     const colorScheme = ref<ColorScheme | null>(null);
     const mapMessageLine1 = ref<string | null>('The Night Our Adventure Started');
     const mapMessageLine2 = ref<string | null>('');
@@ -53,12 +55,14 @@ export const useStarMapStore = defineStore('starMapStore', () => {
 
     function setTheme(newTheme: Theme) {
         theme.value = newTheme
-        console.log(`Theme set: ${newTheme.name}`)
+    }
+
+    function setFont(newFont: Font) {
+        font.value = newFont
     }
 
     function setColorScheme(newColorScheme: ColorScheme) {
         colorScheme.value = newColorScheme
-        console.log(`Color scheme set: ${newColorScheme.name}`)
     }
 
     function setMapMessageLine1(newMessage: string) {
@@ -101,6 +105,7 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         location,
         layout,
         theme,
+        font,
         features,
         mapMessageLine1,
         mapMessageLine2,
@@ -121,6 +126,7 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         setMapDate,
         setMapTime,
         setTheme,
+        setFont,
         setColorScheme,
         setFeature,
     };

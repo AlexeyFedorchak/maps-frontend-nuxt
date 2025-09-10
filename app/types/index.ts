@@ -8,6 +8,7 @@ export type LocationId = string
 export type ThemeId = number
 export type LayoutId = number
 export type ColorSchemeId = string
+export type FontId = number
 
 export type LoadingState = 'idle' | 'loading' | 'success' | 'error'
 
@@ -118,4 +119,12 @@ export interface MapExportResult {
     filename: string
     fileSize: number
     mimeType: string
+}
+
+export interface Font {
+    id: FontId
+    label: string
+    fontFamily: string
+    previewSrc: string
+
 }

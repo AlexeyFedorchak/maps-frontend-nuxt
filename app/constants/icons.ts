@@ -4,7 +4,9 @@ export const ICON_NAMES = [
     'feather',
     'water-drop',
     'print',
-    'stars'
+    'stars',
+    'arrow-up',
+    'arrow-down',
 ] as const
 
 export type IconName = typeof ICON_NAMES[number]

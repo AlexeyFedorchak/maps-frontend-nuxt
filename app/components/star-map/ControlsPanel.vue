@@ -128,6 +128,7 @@ const installmentPrice = computed(() => {
             key="message"
             :line1="starMapStore.mapMessageLine1"
             :line2="starMapStore.mapMessageLine2"
+            :font="starMapStore.font"
             @update-line1="starMapStore.setMapMessageLine1($event)"
             @update-line2="starMapStore.setMapMessageLine2($event)"
         />

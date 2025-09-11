@@ -26,7 +26,6 @@
           <div 
             class="flex transition-transform duration-500 ease-in-out"
             :style="carouselStyle"
-            :class="{ 'opacity-50': !isMounted }"
           >
             <div class="w-full flex-shrink-0">
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -126,8 +125,7 @@
             :key="'dot-' + index"
             @click="() => { if (isMounted) currentSlide = index }"
             class="dot transition-all duration-300"
-            :class="{ 'active': currentSlide === index, 'cursor-not-allowed': !isMounted }"
-            :disabled="!isMounted"
+            :class="{ 'active': currentSlide === index }"
           ></button>
         </div>
       </div>

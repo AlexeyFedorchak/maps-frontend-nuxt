@@ -44,7 +44,6 @@
             <div 
               class="flex transition-transform duration-500 ease-in-out"
               :style="carouselStyle"
-              :class="{ 'opacity-50': !isMounted }"
             >
               <div 
                 v-for="(slide, slideIndex) in reviewSlides" 
@@ -99,8 +98,7 @@
       :key="'dot-' + index"
       @click="() => { if (isMounted) currentSlide = index }"
       class="dot"
-      :class="{ active: currentSlide === index, 'cursor-not-allowed': !isMounted }"
-      :disabled="!isMounted"
+      :class="{ active: currentSlide === index }"
     ></button>
   </div>
     </div>

@@ -25,7 +25,8 @@
         <div class="overflow-hidden">
           <div 
             class="flex transition-transform duration-500 ease-in-out"
-            :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+            :style="carouselStyle"
+            :class="{ 'opacity-50': !isMounted }"
           >
             <div class="w-full flex-shrink-0">
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -123,9 +124,10 @@
           <button
             v-for="(slide, index) in totalSlides"
             :key="'dot-' + index"
-            @click="currentSlide = index"
+            @click="() => { if (isMounted) currentSlide = index }"
             class="dot transition-all duration-300"
-            :class="{ 'active': currentSlide === index }"
+            :class="{ 'active': currentSlide === index, 'cursor-not-allowed': !isMounted }"
+            :disabled="!isMounted"
           ></button>
         </div>
       </div>
@@ -134,12 +136,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
+import { ref, computed, onMounted, nextTick, watchEffect } from 'vue'
 
 const activeTab = ref(0)
 const currentSlide = ref(0)
+const isMounted = ref(false)
 const totalSlides = 2
+
+const carouselStyle = computed(() => {
+  if (!isMounted.value && process.server) {
+    return { transform: 'translateX(0%)' }
+  }
+  return { transform: `translateX(-${currentSlide.value * 100}%)` }
+})
 
 
 const tabs = [
@@ -205,6 +214,22 @@ const productsSlide2 = [
     freeShipping: true
   }
 ]
+
+onMounted(async () => {
+  await nextTick()
+  isMounted.value = true
+  console.log('ProductsSection mounted:', isMounted.value)
+  console.log('Total slides:', totalSlides)
+})
+
+watchEffect(() => {
+  if (process.client && !isMounted.value) {
+    setTimeout(() => {
+      isMounted.value = true
+      console.log('ProductsSection force mounted via watchEffect')
+    }, 100)
+  }
+})
 </script>
 
 <style scoped>

@@ -39,22 +39,22 @@
           </div>
         </div>
 
-
         <div class="lg:col-span-5 xl:col-span-6">
           <div class="relative overflow-hidden">
             <div 
               class="flex transition-transform duration-500 ease-in-out"
-              :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+              :style="carouselStyle"
+              :class="{ 'opacity-50': !isMounted }"
             >
               <div 
                 v-for="(slide, slideIndex) in reviewSlides" 
-                :key="slideIndex"
+                :key="'slide-' + slideIndex"
                 class="w-full flex-shrink-0"
               >
                 <div class="grid grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 min-h-[160px]">
                   <div 
                     v-for="(review, reviewIndex) in slide" 
-                    :key="review.id"
+                    :key="'review-' + review.id"
                     class="review-card border border-gray-200 p-4 bg-white hover:shadow-lg transition-shadow duration-300"
                   >
                     <div class="flex items-center justify-between mb-2">
@@ -94,24 +94,33 @@
       </div>
 
   <div class="flex justify-center gap-2 mt-12">
-  <button
-    v-for="(slide, index) in reviewSlides"
-    :key="'dot-' + index"
-    @click="currentSlide = index"
-    class="dot"
-    :class="{ active: currentSlide === index }"
-  ></button>
+    <button
+      v-for="(slide, index) in reviewSlides"
+      :key="'dot-' + index"
+      @click="() => { if (isMounted) currentSlide = index }"
+      class="dot"
+      :class="{ active: currentSlide === index, 'cursor-not-allowed': !isMounted }"
+      :disabled="!isMounted"
+    ></button>
   </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, nextTick, watchEffect } from 'vue'
 
 const currentSlide = ref(0)
 const loading = ref(false)
 const error = ref(null)
+const isMounted = ref(false)
+
+const carouselStyle = computed(() => {
+  if (!isMounted.value && process.server) {
+    return { transform: 'translateX(0%)' }
+  }
+  return { transform: `translateX(-${currentSlide.value * 100}%)` }
+})
 
 const mockReviews = ref([
   {
@@ -270,6 +279,8 @@ const reviewSlides = computed(() => {
 })
 
 const startAutoPlay = () => {
+  if (typeof window === 'undefined') return
+  
   setInterval(() => {
     if (reviewSlides.value.length > 1) {
       currentSlide.value = (currentSlide.value + 1) % reviewSlides.value.length
@@ -277,10 +288,21 @@ const startAutoPlay = () => {
   }, 5000)
 }
 
- 
-
-onMounted(() => {
+onMounted(async () => {
+  await nextTick()
+  isMounted.value = true
+  console.log('TrustpilotSection mounted:', isMounted.value)
+  console.log('ReviewSlides length:', reviewSlides.value.length)
   startAutoPlay()
+})
+
+watchEffect(() => {
+  if (process.client && !isMounted.value) {
+    setTimeout(() => {
+      isMounted.value = true
+      console.log('TrustpilotSection force mounted via watchEffect')
+    }, 100)
+  }
 })
 </script>
 

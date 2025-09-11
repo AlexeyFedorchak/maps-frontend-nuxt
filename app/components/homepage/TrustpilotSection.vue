@@ -1,7 +1,7 @@
 <template>
-  <section class="bg-white py-20">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
+  <section class="bg-white py-32 md:py-40">
+    <div class="w-full px-0">
+      <div class="text-center mb-16 md:mb-20 px-6">
         <h2 class="font-lato font-extrabold text-3xl md:text-4xl text-gray-900 mb-4 tracking-wide">
           WHY 50,000+ PEOPLE CAPTURED THEIR STORIES FOREVER.
         </h2>
@@ -10,9 +10,9 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-8 items-start px-6">
         <div class="lg:col-span-1">
-          <div class="border border-gray-200 p-4 bg-white min-h-[180px] flex flex-col justify-start pt-2">
+          <div class="border border-gray-200 p-4 bg-white min-h-[180px] h-[180px] flex flex-col justify-start pt-2">
             <div class="text-center">
               <div class="mb-2">
                 <div class="font-lato font-bold text-gray-900 text-lg mb-1">
@@ -40,7 +40,7 @@
         </div>
 
 
-        <div class="lg:col-span-3">
+        <div class="lg:col-span-5 xl:col-span-6">
           <div class="relative overflow-hidden">
             <div 
               class="flex transition-transform duration-500 ease-in-out"
@@ -51,7 +51,7 @@
                 :key="slideIndex"
                 class="w-full flex-shrink-0"
               >
-                <div class="grid grid-cols-3 gap-4 min-h-[180px]">
+                <div class="grid grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 min-h-[160px]">
                   <div 
                     v-for="(review, reviewIndex) in slide" 
                     :key="review.id"
@@ -93,17 +93,15 @@
         </div>
       </div>
 
-      <div class="flex justify-center gap-2 mt-16">
-        <button
-          v-for="(slide, index) in reviewSlides"
-          :key="'dot-' + index"
-          @click="currentSlide = index"
-          class="transition-all duration-300 rounded-full"
-          :class="currentSlide === index 
-            ? 'w-8 h-2 bg-gray-400' 
-            : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'"
-        ></button>
-      </div>
+  <div class="flex justify-center gap-2 mt-12">
+  <button
+    v-for="(slide, index) in reviewSlides"
+    :key="'dot-' + index"
+    @click="currentSlide = index"
+    class="dot"
+    :class="{ active: currentSlide === index }"
+  ></button>
+  </div>
     </div>
   </section>
 </template>
@@ -115,7 +113,6 @@ const currentSlide = ref(0)
 const loading = ref(false)
 const error = ref(null)
 
-// Mock reviews data (since Trustpilot business key is not available)
 const mockReviews = ref([
   {
     id: '1',
@@ -265,8 +262,9 @@ const mockReviews = ref([
 
 const reviewSlides = computed(() => {
   const slides = []
-  for (let i = 0; i < mockReviews.value.length; i += 3) {
-    slides.push(mockReviews.value.slice(i, i + 3))
+  const reviewsPerSlide = 6
+  for (let i = 0; i < mockReviews.value.length; i += reviewsPerSlide) {
+    slides.push(mockReviews.value.slice(i, i + reviewsPerSlide))
   }
   return slides
 })
@@ -276,38 +274,12 @@ const startAutoPlay = () => {
     if (reviewSlides.value.length > 1) {
       currentSlide.value = (currentSlide.value + 1) % reviewSlides.value.length
     }
-  }, 5000) // Change slide every 5 seconds
+  }, 5000)
 }
 
-// When business key becomes available, uncomment this function:
-/*
-const fetchTrustpilotReviews = async () => {
-  try {
-    loading.value = true
-    
-    // Call our API endpoint that handles Trustpilot OAuth
-    const response = await $fetch('/api/trustpilot/reviews')
-    
-    if (response.success) {
-      mockReviews.value = response.reviews
-      console.log('Loaded', response.totalReviews, 'reviews from Trustpilot')
-    } else {
-      console.warn('API returned fallback data:', response.error)
-    }
-    
-    error.value = null
-  } catch (err) {
-    console.error('Error fetching reviews:', err)
-    error.value = 'Failed to load reviews'
-  } finally {
-    loading.value = false
-  }
-}
-*/
+ 
 
-// Lifecycle
 onMounted(() => {
-  // fetchTrustpilotReviews() // Uncomment when business key is available
   startAutoPlay()
 })
 </script>
@@ -325,5 +297,19 @@ onMounted(() => {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.dot {
+  transition: all 0.3s;
+  border-radius: 9999px;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #d1d5db; 
+}
+
+.dot.active {
+  background-color: #9ca3af; 
+  width: 2rem;
+  height: 0.5rem;
 }
 </style>

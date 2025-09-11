@@ -124,10 +124,8 @@
             v-for="(slide, index) in totalSlides"
             :key="'dot-' + index"
             @click="currentSlide = index"
-            class="transition-all duration-300 rounded-full"
-            :class="currentSlide === index 
-              ? 'w-12 h-2 bg-gray-300' 
-              : 'w-2 h-2 bg-gray-600 hover:bg-gray-700'"
+            class="dot transition-all duration-300"
+            :class="{ 'active': currentSlide === index }"
           ></button>
         </div>
       </div>
@@ -208,3 +206,23 @@ const productsSlide2 = [
   }
 ]
 </script>
+
+<style scoped>
+
+
+.dot {
+  transition: all 0.3s;
+  border-radius: 9999px;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #d1d5db;
+}
+
+.dot.active {
+  background-color: #9ca3af;
+  width: 2rem;
+  height: 0.5rem;
+}
+
+
+</style>

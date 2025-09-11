@@ -1,72 +1,125 @@
-<template>
-  <section 
-    class="relative py-3 bg-cover bg-center bg-no-repeat"
-    style="background-image: url('/images/chocolate.png')"
-  >
-    <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-    
-    <div class="relative max-w-7xl mx-auto px-6">
-      <div class="flex items-center justify-center gap-8">
-        <div class="flex items-center gap-6">
-          <h3 class="font-lato font-black text-[20px] leading-[38px] tracking-[0px] text-black">
-            10% OFF Join the Free Newsletter
-          </h3>
-          <p class="font-lato text-black text-sm whitespace-nowrap">
-            Sign up and receive 10% off your first order
-          </p>
-        </div>
-        <div class="flex items-center rounded-full w-80 h-10 bg-white border border-gray-300">
-  <input
-    v-model="email"
-    type="email"
-    placeholder="ENTER EMAIL ADDRESS"
-    class="flex-1 h-full px-3 text-sm text-gray-700 placeholder-gray-500 focus:outline-none bg-transparent"
-  />
-  <button
-    @click="handleSubmit"
-    class="h-full px-3 bg-[#A5A5A5] hover:bg-[#8f8f8f] text-black font-lato font-semibold transition-colors duration-300 whitespace-nowrap text-[11px] border-l border-gray-300 rounded-full"
-  >
-    GET MY 10% CODE
-  </button>
-</div>
-      </div>
-    </div>
-  </section>
-</template>
+<template>   
+  <section      
+    class="relative py-3 bg-cover bg-center bg-no-repeat newsletter-section"     
+    style="background-image: url('/images/chocolate.png')"   
+  >          
+    <div class="relative max-w-7xl mx-auto px-6">       
+      <div class="flex items-center justify-center gap-8">         
+        <div class="flex items-center gap-6">           
+          <h3 class="font-lato font-black text-[20px] leading-[38px] tracking-[0px] text-black">             
+            10% OFF Join the Free Newsletter           
+          </h3>           
+          <p class="font-lato text-black text-sm whitespace-nowrap">             
+            Sign up and receive 10% off your first order           
+          </p>         
+        </div>         
+        
+        <div class="input-container">
+          <input             
+            v-model="email"             
+            type="email"             
+            placeholder="ENTER EMAIL ADDRESS"             
+            class="email-input"
+            @keypress="handleKeyPress"           
+          />           
+          <button             
+            @click="handleSubmit"             
+            class="submit-button"           
+          >             
+            GET MY 10% CODE           
+          </button>         
+        </div>       
+      </div>     
+    </div>   
+  </section> 
+</template>  
 
-<script setup>
-import { ref } from 'vue'
+<script setup> 
+import { ref } from 'vue'  
 
-const email = ref('')
+const email = ref('')  
 
-const handleSubmit = () => {
-  if (!email.value) {
-    alert('Please enter your email address')
-    return
-  }
+const handleSubmit = () => {   
+  if (!email.value) {     
+    alert('Please enter your email address')     
+    return   
+  }    
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailRegex.test(email.value)) {
-    alert('Please enter a valid email address')
-    return
-  }
-  
-  console.log('Newsletter signup:', email.value)
-  alert('Thank you for subscribing! Check your email for the 10% discount code.')
-  
-  email.value = ''
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/   
+  if (!emailRegex.test(email.value)) {     
+    alert('Please enter a valid email address')     
+    return   
+  }      
+
+  console.log('Newsletter signup:', email.value)   
+  alert('Thank you for subscribing! Check your email for the 10% discount code.')      
+
+  email.value = '' 
+}  
+
+const handleKeyPress = (event) => {   
+  if (event.key === 'Enter') {     
+    handleSubmit()   
+  } 
+} 
+</script>  
+
+<style scoped> 
+.newsletter-section {   
+  min-height: 50px; 
+}  
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 400px;
+  height: 50px;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 25px;
+  overflow: hidden;
 }
 
-const handleKeyPress = (event) => {
-  if (event.key === 'Enter') {
-    handleSubmit()
-  }
+.email-input {
+  flex: 1;
+  height: 100%;
+  padding: 0 20px;
+  padding-right: 180px;
+  font-size: 14px;
+  color: #9ca3af;
+  background: transparent;
+  border: none;
+  outline: none;
 }
-</script>
 
-<style scoped>
-section {
-  min-height: 50px;
+.email-input::placeholder {
+  color: #9ca3af;
+  font-weight: 500;
 }
 
+.submit-button {
+  position: absolute;
+  right: 2px;
+  top: 1px;
+  height: 48px;
+  padding: 0 26px;
+  background-color: #f8f9fa;
+  color: #1f2937;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  border: none;
+  border-radius: 24px;
+  white-space: nowrap;
+  transition: all 0.3s;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:hover {
+  background-color: #f1f3f4;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
 </style>

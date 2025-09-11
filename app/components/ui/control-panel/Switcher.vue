@@ -43,7 +43,7 @@ function changeTab(tab: ControlPanelTab): void {
     </li>
   </ul>
 
-  <div class="flex justify-center items-center bg-[#fff] min-h-[33.813rem] px-6">
+  <div class="flex justify-center items-center bg-[#fff] min-h-[33.813rem] px-6 py-8">
     <div v-if="controlPanelStore.activeTab === controlPanelStore.tabs[0]" class="fade show active w-full">
       <slot name="content-tab-1"></slot>
     </div>

@@ -15,6 +15,7 @@ export type LoadingState = 'idle' | 'loading' | 'success' | 'error'
 export type AppStep = 1 | 2 | 3
 
 export type MapShape = 'rectangle' | 'circle' | 'horizontal' | 'tall' | 'full-page'
+export type InputMode = 'text' | 'none' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search' | undefined
 
 export interface Location {
     id: LocationId
@@ -125,6 +126,6 @@ export interface Font {
     id: FontId
     label: string
     fontFamily: string
-    previewSrc: string
+    preview: string
 
 }

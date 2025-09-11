@@ -10,9 +10,10 @@ const starMapStore = useStarMapStore();
 const {
   frame,
   theme,
+  font,
   features,
   hasRibbon,
-  getMapTitle,
+  mapTitle,
   getCoordinatesText,
   mapMessageLine1,
   mapMessageLine2,
@@ -156,10 +157,12 @@ onMounted(function () {
         :bg="bgColor"
         :fg="fgColor"
         :frame="frame"
+        :font="font!"
         :has-ribbon="hasRibbon"
         :border="isShowBorder"
         :showDetails="showDetails || false"
-        :title="getMapTitle || ''"
+        :title="mapTitle || ''"
+        :location="location?.name || ''"
         :subtitle="mapSubtitle || ''"
         :customText="mapMessageLine1 || ''"
         :customText2="mapMessageLine2 || ''"

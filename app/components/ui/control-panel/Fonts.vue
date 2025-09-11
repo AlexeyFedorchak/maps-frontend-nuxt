@@ -1,27 +1,28 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Label } from '@/components/ui/label'
-import { Badge } from '@/components/ui/badge'
+import {computed, ref, watch} from 'vue'
+import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group'
+import {Label} from '@/components/ui/label'
+import {Badge} from '@/components/ui/badge'
+import type {Font} from "~/types";
 
 const props = defineProps<{
   fonts: Font[]
-  font: font | null
+  font: Font | null
 }>()
 
 const emit = defineEmits<{
-  (e: 'font-selected', font: font): void
+  (e: 'font-selected', font: Font): void
 }>()
 
 const selectedId = ref<string | number | null>(props.font?.id ?? null)
 
 watch(
     () => props.font,
-    (val) => { selectedId.value = val?.id ?? null },
-    { immediate: true }
+    (val) => {
+      selectedId.value = val?.id ?? null
+    },
+    {immediate: true}
 )
-
-const selectedFontName = computed(() => props.font?.name || 'Original-black')
 
 function onChange(id: string | number) {
   const t = props.fonts.find(x => x.id === id)
@@ -30,54 +31,33 @@ function onChange(id: string | number) {
 </script>
 
 <template>
-  <div class="mb-4">
-    <span class="font-extrabold mb-2 uppercase mr-2">Font:</span>
-    <span class="text-[#787878]">{{ selectedFontName }}</span>
+  <div class="mb-4 pt-7">
+    <span class="font-extrabold mb-2 uppercase mr-2">Type</span>
   </div>
 
   <RadioGroup
       v-model="selectedId"
       @update:modelValue="onChange"
-      class="flex flex-wrap gap-3 mb-14"
-  >
+      class="flex flex-wrap gap-2 mb-14">
     <div
         v-for="t in fonts"
         :key="t.id"
-        class="group relative"
-    >
-      <RadioGroupItem
-          :id="`font-${t.id}`"
-          :value="t.id"
-          class="sr-only"
-      />
+        class="group">
+      <RadioGroupItem :id="`font-${t.id}`" :value="t.id" class="sr-only"/>
 
-      <Label
-          :for="`font-${t.id}`"
-          class="cursor-pointer rounded-full outline-none"
-      >
-        <div
-            class="relative aspect-square size-16 rounded-full overflow-hidden ring-0 transition
-                 group-hover:ring-2 group-hover:ring-[#A8A490]/60
-                 data-[checked=true]:ring-2 data-[checked=true]:ring-[#A8A490]
-                 data-[checked=true]:shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
-            :data-checked="selectedId === t.id"
-            :style="{ backgroundColor: t.bg || 'transparent' }"
-        >
-          <img
-              class="object-cover w-full h-full"
+      <Label :for="`font-${t.id}`" class="cursor-pointer">
+        <div class="h-10 min-w-[84px] px-4 rounded-[12px] border-2 bg-white
+                 grid place-items-center transition pt-[4px] pb-[4px] pl-[12px] pr-[12px]
+                 data-[checked=true]:border-[#B5B2A1]"
+            :data-checked="selectedId === t.id">
+          <NuxtImg
               :src="t.preview"
-              :alt="t.name"
+              :alt="t.label"
+              format="png"
+              class="max-h-[28px] max-w-[64px] object-contain"
               loading="lazy"
               decoding="async"
           />
-
-          <Badge
-              v-if="t.badge"
-              variant="secondary"
-              class="absolute left-1.5 top-1.5 rounded-full px-2 py-0.5 text-[10px] leading-none"
-          >
-            {{ t.badge }}
-          </Badge>
         </div>
       </Label>
     </div>

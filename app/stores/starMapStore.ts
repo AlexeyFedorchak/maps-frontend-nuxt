@@ -1,9 +1,11 @@
-import type {ColorScheme, Theme, Layout, Location, MapShape, Frame, StarFeature} from '~/types';
+import type { ColorScheme, Theme, Layout, Location, Frame, StarFeature, Font } from '~/types';
 import { computed, ref } from 'vue';
 import { LOCATION_MAP_DEFAULT_LOCATION, LOCATION_MAP_LAYOUTS } from '~/constants/location-map';
 import { STAR_MAP_THEMES } from '~/constants/star-map/themes';
 import { STAR_MAP_FEATURES } from '~/constants/star-map/features';
 import { FONTS_OPTIONS } from '~/constants/fonts';
+
+import { toSignedLat, toSignedLon, splitLat, splitLon, type LatHem, type LonHem } from '~/utils/geo'
 
 /**
  * @description
@@ -17,18 +19,15 @@ export const useStarMapStore = defineStore('starMapStore', () => {
     const colorScheme = ref<ColorScheme | null>(null);
     const mapMessageLine1 = ref<string | null>('The Night Our Adventure Started');
     const mapMessageLine2 = ref<string | null>('');
-    const mapTitle = ref<string | undefined>(LOCATION_MAP_DEFAULT_LOCATION.name);
-    const mapDate = ref<Date | undefined>(new Date());
-    const mapTime = ref<string | undefined>('');
+    const mapTitle = ref<string | null>('');
+    const mapDate = ref<Date | null>(new Date());
+    const mapTime = ref<string | null>('');
     const frame = ref<Frame | null>(null);
     const hasRibbon = ref(false);
     const features = ref<StarFeature[]>(STAR_MAP_FEATURES);
 
     const getLayoutName = computed(() => {
         return 'circle-layout';
-    });
-    const getMapTitle = computed(() => {
-        return mapTitle.value || location.value?.name;
     });
 
     const getCoordinatesText = computed(() => {
@@ -49,8 +48,11 @@ export const useStarMapStore = defineStore('starMapStore', () => {
 
     function setLocation(newLocation: Location) {
         location.value = newLocation
-        mapTitle.value = newLocation.name
-        console.log(`Location set: ${newLocation.name}`)
+    }
+
+    function setLocationCustomText(customText: string) {
+        if (!location.value) return
+        location.value = {...location.value, fullName: customText}
     }
 
     function setTheme(newTheme: Theme) {
@@ -73,15 +75,15 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         mapMessageLine2.value = newMessage
     }
 
-    function setMapTitle(title: string | undefined) {
+    function setMapTitle(title: string | null) {
         mapTitle.value = title
     }
 
-    function setMapDate(subtitle: Date | undefined) {
+    function setMapDate(subtitle: Date | null) {
         mapDate.value = subtitle
     }
 
-    function setMapTime(subtitle: string | undefined) {
+    function setMapTime(subtitle: string | null) {
         mapTime.value = subtitle
     }
 
@@ -97,6 +99,38 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         const idx: number = features.value.findIndex(item => item.id === feature.id);
         if (!features.value[idx]) return;
         features.value[idx].isSelected = !features.value[idx].isSelected;
+    }
+
+    function setLatitude(val: number | string) {
+        if (!location.value) return;
+        const n = Number(val);
+        const lat = isNaN(n) ? 0 : n;
+        const [lon] = location.value.coords;
+        location.value = {...location.value, coords: [lon, lat]};
+    }
+
+    function setLongitude(val: number | string) {
+        if (!location.value) return;
+        const n = Number(val);
+        const lon = isNaN(n) ? 0 : n;
+        const [, lat] = location.value.coords;
+        location.value = {...location.value, coords: [lon, lat]};
+    }
+
+    function setLatHem(hem: LatHem) {
+        if (!location.value) return;
+        const [, lat] = location.value.coords;
+        const abs = Math.abs(lat);
+        const next = toSignedLat(abs, hem);
+        location.value = {...location.value, coords: [location.value.coords[0], next]};
+    }
+
+    function setLonHem(hem: LonHem) {
+        if (!location.value) return;
+        const [lon] = location.value.coords;
+        const abs = Math.abs(lon);
+        const next = toSignedLon(abs, hem);
+        location.value = {...location.value, coords: [next, location.value.coords[1]]};
     }
 
     return {
@@ -115,13 +149,13 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         colorScheme,
         mapSubtitle,
         getLayoutName,
-        getMapTitle,
         getCoordinatesText,
         setFrame,
         setRibbon,
         setLocation,
         setMapMessageLine1,
         setMapMessageLine2,
+        setLocationCustomText,
         setMapTitle,
         setMapDate,
         setMapTime,
@@ -129,5 +163,9 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         setFont,
         setColorScheme,
         setFeature,
+        setLatitude,
+        setLongitude,
+        setLatHem,
+        setLonHem,
     };
 });

@@ -28,9 +28,9 @@ if (!stepper) {
 }
 
 const defaultFeatures = [
-  { text: 'Lifetime Warranty', icon: '/images/icons/infinity.svg'},
-  { text: 'Ultra HD Prints', icon: '/images/icons/hd.svg'},
-  { text: 'Milky Way +', icon: '/images/icons/milky-way.svg'},
+  { text: 'Lifetime Warranty', icon: 'lifetime'},
+  { text: 'Ultra HD Prints', icon: 'hd'},
+  { text: 'Milky Way +', icon: 'stars'},
 ];
 
 const defaultPanelInfo = {
@@ -92,10 +92,10 @@ function tabChanges(tab: string): void {
         </slot>
 
         <slot name="bottom-buttons">
-          <div class="flex mb-4 justify-between gap-1">
+          <div class="flex justify-between gap-2">
             <UiButton
                 v-for="button of stepper?.getCurrentStep?.value?.buttons"
-                class="uppercase"
+                class="uppercase min-h-[3.438rem] md:min-h-[4.25rem]"
                 size="lg"
                 @click="changeStep(button.direction)"
                 :class="button.className"
@@ -107,8 +107,8 @@ function tabChanges(tab: string): void {
         </slot>
       </div>
 
-      <slot name="footer">
-
+      <slot name="trustpilot">
+        <UiControlPanelWidgetTrustpilot />
       </slot>
     </template>
   </UiControlPanelContainer>

@@ -1,28 +1,28 @@
 <template>
-  <div id="designContent">
+  <div class="pt-3">
     <UiControlPanelThemes :themes="STAR_MAP_THEMES"
                           :theme="props.theme"
                           @theme-selected="emit('theme-selected', $event)"/>
-    <UiControlPanelLayout :title="'Layout'"
-                          :layouts="LOCATION_MAP_LAYOUTS"
-                          :layout="props.layout"
-                          @layout-selected="emit('layout-selected', $event)"/>
+    <UiControlPanelLayout title="Features"
+                          :layouts="props.features"
+                          :layout="null"
+                          :is-multiselect="true"
+                          @layout-selected="emit('feature-selected', $event)"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Theme, Layout } from '~/types';
-import { LOCATION_MAP_LAYOUTS } from '~/constants/location-map';
-import { STAR_MAP_THEMES } from '~/constants/star-map/themes';
+import type { Theme } from '~/types';
+import { STAR_MAP_THEMES } from '~/constants/star-map';
 
 const props = defineProps<{
-  layout: Layout | null;
+  features: any[];
   theme: Theme | null;
 }>();
 
 const emit = defineEmits<{
   (e: 'theme-selected', theme: Theme): void;
-  (e: 'layout-selected', layout: Layout): void;
+  (e: 'feature-selected', feature: any): void;
 }>();
 </script>
 

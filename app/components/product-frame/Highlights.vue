@@ -14,14 +14,15 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="map-preview-title flex-c">
+  <div class="map-preview-title flex-c mb-[10vh]">
     <div
         v-for="(item, idx) in items"
         :key="idx"
         class="flex-c"
     >
       <div class="flex-c">
-        <span class="map-preview-icon mr-2"><UiIcon :name="item.icon" :width="'16px'"/></span>
+        <span class="map-preview-icon aspect-square mr-2">
+          <UiIcon :name="item.icon" width="16px"/></span>
         <span :class="item.showInfo ? 'mr-2' : null">{{ item.label }}</span>
         <img v-if="item.showInfo" src="/images/icons/info.svg" alt="info">
       </div>
@@ -31,7 +32,6 @@ const props = defineProps<{
 
 <style scoped>
 .map-preview-title {
-  position: absolute;
   font-weight: 700;
   top: 24px;
   background-color: #F7F7F7;

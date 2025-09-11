@@ -1,10 +1,10 @@
 <template>
   <div id="chooseContent">
-    <UiControlPanelSize @size-selected="selectSize($event)"/>
+    <UiControlPanelSize class="mb-12" @size-selected="selectSize($event)"/>
     <UiControlPanelMount v-if="selectedSize"
                          :selected-size="selectedSize"
-                         @set-frame="locationMapStore.setFrame($event)"
-                         @select-ribbon="locationMapStore.setRibbon($event)"/>
+                         @set-frame="emit('set-frame', $event)"
+                         @select-ribbon="emit('select-ribbon', $event)"/>
   </div>
 </template>
 
@@ -18,7 +18,8 @@ import { FramePrices } from '~/constants/prices';
 
 const emit = defineEmits<{
   (e: 'layout-selected', layout: any): void;
-  (e: 'color-scheme-selected', colorScheme: any): void;
+  (e: 'set-frame', colorScheme: any): void;
+  (e: 'select-ribbon', colorScheme: any): void;
   (e: 'total-updated', total: number): void;
 }>();
 

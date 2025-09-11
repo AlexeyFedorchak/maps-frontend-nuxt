@@ -3,6 +3,7 @@ import { ICON_NAMES, type IconName } from '~/constants/icons'
 
 export interface IconProps {
   name: IconName
+  display?: string
   width?: string
   height?: string
   color?: string
@@ -15,7 +16,7 @@ const props = defineProps<IconProps>()
 const iconClass = computed(() => `icon-${props.name}`)
 
 const wrapperStyle = computed(() => ({
-  display: 'inline-block',
+  display: props.display || 'flex',
   width: props.width || 'auto',
   height: props.height || 'auto',
   color: props.color || 'inherit',
@@ -26,13 +27,10 @@ const wrapperStyle = computed(() => ({
 </script>
 
 <template>
-  <span :style="wrapperStyle">
+  <span class="items-center justify-center" :style="wrapperStyle">
     <i :class="iconClass"></i>
   </span>
 </template>
 
 <style scoped>
-.icon-wrapper {
-  display: inline-block;
-}
 </style>

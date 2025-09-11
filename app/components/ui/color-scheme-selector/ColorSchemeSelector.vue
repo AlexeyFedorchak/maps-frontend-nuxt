@@ -180,7 +180,7 @@ onMounted(() => {
 }
 
 .color-scheme-selector__name {
-  @apply text-sm font-semibold text-gray-900 mb-1;
+  @apply font-semibold text-gray-900 mb-1;
 }
 
 .color-scheme-selector__description {

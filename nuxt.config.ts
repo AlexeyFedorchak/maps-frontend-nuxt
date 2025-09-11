@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import Tailwindcss from '@tailwindcss/vite'
-
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: {enabled: true},
@@ -33,10 +32,23 @@ export default defineNuxtConfig({
         },
     },
     css: [
-        'assets/css/tailwind.css',
-        'assets/css/maps.css'
+        '~/assets/css/tailwind.css',
+        '~/assets/css/maps.css',
+        '~/assets/css/styles.css',
+        '~/assets/css/fonts.css',
     ],
     vite: {
         plugins: [Tailwindcss()],
+        build: {
+            sourcemap: process.env.NODE_ENV !== 'production',
+        },
+    },
+    shadcn: {
+        componentDir: './app/components/ui',
+    },
+    nitro: {
+        prerender: {
+            routes: ['/product/location-map', '/product/star-map'],
+        },
     },
 });

@@ -11,7 +11,7 @@ const step = {
 };
 const stepper = useStepper([
   {
-    name: step.location,
+    name: step.design,
     buttons: [
       {
         name: 'Choose Location',
@@ -22,22 +22,23 @@ const stepper = useStepper([
     ],
   },
   {
-    name: step.design,
+    name: step.location,
     buttons: [
       {
         name: 'back',
         isDisabled: ref(false),
         direction: NavigationDirection.backward,
-        className: 'max-w-[200px] w-[40%] md:w-[162.5px] bg-[#A5A5A5]',
+        className: 'w-[34%] bg-[#A5A5A5]',
       },
       {
         name: 'CONTINUE',
         isDisabled: ref(false),
         direction: NavigationDirection.forward,
-        className: 'max-w-[490px] w-[50%] md:w-[282.5px]',
+        className: 'w-[64%]',
       },
     ],
   },
+
   {
     name: step.choose,
     buttons: [
@@ -45,13 +46,13 @@ const stepper = useStepper([
         name: 'back',
         isDisabled: ref(false),
         direction: NavigationDirection.backward,
-        className: 'w-[162.5px] bg-[#A5A5A5]',
+        className: 'w-[34%] bg-[#A5A5A5]',
       },
       {
         name: 'Add to Cart',
         isDisabled: ref(false),
         direction: NavigationDirection.forward,
-        className: 'w-[282.5px]',
+        className: 'w-[64%]',
       },
     ],
   },
@@ -108,7 +109,8 @@ const installmentPrice = computed(() => {
         <LocationMapStepChoose
             v-else-if="stepper.getCurrentStep.value?.name === step.choose"
             key="choose"
-            @color-scheme-selected="locationMapStore.setColorScheme($event)"
+            @set-frame="locationMapStore.setFrame($event)"
+            @select-ribbon="locationMapStore.setRibbon($event)"
             @total-updated="handleTotalUpdate"
         />
       </Transition>

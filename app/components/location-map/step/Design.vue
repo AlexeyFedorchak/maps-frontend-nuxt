@@ -1,5 +1,5 @@
 <template>
-  <div id="designContent">
+  <div class="pt-3">
     <UiControlPanelThemes :themes="LOCATION_MAP_THEMES"
                           :theme="props.theme"
                           @theme-selected="emit('theme-selected', $event)"/>

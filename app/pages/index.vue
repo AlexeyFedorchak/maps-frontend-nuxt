@@ -1,8 +1,9 @@
 <template>
   <ul>
-    <li><a href="/product/location-map">Location map</a></li>
-    <li><a href="/product/star-map">Star map</a></li>
-    <li><a href="/test-header">Home Page</a></li>
+    <li><NuxtLink to="/product/location-map">Location map</NuxtLink></li>
+    <li><NuxtLink to="/product/star-map">Star map</NuxtLink></li>
+    <li><NuxtLink to="/checkout">checkout</NuxtLink></li>
+    <li><NuxtLink to="/test-header">Home Page</NuxtLink></li>
   </ul>
 
 </template>

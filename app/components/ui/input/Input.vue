@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import type {HTMLAttributes} from "vue"
-import {useVModel} from "@vueuse/core"
-import {cn} from "@/lib/utils"
+import type { HTMLAttributes } from 'vue';
+import { useVModel } from '@vueuse/core';
+import { cn } from '@/lib/utils';
 
 const props = defineProps<{
   staticText?: string
   placeholder?: string
   defaultValue?: string | number
   modelValue?: string | number
-  class?: HTMLAttributes["class"]
+  class?: HTMLAttributes['class']
 }>()
 
 const emits = defineEmits<{
-  (e: "update:modelValue", payload: string | number): void
+  (e: 'update:modelValue', payload: string | number): void
 }>()
 
-const modelValue = useVModel(props, "modelValue", emits, {
+const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
   defaultValue: props.defaultValue,
 })
@@ -26,7 +26,9 @@ const staticTextRef = ref<HTMLElement | null>(null)
 <template>
   <div class="relative w-full">
     <span ref="staticTextRef" v-if="staticText"
-          class="absolute top-[8px] inline-block pl-[20px] pr-[20px] pt-[7px] pb-[7px] border-r border-input">{{ staticText }}</span>
+          class="absolute top-[8px] inline-block pl-[20px] pr-[20px] pt-[7px] pb-[7px] border-r border-input">{{
+        staticText
+      }}</span>
     <input
         v-model="modelValue"
         data-slot="input"

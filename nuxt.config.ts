@@ -28,6 +28,7 @@ export default defineNuxtConfig({
         '~/assets/css/tailwind.css',
         '~/assets/css/maps.css',
         '~/assets/css/styles.css',
+        '~/assets/css/fonts.css',
     ],
     vite: {
         plugins: [

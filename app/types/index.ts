@@ -8,12 +8,14 @@ export type LocationId = string
 export type ThemeId = number
 export type LayoutId = number
 export type ColorSchemeId = string
+export type FontId = number
 
 export type LoadingState = 'idle' | 'loading' | 'success' | 'error'
 
 export type AppStep = 1 | 2 | 3
 
 export type MapShape = 'rectangle' | 'circle' | 'horizontal' | 'tall' | 'full-page'
+export type InputMode = 'text' | 'none' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search' | undefined
 
 export interface Location {
     id: LocationId
@@ -118,4 +120,12 @@ export interface MapExportResult {
     filename: string
     fileSize: number
     mimeType: string
+}
+
+export interface Font {
+    id: FontId
+    label: string
+    fontFamily: string
+    preview: string
+
 }

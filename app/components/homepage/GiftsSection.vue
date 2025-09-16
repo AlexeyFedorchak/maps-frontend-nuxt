@@ -15,9 +15,9 @@
           </div>
         </div>
 
-        <div class="gift-item">
+        <div class="gift-item gift-item-2">
           <div class="gift-image">
-            <img src="/images/gift_2.png" alt="Wear the Moment Forever" />
+            <img src="/images/gift_2.png" alt="Wear the Moment Forever" class="gift-2-img" />
           </div>
           <div class="gift-content">
             <h3 class="gift-title">WEAR THE MOMENT FOREVER</h3>
@@ -28,9 +28,9 @@
           </div>
         </div>
 
-        <div class="gift-item">
+        <div class="gift-item gift-item-3">
           <div class="gift-image">
-            <img src="/images/gift_3.png" alt="Frame Your Creation" />
+            <img src="/images/gift_3.png" alt="Frame Your Creation" class="gift-3-img" />
           </div>
           <div class="gift-content">
             <h3 class="gift-title">FRAME YOUR CREATION</h3>
@@ -129,6 +129,33 @@
   
   .gifts-section {
     height: 300vh;
+  }
+  
+  .gift-content {
+    bottom: 40px;
+  }
+  
+  .gift-item:hover .gift-image img {
+    transform: scale(1) !important;
+  }
+  
+  .gift-2-img {
+    object-fit: contain;
+    object-position: 20% 80%;
+    transform: scale(1);
+  }
+  
+  .gift-3-img {
+    object-fit: contain;
+    object-position: center center;
+  }
+  
+  .gift-item:hover .gift-2-img {
+    transform: scale(1) !important;
+  }
+  
+  .gift-item:hover .gift-3-img {
+    transform: scale(1) !important;
   }
 }
 

@@ -7,9 +7,7 @@
         <p class="subtitle">Your most common questions answered</p>
       </div>
 
-      
       <div class="content-grid">
-        
         <div class="accordion-column">
           <Accordion 
             type="single" 
@@ -33,7 +31,6 @@
           </Accordion>
         </div>
 
-        
         <div class="content-column">
           <div class="content-card">
             <h3 class="content-title">{{ currentContent.title || currentContent.question }}</h3>
@@ -155,7 +152,6 @@ const updateSelectedItem = (value) => {
 }
 
 .accordion-column {
-
 }
 
 .faq-accordion-item {

@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-gray-900 text-white px-4 py-3 font-lato">
+  <header class="bg-gray-900 text-white px-4 py-3 font-lato hidden md:block">
     <div class="w-full">
       <div class="grid grid-cols-3 items-center">
         <div class="flex flex-row items-center space-x-4 justify-start flex-nowrap">

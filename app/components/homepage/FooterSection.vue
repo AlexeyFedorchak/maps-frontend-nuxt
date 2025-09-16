@@ -1,6 +1,70 @@
 <template>
   <footer class="footer-section">
     <div class="container">
+      <div class="footer-mobile mobile-only">
+        <div class="mobile-logo-section">
+          <img src="/images/PNG LOGO (4) 1.png" alt="Picture the Stars" class="mobile-footer-logo" />
+          <p class="mobile-company-description">
+            The specialists in creating exceptional Star Maps of the highest quality. 
+            Perfected over years of innovation & evolution. New products launched.
+          </p>
+        </div>
+        
+        <div class="mobile-sections">
+          <div class="mobile-section">
+            <h3 class="mobile-footer-title">PREMIUM PRINT</h3>
+            <div class="mobile-links">
+              <a href="#">Moon Phase Print</a>
+              <a href="#">Original Star Map</a>
+              <a href="#">Real Photo Star Map</a>
+              <a href="#">Mystic Night Star Map</a>
+              <a href="#">Deep Space Print</a>
+              <a href="#">Location Map</a>
+            </div>
+          </div>
+          
+          <div class="mobile-section">
+            <h3 class="mobile-footer-title">PREMIUM PRINT</h3>
+            <div class="mobile-links">
+              <a href="#">Location Map Jewellery</a>
+              <a href="#">Star Map Jewellery</a>
+            </div>
+          </div>
+          
+          <div class="mobile-section">
+            <h3 class="mobile-footer-title">CONTACT US</h3>
+            <div class="mobile-contact">
+              <p>We are always happy to help<br>Monday - Friday 9am - 4:30pm</p>
+              <p>Picture The Stars, Ivy Business Centre, Crown Street, Failsworth, Manchester, M35 9BD, United Kingdom</p>
+              <p>support@picturethestars.com</p>
+              <p>0161 528 9460</p>
+            </div>
+          </div>
+          
+          <div class="mobile-section">
+            <h3 class="mobile-footer-title">FREE UK SHIPPING</h3>
+            <div class="mobile-shipping">
+              <p>Free shipping to the UK, Orders before 3:30pm are dispatched the same day.</p>
+              <p>All orders sent via Royal Mail Fully Tracked 48 hour (1-2 Days). Email and SMS Text updates.</p>
+            </div>
+          </div>
+          
+          <div class="mobile-section">
+            <h3 class="mobile-footer-title">GUARANTEE</h3>
+            <div class="mobile-guarantee">
+              <p>We are confident you will love your purchase, however if you decide to return it back to us within 30 days, we will refund you 100% of the purchase amount.</p>
+            </div>
+          </div>
+          
+          <div class="mobile-section">
+            <h3 class="mobile-footer-title">SECURE PAYMENT</h3>
+            <div class="mobile-payment">
+              <p>Encrypted secure payment powered by Stripe. Money back guarantee (30 days) if you are not satisfied with your order. Credit & Debit card payments by</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <div class="footer-grid">
         <div class="footer-column">
           <div class="logo-section">
@@ -92,7 +156,6 @@
         </div>
       </div>
 
-      
       <div class="footer-middle">
         <div class="social-links">
           <a href="#">Facebook</a>
@@ -108,7 +171,6 @@
         </div>
       </div>
 
-      
       <div class="footer-bottom">
         <div class="copyright">
           <p>COPYRIGHT PICTURE THE STARS © 2024 ALL RIGHTS RESERVED</p>
@@ -349,32 +411,151 @@
   }
 }
 
-@media (max-width: 480px) {
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
   .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    display: none;
   }
   
-  .container {
-    padding: 0 20px;
+  .mobile-only {
+    display: block;
   }
   
-  .footer-section {
-    padding: 40px 0 0 0;
+  .footer-mobile {
+    padding: 20px 0;
+  }
+  
+  .mobile-logo-section {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .mobile-footer-logo {
+    max-width: 180px;
+    margin: 0 auto 20px auto;
+    display: block;
+  }
+  
+  .mobile-company-description {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #a0a3a8;
+    margin: 0;
+  }
+  
+  .mobile-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  .mobile-section {
+    text-align: center;
+  }
+  
+  .mobile-footer-title {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .mobile-links a {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #a0a3a8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .mobile-links a:hover {
+    color: #ffffff;
+  }
+  
+  .mobile-contact,
+  .mobile-shipping,
+  .mobile-guarantee,
+  .mobile-payment {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .mobile-contact p,
+  .mobile-shipping p,
+  .mobile-guarantee p,
+  .mobile-payment p {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #a0a3a8;
+    margin: 0;
   }
   
   .footer-middle {
-    padding: 20px 10px;
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+    padding: 40px 20px;
     margin: 0 -20px;
+  }
+  
+  .social-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    justify-items: center;
+    margin-top: 0;
+  }
+  
+  .payment-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .payments-image {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
   }
   
   .footer-bottom {
     margin: 0 -20px;
+    padding: 20px 20px;
   }
   
-  .payments-image {
-    width: 200px;
-    height: 35px;
+  .container {
+    padding: 0 20px;
   }
 }
 </style>

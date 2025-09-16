@@ -3,7 +3,7 @@
     class="relative py-3 bg-cover bg-center bg-no-repeat newsletter-section"     
     style="background-image: url('/images/chocolate.png')"   
   >          
-    <div class="relative max-w-7xl mx-auto px-6">       
+    <div class="hidden md:block relative max-w-7xl mx-auto px-6">       
       <div class="flex items-center justify-center gap-8">         
         <div class="flex items-center gap-6">           
           <h3 class="font-lato font-black text-[20px] leading-[38px] tracking-[0px] text-black">             
@@ -30,6 +30,38 @@
           </button>         
         </div>       
       </div>     
+    </div>
+    
+    <div class="block md:hidden relative max-w-sm mx-auto px-6 py-8">
+      <div class="flex flex-col space-y-6">
+        <div class="text-center">
+          <h3 class="font-lato font-black text-xl leading-tight tracking-[0px] text-black mb-3">
+            10% OFF Join the Free Newsletter
+          </h3>
+          <p class="font-lato text-black text-sm">
+            Sign up and receive 10% off your first order
+          </p>
+        </div>
+        
+        <div class="w-full">
+          <input
+            v-model="email"
+            type="email"
+            placeholder="ENTER EMAIL ADDRESS"
+            class="w-full h-12 px-4 bg-white border-2 border-gray-200 rounded-full text-sm text-gray-600 placeholder-gray-400 outline-none focus:border-gray-300 transition-colors"
+            @keypress="handleKeyPress"
+          />
+        </div>
+        
+        <div class="w-full">
+          <button
+            @click="handleSubmit"
+            class="w-full h-12 bg-gray-100 hover:bg-gray-200 text-black font-lato font-bold text-sm rounded-full transition-colors duration-300 border-2 border-gray-200"
+          >
+            GET MY 10% CODE
+          </button>
+        </div>
+      </div>
     </div>   
   </section> 
 </template>  

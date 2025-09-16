@@ -2,16 +2,27 @@
   <section class="bg-white py-32 md:py-40">
     <div class="w-full px-0">
       <div class="text-center mb-16 md:mb-20 px-6">
-        <h2 class="font-lato font-extrabold text-3xl md:text-4xl text-gray-900 mb-4 tracking-wide">
-          WHY 50,000+ PEOPLE CAPTURED THEIR STORIES FOREVER.
-        </h2>
-        <p class="font-lato font-medium text-lg text-gray-600">
-          Real moments. Real memories. Rated Excellent on Trustpilot.
-        </p>
+        <div class="block md:hidden">
+          <h2 class="font-lato font-extrabold text-2xl text-gray-900 mb-4 tracking-wide leading-tight">
+            WHY 50,000+ PEOPLE<br>CAPTURED THEIR STORIES<br>FOREVER.
+          </h2>
+          <p class="font-lato font-medium text-base text-gray-600">
+            Real moments. Real memories.<br>Rated Excellent on Trustpilot.
+          </p>
+        </div>
+        
+        <div class="hidden md:block">
+          <h2 class="font-lato font-extrabold text-3xl md:text-4xl text-gray-900 mb-4 tracking-wide">
+            WHY 50,000+ PEOPLE CAPTURED THEIR STORIES FOREVER.
+          </h2>
+          <p class="font-lato font-medium text-lg text-gray-600">
+            Real moments. Real memories. Rated Excellent on Trustpilot.
+          </p>
+        </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-8 items-start px-6">
-        <div class="lg:col-span-1">
+        <div class="hidden md:block lg:col-span-1">
           <div class="border border-gray-200 p-4 bg-white min-h-[180px] h-[180px] flex flex-col justify-start pt-2">
             <div class="text-center">
               <div class="mb-2">
@@ -27,7 +38,7 @@
                   </div>
                 </div>
                 <p class="text-sm text-gray-600 mb-1">
-                  Based on <span class="font-bold underline">{{ mockReviews.length }} reviews</span>
+                  Based on <span class="font-bold underline">{{ totalReviews > 0 ? totalReviews : mockReviews.length }} reviews</span>
                 </p>
               </div>
 
@@ -38,8 +49,79 @@
             </div>
           </div>
         </div>
+        
+        <div class="block md:hidden mb-8 py-4">
+          <div class="max-w-sm mx-auto px-4">
+            <div class="text-center">
+              <div class="mb-4">
+                <div class="font-lato font-bold text-gray-900 text-3xl mb-2">
+                  Excellent
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <div class="flex justify-center mb-3">
+                  <div class="flex space-x-1">
+                    <img src="/images/Frame 89.png" alt="Star" class="w-28 h-7" />
+                  </div>
+                </div>
+                <p class="text-base text-gray-600 mb-3">
+                  Based on <span class="font-bold underline">{{ totalReviews > 0 ? totalReviews : mockReviews.length }} reviews</span>
+                </p>
+              </div>
 
-        <div class="lg:col-span-5 xl:col-span-6">
+              <div class="flex items-center justify-center">
+                <img src="/images/Vector.png" alt="Star" class="w-6 h-6 mr-3" />
+                <span class="font-lato font-semibold text-gray-900 text-xl">Trustpilot</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="block md:hidden">
+          <div class="max-w-7xl mx-auto">
+            <div class="overflow-x-auto px-4">
+              <div class="flex gap-4">
+                <div 
+                  v-for="(review, index) in reviewSlides[0].slice(0, 3)" 
+                  :key="'mobile-review-' + index"
+                  class="flex-shrink-0 w-84 bg-white border border-gray-200 p-5 shadow-sm"
+                >
+                  <div class="flex items-center justify-between mb-3">
+                    <div class="flex space-x-1">
+                      <img src="/images/Frame 89.png" alt="5 Stars" class="w-20 h-4" />
+                    </div>
+                    <span class="text-xs text-gray-500">{{ review.timeAgo }}</span>
+                  </div>
+
+                  <h3 class="font-lato font-bold text-gray-900 mb-3 text-sm">
+                    {{ review.title }}
+                  </h3>
+
+                  <p class="font-lato text-sm text-gray-600 leading-relaxed mb-4">
+                    {{ review.content }}
+                  </p>
+
+                  <div class="border-b border-gray-200 mb-4 w-16"></div>
+
+                  <div class="flex items-center">
+                    <div class="w-7 h-7 bg-gray-300 rounded-full flex items-center justify-center mr-3">
+                      <span class="text-gray-600 text-xs font-semibold">
+                        {{ review.reviewer.charAt(0).toUpperCase() }}
+                      </span>
+                    </div>
+                    <div>
+                      <p class="font-lato font-semibold text-gray-900 text-sm">{{ review.reviewer }}</p>
+                      <p class="text-xs text-gray-500">Worldtraveler</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden md:block lg:col-span-5 xl:col-span-6">
           <div class="relative overflow-hidden">
             <div 
               class="flex transition-transform duration-500 ease-in-out"
@@ -112,6 +194,8 @@ const currentSlide = ref(0)
 const loading = ref(false)
 const error = ref(null)
 const isMounted = ref(false)
+const realReviews = ref([])
+const totalReviews = ref(0)
 
 const carouselStyle = computed(() => {
   if (!isMounted.value && process.server) {
@@ -268,10 +352,12 @@ const mockReviews = ref([
 ])
 
 const reviewSlides = computed(() => {
+  const reviews = realReviews.value.length > 0 ? realReviews.value : mockReviews.value
+  
   const slides = []
   const reviewsPerSlide = 6
-  for (let i = 0; i < mockReviews.value.length; i += reviewsPerSlide) {
-    slides.push(mockReviews.value.slice(i, i + reviewsPerSlide))
+  for (let i = 0; i < reviews.length; i += reviewsPerSlide) {
+    slides.push(reviews.slice(i, i + reviewsPerSlide))
   }
   return slides
 })
@@ -286,11 +372,37 @@ const startAutoPlay = () => {
   }, 5000)
 }
 
+const loadRealReviews = async () => {
+  try {
+    loading.value = true
+    console.log('Loading real Trustpilot reviews...')
+    
+    const response = await $fetch('/api/trustpilot/reviews')
+    
+    if (response.success && response.reviews.length > 0) {
+      realReviews.value = response.reviews
+      totalReviews.value = response.totalReviews
+      console.log('Loaded real reviews:', response.reviews.length)
+    } else {
+      console.log('API returned no reviews, using fallback data')
+      error.value = response.error || 'No reviews available'
+    }
+  } catch (err) {
+    console.error('Failed to load Trustpilot reviews:', err)
+    error.value = err.message || 'Failed to load reviews'
+  } finally {
+    loading.value = false
+  }
+}
+
 onMounted(async () => {
   await nextTick()
   isMounted.value = true
   console.log('TrustpilotSection mounted:', isMounted.value)
   console.log('ReviewSlides length:', reviewSlides.value.length)
+  
+  await loadRealReviews()
+  
   startAutoPlay()
 })
 

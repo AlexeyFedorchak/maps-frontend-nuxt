@@ -2,7 +2,6 @@
   <section class="moment-section">
     <div class="container">
       <div class="content-grid">
-        
         <div class="text-column">
           <h2 class="main-title">
             WHAT MOMENT WILL<br>
@@ -25,10 +24,8 @@
             CREATE STAR MAP
           </button>
         </div>
-        
-        
+
         <div class="image-column">
-          
         </div>
       </div>
     </div>
@@ -133,6 +130,19 @@
 }
 
 @media (max-width: 768px) {
+  .moment-section {
+    background-image: url('/images/moon-background.png');
+    background-color: #E1E0DE;
+    background-position: center 120%;
+    background-size: 300% 80%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .container {
+    position: relative;
+    z-index: 2;
+  }
   .content-grid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -142,6 +152,9 @@
   .text-column {
     padding-right: 0;
     order: 2;
+    transform: translateY(-300px);
+    position: relative;
+    z-index: 10;
   }
   
   .image-column {

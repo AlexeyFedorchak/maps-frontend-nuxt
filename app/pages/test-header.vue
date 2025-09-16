@@ -6,7 +6,7 @@
     <NewsletterSection />
     <FeaturesSection />
     <GiftsSection />
-    <FaqSection />
+    <FaqSection class="hidden md:block" />
     <MomentSection />
     <PersonalisedGiftsSection />
     <NewsletterSection />

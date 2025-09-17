@@ -1,11 +1,11 @@
 <template>
-  <header class="bg-gray-900 text-white px-4 py-3 font-lato hidden md:block">
+  <header class="bg-gray-900 text-white px-4 py-3 w-full h-16 font-lato hidden md:block fixed z-50">
     <div class="w-full">
       <div class="grid grid-cols-3 items-center">
-        <div class="flex flex-row items-center space-x-4 justify-start flex-nowrap">
+        <div class="flex items-center justify-start flex-nowrap">
           <button 
             @click="toggleMenu"
-            class="flex flex-col justify-center items-center w-6 h-6 space-y-1.5 hover:opacity-75 transition-opacity mr-8"
+            class="flex flex-col justify-center items-center w-6 h-6 space-y-1.5 hover:opacity-75 transition-opacity cursor-pointer"
             aria-label="Toggle menu"
           >
             <span class="block w-5 h-0.5 bg-white rounded-full"></span>
@@ -13,46 +13,45 @@
             <span class="block w-5 h-0.5 bg-white rounded-full"></span>
           </button>
 
-          <button class="flex flex-row items-center space-x-1 px-8 h-10 border-2 border-white rounded-lg text-white text-xs font-bold hover:opacity-75 transition leading-none whitespace-nowrap mr-8">
-          <img src="/images/Frame 69.png" alt="Create Star Map" class="h-4" />
-          <span>CREATE STAR MAP</span>
+          <button class="flex items-center space-x-1 px-4 py-2 min-w-[180px] ml-4 border-1 border-white rounded-[12px] text-white text-xs font-bold hover:opacity-75 transition leading-none whitespace-nowrap cursor-pointer">
+            <img src="/images/icons/stars.svg" alt="Create Star Map" class="h-4" />
+            <span class="tracking-[1px]">CREATE STAR MAP</span>
           </button>
 
-          <div class="hidden md:flex flex-row items-center space-x-2 scale-75 whitespace-nowrap">
+          <div class="hidden md:flex items-center space-x-2 scale-75 whitespace-nowrap">
             <span class="text-lg">Excellent</span>
-            <img src="/images/Frame 89.png" alt="Trustpilot Rating" class="h-6" />
-            <span class="text-lg">4.9 out of 5</span>
-            <img src="/images/Vector.png" alt="Trustpilot Rating" class="h-6" />
-            <span class="text-lg">Trustpilot</span>
+            <img src="/images/icons/5stars.svg" alt="Trustpilot Rating" class="h-6" />
+            <span class="text-lg">4.8 out of 5</span>
+            <img src="/images/icons/trustpilot-white.svg" alt="Trustpilot Logo" class="h-6" />
           </div>
         </div>
 
-        <div class="flex justify-center">
+        <div class="flex items-center justify-center">
           <NuxtLink to="/" class="hover:opacity-75 transition-opacity">
-            <img src="/images/PNG LOGO (4) 1.png" alt="PicturetheStars Logo" class="h-8" />
+            <img src="/images/logo.svg" alt="Picture the Stars Logo" class="h-8" />
           </NuxtLink>
         </div>
 
-        <div class="flex flex-row items-center space-x-4 justify-end flex-nowrap">
+        <div class="flex items-center justify-end flex-nowrap space-x-4 mr-8">
          
-          <div class="flex flex-row items-center whitespace-nowrap ml-8">
-            <img src="/images/Vector (1).png" class="h-4 px-2" />
+          <a href="tel:0161 528 9460" class="flex items-center whitespace-nowrap">
+            <img src="/images/icons/phone.svg" alt="Phone" class="h-4 px-2" />
             <span class="text-sm">0161 528 9460</span>
-          </div>
+          </a>
 
-          <div class="flex flex-row items-center whitespace-nowrap ml-8">
-            <img src="/images/Ebene 1.png" class="h-6 px-1 -mt-1" />
+          <div class="flex items-center whitespace-nowrap">
+            <img src="/images/icons/location.svg" alt="Location" class="h-4 px-2" />
             <span class="text-sm">1-2 FREE DAY SHIPPING</span>
           </div>
 
-          <div class="flex flex-row items-center whitespace-nowrap ml-8">
-            <img src="/images/Vector (2).png" class="h-4 px-2" />
+          <div class="flex flex-row items-center whitespace-nowrap">
+            <img src="/images/icons/globe.svg" alt="Globe" class="h-4 px-2" />
             <span class="text-sm">UK (GBP)</span>
           </div>
 
-          <div class="flex flex-row items-center whitespace-nowrap mr-8">
-            <img src="/images/Button.png" class="h-4 px-2" />
-            <span class="text-sm">BUSKET</span>
+          <div class="flex items-center whitespace-nowrap cursor-pointer">
+            <img src="/images/icons/basket.svg" alt="Basket" class="h-4 px-2" />
+            <span class="text-sm">BASKET</span>
           </div>
           
         </div>
@@ -64,8 +63,7 @@
         <div class="bg-gray-900 w-80 h-full p-6 shadow-2xl">
           <div class="flex justify-between items-center mb-8">
             <div class="flex items-center space-x-2">
-              <img src="/images/PNG LOGO (4) 1.png" alt="Logo" class="h-6" />
-              <span class="text-lg font-light">Menu</span>
+              <img src="/images/logo.svg" alt="Logo" class="h-6" />
             </div>
             <button @click="showMenu = false" class="text-3xl hover:text-red-400 transition-colors">&times;</button>
           </div>
@@ -124,18 +122,5 @@ router.afterEach(() => {
 </script>
 
 <style scoped>
-.slide-enter-active,
-.slide-leave-active {
-  transition: all 0.3s ease;
-}
 
-.slide-enter-from {
-  transform: translateX(-100%);
-  opacity: 0;
-}
-
-.slide-leave-to {
-  transform: translateX(-100%);
-  opacity: 0;
-}
 </style>

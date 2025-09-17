@@ -4,12 +4,12 @@
         <img 
           src="/images/hero-background.png" 
           alt="Hero Background" 
-          class="w-full h-full object-cover object-center min-h-screen"
+          class="w-full h-full object-cover object-center min-h-screen md:mt-16"
         />
-        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent"></div>
       </div>
       
-      <div class="relative z-[2] w-full text-center text-white pb-[5vh] md:pb-[5vh] px-4 md:px-0 pt-[70vh] md:pt-0">
+      <div class="relative z-[2] w-full text-center text-white px-4 md:px-0 pt-[70vh] md:pt-0">
         <div class="max-w-[1200px] mx-auto px-5">
           <div class="max-w-[800px] mx-auto">
 
@@ -20,19 +20,17 @@
               CREATE YOUR STAR MAP >
             </NuxtLink>
   
-            <div class="flex items-center justify-center gap-1 mb-[14px] text-white text-center flex-wrap">
-              <img src="/images/Frame 89.png" alt="Trustpilot Rating" class="h-[14px] w-auto" />
-              <span class="font-lato font-medium text-[16px] md:text-[20px]">Excellent</span>
-              <span class="font-lato font-medium text-[16px] md:text-[20px]">4.8 out of 5</span>
-              <img src="/images/Vector.png" alt="Trustpilot Rating" class="h-[14px] w-auto" />
-              <span class="font-lato font-medium text-[16px] md:text-[20px]">Trustpilot</span>
+            <div class="flex items-center justify-center space-x-2 mb-[14px] text-white text-center flex-wrap">
+              <img src="/images/icons/5stars.svg" alt="Trustpilot Rating" class="h-[14px] w-auto" />
+              <span class="font-lato font-medium text-[16px] text-black md:text-[20px]">Excellent 4.8 out of 5</span>
+              <img src="/images/icons/trustpilot.svg" alt="Trustpilot Logo" class="h-[20px] w-auto" />
             </div>
   
             <h1 class="font-lato font-extrabold text-[24px] md:text-[28px] text-black tracking-[1.8px] md:tracking-[2.4px] leading-[1.35] mb-3 px-4 md:px-0 text-center">
               CAPTURE YOUR MOMENT IN THE STARS
             </h1>
             
-            <div class="max-w-[600px] mx-auto px-2 md:px-0">
+            <div class="max-w-[600px] mx-auto px-2 pb-[3vh] md:px-0">
               <p class="font-lato font-medium text-[16px] md:text-[20px] text-black/90 leading-[1.4] text-center">
                 <span class="block md:hidden">
                   <span class="whitespace-nowrap">Start with a time and place that means everything.</span><br>
@@ -44,6 +42,11 @@
                 </span>
               </p>
             </div>
+
+            <div class="flex justify-center w-full pb-[2vh]">
+              <hr class="border-[#D9D9D9] w-[254px]" />
+            </div>
+
           </div>
         </div>
       </div>

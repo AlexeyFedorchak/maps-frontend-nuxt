@@ -15,7 +15,7 @@
           <h2 class="font-lato font-extrabold text-3xl md:text-4xl text-gray-900 mb-4 tracking-wide">
             WHY 50,000+ PEOPLE CAPTURED THEIR STORIES FOREVER.
           </h2>
-          <p class="font-lato font-medium text-lg text-gray-600">
+          <p class="font-lato font-medium text-lg" style="color: #787878;">
             Real moments. Real memories. Rated Excellent on Trustpilot.
           </p>
         </div>
@@ -436,11 +436,11 @@ watchEffect(() => {
   border-radius: 9999px;
   width: 0.5rem;
   height: 0.5rem;
-  background-color: #d1d5db; 
+  background-color: #a5a5a5; 
 }
 
 .dot.active {
-  background-color: #9ca3af; 
+  background-color: #CDCAC1; 
   width: 2rem;
   height: 0.5rem;
 }

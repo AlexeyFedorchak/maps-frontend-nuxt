@@ -328,11 +328,11 @@ watchEffect(() => {
   border-radius: 9999px;
   width: 0.5rem;
   height: 0.5rem;
-  background-color: #d1d5db;
+  background-color: #a5a5a5;
 }
 
 .dot.active {
-  background-color: #9ca3af;
+  background-color: #C1CAC1;
   width: 2rem;
   height: 0.5rem;
 }

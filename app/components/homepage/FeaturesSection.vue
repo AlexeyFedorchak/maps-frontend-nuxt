@@ -29,7 +29,7 @@
             THE HIGHEST FINE ART PRODUCTS
           </h2>
           
-          <p class="font-lato text-sm text-gray-400 leading-relaxed">
+          <p class="font-lato text-sm text-white-400 leading-relaxed">
             Perfected over many years your picture the stars custom star map is a bespoke work of art.
             Capture your special moment in the stars forever.
           </p>
@@ -137,7 +137,7 @@
                   <img src="/images/UHD.png" alt="Ultra HD Print" class="w-12 h-12 object-contain mb-4" />
                 </div>
                 <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Ultra HD Print</h3>
-                <p class="font-lato text-sm text-gray-400 leading-relaxed min-h-[40px]">
+                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
                   Finest Art Giclée<br>
                   Ultra high detail
                 </p>
@@ -148,7 +148,7 @@
                   <img src="/images/Award Winning.png" alt="Award Winning" class="w-12 h-12 object-contain mb-4" />
                 </div>
                 <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Award Winning</h3>
-                <p class="font-lato text-sm text-gray-400 leading-relaxed min-h-[40px]">
+                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
                   Canon Printer Awards<br>
                   superior colour gamut
                 </p>
@@ -159,7 +159,7 @@
                   <img src="/images/telescope.png" alt="Verified Accuracy" class="w-12 h-12 object-contain mb-4" />
                 </div>
                 <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Verified Accuracy</h3>
-                <p class="font-lato text-sm text-gray-400 leading-relaxed min-h-[40px]">
+                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
                   Joint star catalogues<br>
                   avoid cheap fakes
                 </p>
@@ -170,7 +170,7 @@
                   <img src="/images/info-frame.png" alt="Premium Framing" class="w-12 h-12 object-contain mb-4" />
                 </div>
                 <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Premium Framing</h3>
-                <p class="font-lato text-sm text-gray-400 leading-relaxed min-h-[40px]">
+                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
                   Full Framing Service<br>
                   and red gift ribbon
                 </p>
@@ -183,7 +183,7 @@
                   <img src="/images/Milky Way+.png" alt="Milky Way+" class="w-12 h-12 object-contain mb-4" />
                 </div>
                 <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Milky Way+</h3>
-                <p class="font-lato text-sm text-gray-400 leading-relaxed min-h-[40px]">
+                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
                   Enhanced photo<br>
                   Remastered detail
                 </p>
@@ -194,7 +194,7 @@
                   <img src="/images/Museum Grade.png" alt="Museum Grade" class="w-12 h-12 object-contain mb-4" />
                 </div>
                 <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Museum Grade</h3>
-                <p class="font-lato text-sm text-gray-400 leading-relaxed min-h-[40px]">
+                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
                   285gsm Art Cardstock<br>
                   prints to last a lifetime
                 </p>
@@ -205,7 +205,7 @@
                   <img src="/images/Constellations.png" alt="Constellations" class="w-12 h-12 object-contain mb-4" />
                 </div>
                 <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Constellations</h3>
-                <p class="font-lato text-sm text-gray-400 leading-relaxed min-h-[40px]">
+                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
                   And more features<br>
                   compass, border
                 </p>
@@ -216,7 +216,7 @@
                   <img src="/images/delivery.png" alt="Fast Free Shipping" class="w-12 h-12 object-contain mb-4" />
                 </div>
                 <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Fast Free Shipping</h3>
-                <p class="font-lato text-sm text-gray-400 leading-relaxed min-h-[40px]">
+                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
                   1-2 day fully tracked<br>
                   Fully tracked notifications
                 </p>
@@ -254,7 +254,7 @@
 
 <style scoped>
 .features-section {
-  background-color: #1a1a1a;
+  background-color: #1C1E21;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -293,7 +293,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
-  color: #a3a3a3;
+  color: #ffffff;
   max-width: 900px;
   margin: 0 auto 80px auto;
   text-align: center;
@@ -372,7 +372,6 @@
 
 .cta-button:hover {
   background-color: #f5f5f5;
-  transform: translateY(-2px);
 }
 
 .made-with {

@@ -155,7 +155,7 @@ const updateSelectedItem = (value) => {
 }
 
 .faq-accordion-item {
-  border: 2px solid #e2e8f0;
+  border: 1px solid #cdcac1;
   border-radius: 12px;
   margin-bottom: 30px;
   height: 80px;
@@ -164,9 +164,6 @@ const updateSelectedItem = (value) => {
   transition: border-color 0.3s ease;
 }
 
-.faq-accordion-item[data-state="open"] {
-  border-color: #d4a574;
-}
 
 :deep(.faq-trigger) {
   font-family: 'Lato', sans-serif !important;
@@ -286,7 +283,7 @@ const updateSelectedItem = (value) => {
   font-weight: 600;
   font-size: 12px;
   color: #000000;
-  background: #f5f5f5;
+  background: #cdcac1;
   border: 2px solid #f5f5f5;
   border-radius: 50px;
   padding: 10px 24px;
@@ -295,12 +292,6 @@ const updateSelectedItem = (value) => {
   letter-spacing: 0.5px;
   min-width: 180px;
   height: 40px;
-}
-
-.btn-primary:hover {
-  background-color: #f5f5f5;
-  color: #000000;
-  border-color: #f5f5f5;
 }
 
 @media (max-width: 768px) {

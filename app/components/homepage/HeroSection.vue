@@ -14,10 +14,10 @@
           <div class="max-w-[800px] mx-auto">
 
             <NuxtLink 
-              to="/create" 
-              class="inline-flex items-center justify-center w-full max-w-[424px] h-[70px] bg-white/95 text-gray-800 rounded-2xl font-lato font-extrabold text-[16px] md:text-[20px] tracking-[1.6px] md:tracking-[2.4px] leading-[1.25] uppercase transition-all duration-300 backdrop-blur-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.15)] mb-3 hover:bg-white hover:shadow-[0_3px_15px_rgba(0,0,0,0.25)] hover:-translate-y-0.5 mx-auto"
+            to="/create" 
+            class="inline-flex items-center justify-center w-full max-w-[424px] h-[70px] bg-white/95 text-gray-800 rounded-2xl font-lato font-extrabold text-[16px] md:text-[20px] tracking-[1.6px] md:tracking-[2.4px] leading-[1.25] uppercase backdrop-blur-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.15)] mb-3 mx-auto"
             >
-              CREATE YOUR STAR MAP >
+            CREATE YOUR STAR MAP >
             </NuxtLink>
   
             <div class="flex items-center justify-center space-x-2 mb-[14px] text-white text-center flex-wrap">

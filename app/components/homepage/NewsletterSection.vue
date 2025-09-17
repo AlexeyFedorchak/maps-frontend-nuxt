@@ -56,7 +56,7 @@
         <div class="w-full">
           <button
             @click="handleSubmit"
-            class="w-full h-12 bg-gray-100 hover:bg-gray-200 text-black font-lato font-bold text-sm rounded-full transition-colors duration-300 border-2 border-gray-200"
+            class="w-full h-12 bg-gray-100 text-black font-lato font-bold text-sm rounded-full border-2 border-gray-200"
           >
             GET MY 10% CODE
           </button>
@@ -136,7 +136,7 @@ const handleKeyPress = (event) => {
   top: 1px;
   height: 48px;
   padding: 0 26px;
-  background-color: #f8f9fa;
+  background-color: #f7f7f7;
   color: #1f2937;
   font-family: 'Lato', sans-serif;
   font-weight: 700;
@@ -144,14 +144,7 @@ const handleKeyPress = (event) => {
   border: none;
   border-radius: 24px;
   white-space: nowrap;
-  transition: all 0.3s;
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.submit-button:hover {
-  background-color: #f1f3f4;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 </style>

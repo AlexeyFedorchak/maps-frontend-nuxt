@@ -107,23 +107,15 @@
   border-radius: 25px;
   padding: 20px 48px;
   cursor: pointer;
-  transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   align-self: flex-start;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   min-width: 220px;
   height: 56px;
-}
-
-.cta-button:hover {
-  background-color: #f5f5f5;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .image-column {

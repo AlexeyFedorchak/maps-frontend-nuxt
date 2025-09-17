@@ -185,7 +185,7 @@
 
 <style scoped>
 .footer-section {
-  background-color: #1a1f2e;
+  background-color: #25282D;
   color: #ffffff;
   padding: 60px 0 0 0;
 }

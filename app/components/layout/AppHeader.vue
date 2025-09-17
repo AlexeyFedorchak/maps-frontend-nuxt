@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-gray-900 text-white px-4 py-3 w-full h-16 font-lato hidden md:block fixed z-50">
+  <header class="text-white px-4 py-3 w-full h-16 font-lato hidden md:block fixed z-50"  style="background-color: #25282D;">
     <div class="w-full">
       <div class="grid grid-cols-3 items-center">
         <div class="flex items-center justify-start flex-nowrap">

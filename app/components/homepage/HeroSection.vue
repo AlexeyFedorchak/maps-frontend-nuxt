@@ -4,7 +4,7 @@
         <img 
           src="/images/hero-background.png" 
           alt="Hero Background" 
-          class="w-full h-full object-cover object-center min-h-screen md:mt-16"
+          class="w-full h-full object-cover object-center min-h-screen mt-16"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent"></div>
       </div>

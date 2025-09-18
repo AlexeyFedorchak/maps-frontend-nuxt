@@ -3,7 +3,7 @@
     <div class="container">
       <div class="footer-mobile mobile-only">
         <div class="mobile-logo-section">
-          <img src="/images/PNG LOGO (4) 1.png" alt="Picture the Stars" class="mobile-footer-logo" />
+          <img src="/images/logo.svg" alt="Picture the Stars" class="mobile-footer-logo" />
           <p class="mobile-company-description">
             The specialists in creating exceptional Star Maps of the highest quality. 
             Perfected over years of innovation & evolution. New products launched.
@@ -68,7 +68,7 @@
       <div class="footer-grid">
         <div class="footer-column">
           <div class="logo-section">
-            <img src="/images/PNG LOGO (4) 1.png" alt="Picture the Stars" class="footer-logo" />
+            <img src="/images/logo.svg" alt="Picture the Stars" class="footer-logo" />
           </div>
           <p class="company-description">
             The specialists in creating exceptional<br>
@@ -199,7 +199,7 @@
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 80px;
+  gap: 60px;
   margin-bottom: 40px;
 }
 

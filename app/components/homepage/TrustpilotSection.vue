@@ -34,7 +34,7 @@
               <div class="mb-3">
                 <div class="flex justify-center mb-2">
                   <div class="flex space-x-1">
-                    <img src="/images/Frame 89.png" alt="Star" class="w-20 h-6" />
+                    <img src="/images/icons/5stars.svg" alt="Star" class="w-[230px]" />
                   </div>
                 </div>
                 <p class="text-sm text-gray-600 mb-1">
@@ -62,7 +62,7 @@
               <div class="mb-4">
                 <div class="flex justify-center mb-3">
                   <div class="flex space-x-1">
-                    <img src="/images/Frame 89.png" alt="Star" class="w-28 h-7" />
+                    <img src="/images/icons/5stars.svg" alt="Star" class="w-[50vw]" />
                   </div>
                 </div>
                 <p class="text-base text-gray-600 mb-3">
@@ -89,7 +89,7 @@
                 >
                   <div class="flex items-center justify-between mb-3">
                     <div class="flex space-x-1">
-                      <img src="/images/Frame 89.png" alt="5 Stars" class="w-20 h-4" />
+                      <img src="/images/icons/5stars.svg" alt="5 Stars" class="w-20 h-4" />
                     </div>
                     <span class="text-xs text-gray-500">{{ review.timeAgo }}</span>
                   </div>
@@ -140,7 +140,7 @@
                   >
                     <div class="flex items-center justify-between mb-2">
                       <div class="flex space-x-1">
-                        <img src="/images/Frame 89.png" alt="5 Stars" class="w-20 h-4" />
+                        <img src="/images/icons/5stars.svg" alt="5 Stars" class="w-20 h-4" />
                       </div>
                       <span class="text-xs text-gray-500">{{ review.timeAgo }}</span>
                     </div>

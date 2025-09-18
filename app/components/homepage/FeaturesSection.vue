@@ -3,7 +3,7 @@
     class="features-section"
     style="background-image: url('/images/black-background')"
   >
-    <div class="container">
+    <div>
       <div class="hidden md:block text-center mb-12">
         <p class="subtitle">
           Picture the Stars & more with us
@@ -36,213 +36,104 @@
         </div>
       </div>
 
-      <div class="hidden md:block">
-        <div class="features-grid">
-          <div class="feature-item">
-            <div class="feature-icon">
-              <img src="/images/UHD.png" alt="Ultra HD Print" />
-            </div>
-            <h3 class="feature-title">Ultra HD Print</h3>
-            <p class="feature-description">
-              Finest Art Giclée<br>
-              Ultra high detail
-            </p>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <img src="/images/icons/UHD.svg" alt="Ultra HD Print" />
           </div>
-
-          <div class="feature-item">
-            <div class="feature-icon">
-              <img src="/images/Milky Way+.png" alt="Milky Way+" />
-            </div>
-            <h3 class="feature-title">Milky Way+</h3>
-            <p class="feature-description">
-              Enhanced photo<br>
-              Remastered detail
-            </p>
-          </div>
-
-          <div class="feature-item">
-            <div class="feature-icon">
-              <img src="/images/Award Winning.png" alt="Award Winning" />
-            </div>
-            <h3 class="feature-title">Award Winning</h3>
-            <p class="feature-description">
-              Canon Printer Awards<br>
-              superior colour gamut
-            </p>
-          </div>
-
-          <div class="feature-item">
-            <div class="feature-icon">
-              <img src="/images/Museum Grade.png" alt="Museum Grade" />
-            </div>
-            <h3 class="feature-title">Museum Grade</h3>
-            <p class="feature-description">
-              285gsm Art Cardstock<br>
-              prints to last a lifetime
-            </p>
-          </div>
-
-          <div class="feature-item">
-            <div class="feature-icon">
-              <img src="/images/telescope.png" alt="Verified Accuracy" />
-            </div>
-            <h3 class="feature-title">Verified Accuracy</h3>
-            <p class="feature-description">
-              Joint star catalogues<br>
-              avoid cheap fakes
-            </p>
-          </div>
-
-          <div class="feature-item">
-            <div class="feature-icon">
-              <img src="/images/Constellations.png" alt="Constellations" />
-            </div>
-            <h3 class="feature-title">Constellations</h3>
-            <p class="feature-description">
-              And more features<br>
-              compass, border
-            </p>
-          </div>
-
-          <div class="feature-item">
-            <div class="feature-icon">
-              <img src="/images/info-frame.png" alt="Premium Framing" />
-            </div>
-            <h3 class="feature-title">Premium Framing</h3>
-            <p class="feature-description">
-              Full Framing Service<br>
-              and red gift ribbon
-            </p>
-          </div>
-
-          <div class="feature-item">
-            <div class="feature-icon">
-              <img src="/images/delivery.png" alt="Fast Free Shipping" />
-            </div>
-            <h3 class="feature-title">Fast Free Shipping</h3>
-            <p class="feature-description">
-              1-2 day fully tracked<br>
-              Fully tracked notifications
-            </p>
-          </div>
+          <h3 class="feature-title">Ultra HD Print</h3>
+          <p class="feature-description">
+            Finest Art Giclée<br>
+            Ultra high detail
+          </p>
         </div>
-      </div>
-      
-      <div class="block md:hidden mb-12 px-8">
-        <div class="max-w-sm mx-auto">
-          <div class="grid grid-cols-2 gap-x-8 gap-y-8">
-            <div class="space-y-8">
-              <div class="feature-item-mobile">
-                <div class="feature-icon-mobile">
-                  <img src="/images/UHD.png" alt="Ultra HD Print" class="w-12 h-12 object-contain mb-4" />
-                </div>
-                <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Ultra HD Print</h3>
-                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
-                  Finest Art Giclée<br>
-                  Ultra high detail
-                </p>
-              </div>
 
-              <div class="feature-item-mobile">
-                <div class="feature-icon-mobile">
-                  <img src="/images/Award Winning.png" alt="Award Winning" class="w-12 h-12 object-contain mb-4" />
-                </div>
-                <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Award Winning</h3>
-                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
-                  Canon Printer Awards<br>
-                  superior colour gamut
-                </p>
-              </div>
-
-              <div class="feature-item-mobile">
-                <div class="feature-icon-mobile">
-                  <img src="/images/telescope.png" alt="Verified Accuracy" class="w-12 h-12 object-contain mb-4" />
-                </div>
-                <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Verified Accuracy</h3>
-                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
-                  Joint star catalogues<br>
-                  avoid cheap fakes
-                </p>
-              </div>
-
-              <div class="feature-item-mobile">
-                <div class="feature-icon-mobile">
-                  <img src="/images/info-frame.png" alt="Premium Framing" class="w-12 h-12 object-contain mb-4" />
-                </div>
-                <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Premium Framing</h3>
-                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
-                  Full Framing Service<br>
-                  and red gift ribbon
-                </p>
-              </div>
-            </div>
-
-            <div class="space-y-8">
-              <div class="feature-item-mobile">
-                <div class="feature-icon-mobile">
-                  <img src="/images/Milky Way+.png" alt="Milky Way+" class="w-12 h-12 object-contain mb-4" />
-                </div>
-                <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Milky Way+</h3>
-                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
-                  Enhanced photo<br>
-                  Remastered detail
-                </p>
-              </div>
-
-              <div class="feature-item-mobile">
-                <div class="feature-icon-mobile">
-                  <img src="/images/Museum Grade.png" alt="Museum Grade" class="w-12 h-12 object-contain mb-4" />
-                </div>
-                <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Museum Grade</h3>
-                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
-                  285gsm Art Cardstock<br>
-                  prints to last a lifetime
-                </p>
-              </div>
-
-              <div class="feature-item-mobile">
-                <div class="feature-icon-mobile">
-                  <img src="/images/Constellations.png" alt="Constellations" class="w-12 h-12 object-contain mb-4" />
-                </div>
-                <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Constellations</h3>
-                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
-                  And more features<br>
-                  compass, border
-                </p>
-              </div>
-
-              <div class="feature-item-mobile">
-                <div class="feature-icon-mobile">
-                  <img src="/images/delivery.png" alt="Fast Free Shipping" class="w-12 h-12 object-contain mb-4" />
-                </div>
-                <h3 class="font-lato font-bold text-base text-white mb-2 h-5 leading-5">Fast Free Shipping</h3>
-                <p class="font-lato text-sm leading-relaxed min-h-[40px]" style="color: #a5a5a5;">
-                  1-2 day fully tracked<br>
-                  Fully tracked notifications
-                </p>
-              </div>
-            </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <img src="/images/icons/milky-way.svg" alt="Milky Way+" />
           </div>
+          <h3 class="feature-title">Milky Way+</h3>
+          <p class="feature-description">
+            Enhanced photo<br>
+            Remastered detail
+          </p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <img src="/images/icons/award-winning.svg" alt="Award Winning" />
+          </div>
+          <h3 class="feature-title">Award Winning</h3>
+          <p class="feature-description">
+            Canon Printer Awards<br>
+            superior colour gamut
+          </p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <img src="/images/icons/museum-grade.svg" alt="Museum Grade" />
+          </div>
+          <h3 class="feature-title">Museum Grade</h3>
+          <p class="feature-description">
+            285gsm Art Cardstock<br>
+            prints to last a lifetime
+          </p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <img src="/images/icons/telescope.svg" alt="Verified Accuracy" />
+          </div>
+          <h3 class="feature-title">Verified Accuracy</h3>
+          <p class="feature-description">
+            Joint star catalogues<br>
+            avoid cheap fakes
+          </p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <img src="/images/icons/constellations.svg" alt="Constellations" />
+          </div>
+          <h3 class="feature-title">Constellations</h3>
+          <p class="feature-description">
+            And more features<br>
+            compass, border
+          </p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <img src="/images/icons/frame.svg" alt="Premium Framing" />
+          </div>
+          <h3 class="feature-title">Premium Framing</h3>
+          <p class="feature-description">
+            Full Framing Service<br>
+            and red gift ribbon
+          </p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <img src="/images/icons/delivery.svg" alt="Fast Free Shipping" />
+          </div>
+          <h3 class="feature-title">Fast Free Shipping</h3>
+          <p class="feature-description">
+            1-2 day fully tracked<br>
+            Fully tracked notifications
+          </p>
         </div>
       </div>
 
-      <div class="hidden md:block cta-section">
-        <button class="cta-button">
+
+      <div class="block cta-section">
+        <button class="cta-button uppercase">
           CREATE YOUR STAR MAP
         </button>
-        
+
         <p class="made-with">
-          MADE WITH <img src="/images/noto_heart-suit.png" alt="♥" class="heart-icon" /> IN THE UK
-        </p>
-      </div>
-      
-      <div class="block md:hidden text-center px-4">
-        <button class="w-full font-lato font-bold text-sm text-black bg-white rounded-full py-3 px-6 mb-4 transition-all hover:bg-gray-100">
-          CREATE YOUR STAR MAP
-        </button>
-        
-        <p class="font-lato font-medium text-xs text-gray-400 flex items-center justify-center gap-2">
-          MADE WITH <img src="/images/noto_heart-suit.png" alt="♥" class="w-3 h-3" /> IN THE UK
+          MADE WITH <img src="/images/noto_heart-suit.png" alt="Heart" class="heart-icon" /> IN THE UK
         </p>
       </div>
     </div>
@@ -262,12 +153,6 @@
   color: white;
 }
 
-.container {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 0 2px;
-}
-
 .subtitle {
   font-family: 'Lato', sans-serif;
   font-weight: 500;
@@ -275,14 +160,14 @@
   line-height: 28px;
   letter-spacing: 0%;
   color: #a3a3a3;
-  margin-bottom: 16px;
 }
 
 .main-title {
   font-family: 'Lato', sans-serif;
   font-weight: 700;
-  font-size: 48px;
+  font-size: 20px;
   line-height: 56px;
+  letter-spacing: 1.6px;
   color: #ffffff;
   margin-bottom: 24px;
   text-align: center;
@@ -290,7 +175,7 @@
 
 .description {
   font-family: 'Lato', sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 18px;
   line-height: 28px;
   color: #ffffff;
@@ -300,12 +185,11 @@
 }
 
 .features-grid {
+  margin: 0 10%;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  gap: 80px;
-  margin-bottom: 80px;
-  margin-left: -52px;
-  padding: 0 80px 0 0;
+  gap: 28px;
+  justify-content: center;
 }
 
 .feature-item {
@@ -354,6 +238,7 @@
 
 .cta-section {
   text-align: center;
+  margin-top: 60px;
 }
 
 .cta-button {
@@ -363,7 +248,7 @@
   color: #000000;
   background-color: #ffffff;
   border: none;
-  border-radius: 50px;
+  border-radius: 20px;
   padding: 16px 32px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -391,19 +276,7 @@
   display: inline-block;
 }
 
-.feature-item-mobile {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.feature-icon-mobile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@media (max-width: 1200px) {
+@media (max-width: 1800px) {
   .features-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;

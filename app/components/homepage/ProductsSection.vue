@@ -2,8 +2,7 @@
   <section class="bg-gray-50 py-8">
     <div class="max-w-[1600px] mx-auto px-6">
       <div class="text-center mb-6 md:hidden">
-        <p class="font-lato font-medium text-lg text-gray-600 max-w-xs mx-auto px-4 leading-tight">
-          {{ currentSectionData.mobileDescription }}
+        <p class="font-lato font-medium text-lg text-gray-600 max-w-xs mx-auto px-4 leading-tight" v-html="currentSectionData.mobileDescription">
         </p>
       </div>
       
@@ -44,7 +43,7 @@
       </div>
 
       <div class="hidden md:block relative">
-        <div class="overflow-hidden">
+        <div v-if="activeTab === 0" class="overflow-hidden">
           <div 
             class="flex transition-transform duration-500 ease-in-out"
             :style="carouselStyle"
@@ -141,7 +140,52 @@
           </div>
         </div>
 
-        <div class="flex justify-center gap-2 mt-10">
+        <div v-else>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div 
+              v-for="(product, index) in currentSectionData.products.slice(0, 4)" 
+              :key="'static-' + index"
+              class="text-left"
+            >
+              <div class="mb-4">
+                <img 
+                  src="/images/Component 27.png" 
+                  :alt="product.title"
+                  class="w-full h-auto"
+                />
+              </div>
+              
+              <div 
+                v-if="product.badge"
+                class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded text-xs font-medium mb-2 uppercase"
+              >
+                {{ product.badge }}
+              </div>
+              
+              <h3 class="font-lato font-bold text-xl text-gray-900 mb-2 uppercase">
+                {{ product.title }}
+              </h3>
+              
+              <div class="mb-3">
+                <span class="font-lato font-bold text-lg text-gray-900">
+                  FROM £ {{ product.price }}
+                </span>
+                <span 
+                  v-if="product.freeShipping"
+                  class="text-gray-500 text-sm font-normal ml-2"
+                >
+                  Free Shipping
+                </span>
+              </div>
+              
+              <p class="font-lato text-sm text-gray-600 leading-relaxed">
+                {{ product.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="activeTab === 0" class="flex justify-center gap-2 mt-10">
           <button
             v-for="(slide, index) in totalSlides"
             :key="'dot-' + index"
@@ -153,64 +197,105 @@
       </div>
 
       <div class="block md:hidden">
-        <div class="overflow-hidden px-4">
-          <div 
-            class="flex transition-transform duration-500 ease-in-out"
-            :style="{ transform: `translateX(-${mobileCurrentSlide * 100}%)` }"
-          >
+        <div v-if="activeTab === 0">
+          <div class="overflow-hidden px-4">
             <div 
-              v-for="(product, index) in currentSectionData.products" 
-              :key="'mobile-' + index"
-              class="w-full flex-shrink-0 px-4"
+              class="flex transition-transform duration-500 ease-in-out"
+              :style="{ transform: `translateX(-${mobileCurrentSlide * 100}%)` }"
             >
-              <div class="mb-6">
-                <img 
-                  src="/images/Component 27.png" 
-                  :alt="product.title"
-                  class="w-full h-auto max-w-[320px] mx-auto"
-                />
-              </div>
-              
               <div 
-                v-if="product.badge"
-                class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded text-xs font-medium mb-2 uppercase max-w-[320px] mx-auto"
+                v-for="(product, index) in currentSectionData.products" 
+                :key="'mobile-' + index"
+                class="w-full flex-shrink-0 px-4"
               >
-                {{ product.badge }}
-              </div>
-              
-              <div class="max-w-[320px] mx-auto">
-                <h3 class="font-lato font-bold text-lg text-gray-900 mb-2 uppercase text-left">
-                  {{ product.title }}
-                </h3>
-                
-                <div class="mb-4 text-left">
-                  <span class="font-lato font-bold text-lg text-gray-900">
-                    FROM £ {{ product.price }}
-                  </span>
-                  <span 
-                    v-if="product.freeShipping"
-                    class="text-gray-500 text-sm font-normal ml-2"
-                  >
-                    Free Shipping
-                  </span>
+                <div class="mb-6">
+                  <img 
+                    src="/images/Component 27.png" 
+                    :alt="product.title"
+                    class="w-full h-auto max-w-[320px] mx-auto"
+                  />
                 </div>
                 
-                <p class="font-lato text-sm text-gray-600 leading-relaxed text-left">
-                  {{ product.description }}
-                </p>
+                <div 
+                  v-if="product.badge"
+                  class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded text-xs font-medium mb-2 uppercase max-w-[320px] mx-auto"
+                >
+                  {{ product.badge }}
+                </div>
+                
+                <div class="max-w-[320px] mx-auto">
+                  <h3 class="font-lato font-bold text-lg text-gray-900 mb-2 uppercase text-left">
+                    {{ product.title }}
+                  </h3>
+                  
+                  <div class="mb-4 text-left">
+                    <span class="font-lato font-bold text-lg text-gray-900">
+                      FROM £ {{ product.price }}
+                    </span>
+                    <span 
+                      v-if="product.freeShipping"
+                      class="text-gray-500 text-sm font-normal ml-2"
+                    >
+                      Free Shipping
+                    </span>
+                  </div>
+                  
+                  <p class="font-lato text-sm text-gray-600 leading-relaxed text-left">
+                    {{ product.description }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
+
+          <div class="flex justify-center gap-2 mt-8">
+            <button
+              v-for="(product, index) in currentSectionData.products"
+              :key="'mobile-dot-' + index"
+              @click="() => { if (isMounted) mobileCurrentSlide = index }"
+              class="dot transition-all duration-300"
+              :class="{ 'active': mobileCurrentSlide === index }"
+            ></button>
+          </div>
         </div>
 
-        <div class="flex justify-center gap-2 mt-8">
-          <button
-            v-for="(product, index) in currentSectionData.products"
-            :key="'mobile-dot-' + index"
-            @click="() => { if (isMounted) mobileCurrentSlide = index }"
-            class="dot transition-all duration-300"
-            :class="{ 'active': mobileCurrentSlide === index }"
-          ></button>
+        <div v-else class="px-4">
+          <div class="max-w-[320px] mx-auto">
+            <div class="mb-6">
+              <img 
+                src="/images/Component 27.png" 
+                :alt="currentSectionData.products[0]?.title"
+                class="w-full h-auto"
+              />
+            </div>
+            
+            <div 
+              v-if="currentSectionData.products[0]?.badge"
+              class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded text-xs font-medium mb-2 uppercase"
+            >
+              {{ currentSectionData.products[0]?.badge }}
+            </div>
+            
+            <h3 class="font-lato font-bold text-lg text-gray-900 mb-2 uppercase text-left">
+              {{ currentSectionData.products[0]?.title }}
+            </h3>
+            
+            <div class="mb-4 text-left">
+              <span class="font-lato font-bold text-lg text-gray-900">
+                FROM £ {{ currentSectionData.products[0]?.price }}
+              </span>
+              <span 
+                v-if="currentSectionData.products[0]?.freeShipping"
+                class="text-gray-500 text-sm font-normal ml-2"
+              >
+                Free Shipping
+              </span>
+            </div>
+            
+            <p class="font-lato text-sm text-gray-600 leading-relaxed text-left">
+              {{ currentSectionData.products[0]?.description }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -241,7 +326,6 @@ const tabs = [
   'LOCATION MAP',
   'DEEP SPACE'
 ]
-
 
 const sectionsData = {
   0: { 
@@ -329,31 +413,6 @@ const sectionsData = {
         badge: 'PREMIUM',
         description: 'High-quality print with premium paper and framing options',
         freeShipping: true
-      },
-      {
-        title: 'MINIMALIST STAR MAP',
-        price: '21.99',
-        description: 'Clean, simple design focusing on the essential star patterns',
-        freeShipping: true
-      },
-      {
-        title: 'ROMANTIC STAR MAP',
-        price: '25.99',
-        badge: 'POPULAR',
-        description: 'Perfect for anniversaries and romantic occasions',
-        freeShipping: true
-      },
-      {
-        title: 'BIRTH STAR MAP',
-        price: '23.99',
-        description: 'Capture the stars from the moment of birth',
-        freeShipping: true
-      },
-      {
-        title: 'WEDDING STAR MAP',
-        price: '27.99',
-        description: 'Commemorate your special day with the stars above',
-        freeShipping: true
       }
     ]
   },
@@ -384,32 +443,6 @@ const sectionsData = {
         price: '49.99',
         description: 'Custom made engraved Star Map Necklace. Created using your chosen location, date & time.',
         freeShipping: true
-      },
-      {
-        title: '9CT SOLID GOLD STAR MAP',
-        price: '149.99',
-        description: 'Custom made engraved Star Map Necklace. Created using your chosen location, date & time.',
-        freeShipping: true
-      },
-      {
-        title: 'ROSE GOLD STAR MAP',
-        price: '59.99',
-        badge: 'NEW',
-        description: 'Elegant rose gold finish with custom star constellation engraving',
-        freeShipping: true
-      },
-      {
-        title: 'TITANIUM STAR MAP',
-        price: '69.99',
-        description: 'Ultra-durable titanium with precision laser engraving',
-        freeShipping: true
-      },
-      {
-        title: 'CUSTOM COORDINATES RING',
-        price: '79.99',
-        badge: 'EXCLUSIVE',
-        description: 'Personalized ring with your special coordinates and date',
-        freeShipping: true
       }
     ]
   },
@@ -417,18 +450,6 @@ const sectionsData = {
     mobileDescription: 'Capture the exact moon phase<br>from your special moment',
     desktopDescription: 'Capture the exact moon phase from your most important moments in time',
     products: [
-      {
-        title: 'ORIGINAL MOON MAP',
-        price: '21.99',
-        description: 'Choose the location, date & time and picture the Moon at that exact moment',
-        freeShipping: true
-      },
-      {
-        title: 'ORIGINAL MOON MAP',
-        price: '21.99',
-        description: 'Choose the location, date & time and picture the Moon at that exact moment',
-        freeShipping: true
-      },
       {
         title: 'ORIGINAL MOON MAP',
         price: '21.99',
@@ -452,19 +473,6 @@ const sectionsData = {
         title: 'NEW MOON MAP',
         price: '21.99',
         description: 'Mysterious new moon phase with starry background',
-        freeShipping: true
-      },
-      {
-        title: 'WAXING MOON MAP',
-        price: '22.99',
-        description: 'Capture the waxing moon phase of your chosen date',
-        freeShipping: true
-      },
-      {
-        title: 'LUNAR ECLIPSE MAP',
-        price: '29.99',
-        badge: 'SPECIAL',
-        description: 'Rare lunar eclipse moments with astronomical precision',
         freeShipping: true
       }
     ]
@@ -497,31 +505,6 @@ const sectionsData = {
         badge: 'ARTISTIC',
         description: 'Beautiful watercolor-style map with soft colors and artistic flair',
         freeShipping: true
-      },
-      {
-        title: 'STREET MAP POSTER',
-        price: '21.99',
-        description: 'Detailed street-level map perfect for urban locations',
-        freeShipping: true
-      },
-      {
-        title: 'TOPOGRAPHIC MAP',
-        price: '25.99',
-        description: 'Detailed topographic map showing terrain and elevation',
-        freeShipping: true
-      },
-      {
-        title: 'SATELLITE VIEW MAP',
-        price: '27.99',
-        badge: 'HIGH-TECH',
-        description: 'Stunning satellite imagery of your chosen location',
-        freeShipping: true
-      },
-      {
-        title: 'COORDINATES MAP',
-        price: '23.99',
-        description: 'Minimalist design focusing on coordinates and location details',
-        freeShipping: true
       }
     ]
   },
@@ -548,34 +531,10 @@ const sectionsData = {
         freeShipping: true
       },
       {
-        title: 'TARANTULA NEBULA',
-        price: '19.99',
-        description: 'Wide-field view showing the full extent of this cosmic wonder',
-        freeShipping: true
-      },
-      {
-        title: 'TARANTULA NEBULA',
-        price: '19.99',
-        description: 'Enhanced color version highlighting the nebula\'s structure',
-        freeShipping: true
-      },
-      {
-        title: 'TARANTULA NEBULA',
-        price: '19.99',
-        description: 'High-resolution image perfect for space enthusiasts',
-        freeShipping: true
-      },
-      {
         title: 'COSMIC PILLARS',
         price: '22.99',
         badge: 'STUNNING',
         description: 'Magnificent pillar structures within the deep space region',
-        freeShipping: true
-      },
-      {
-        title: 'STELLAR NURSERY',
-        price: '24.99',
-        description: 'Active star formation region with glowing gas and dust',
         freeShipping: true
       }
     ]
@@ -594,15 +553,12 @@ watch(activeTab, () => {
 onMounted(async () => {
   await nextTick()
   isMounted.value = true
-  console.log('ProductsSection mounted:', isMounted.value)
-  console.log('Total slides:', totalSlides)
 })
 
 watchEffect(() => {
   if (process.client && !isMounted.value) {
     setTimeout(() => {
       isMounted.value = true
-      console.log('ProductsSection force mounted via watchEffect')
     }, 100)
   }
 })

@@ -28,6 +28,7 @@ export default defineNuxtConfig({
             ],
             script: [
                 {src: 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js', type: 'text/javascript'},
+                {src: '//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js', async: true},
             ],
         },
     },

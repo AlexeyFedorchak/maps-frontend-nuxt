@@ -23,57 +23,29 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-8 items-start px-6">
         <div class="hidden md:block lg:col-span-1">
-          <div class="border border-gray-200 p-4 bg-white min-h-[180px] h-[180px] flex flex-col justify-start pt-2">
-            <div class="text-center">
-              <div class="mb-2">
-                <div class="font-lato font-bold text-gray-900 text-lg mb-1">
-                  Excellent
-                </div>
-              </div>
-              
-              <div class="mb-3">
-                <div class="flex justify-center mb-2">
-                  <div class="flex space-x-1">
-                    <img src="/images/icons/5stars.svg" alt="Star" class="w-[230px]" />
-                  </div>
-                </div>
-                <p class="text-sm text-gray-600 mb-1">
-                  Based on <span class="font-bold underline">{{ totalReviews > 0 ? totalReviews : mockReviews.length }} reviews</span>
-                </p>
-              </div>
-
-              <div class="flex items-center justify-center">
-                <img src="/images/Vector.png" alt="Star" class="w-5 h-5 mr-2" />
-                <span class="font-lato font-semibold text-gray-900">Trustpilot</span>
-              </div>
-            </div>
+          <div class="border border-gray-200 p-4 bg-white min-h-[180px] h-[180px] flex items-center justify-center">
+            <UiWidgetTrustpilot style="margin-left: -50px;"
+              template-id="53aa8912dec7e10d38f59f36"
+              business-unit-id="5ff48289096c2900014598a7"
+              width="300px"
+              height="150px"
+              locale="en-GB"
+              :iframe-styles="{ border: 'none' }"
+            />
           </div>
         </div>
         
         <div class="block md:hidden mb-8 py-4">
           <div class="max-w-sm mx-auto px-4">
-            <div class="text-center">
-              <div class="mb-4">
-                <div class="font-lato font-bold text-gray-900 text-3xl mb-2">
-                  Excellent
-                </div>
-              </div>
-              
-              <div class="mb-4">
-                <div class="flex justify-center mb-3">
-                  <div class="flex space-x-1">
-                    <img src="/images/icons/5stars.svg" alt="Star" class="w-[50vw]" />
-                  </div>
-                </div>
-                <p class="text-base text-gray-600 mb-3">
-                  Based on <span class="font-bold underline">{{ totalReviews > 0 ? totalReviews : mockReviews.length }} reviews</span>
-                </p>
-              </div>
-
-              <div class="flex items-center justify-center">
-                <img src="/images/Vector.png" alt="Star" class="w-6 h-6 mr-3" />
-                <span class="font-lato font-semibold text-gray-900 text-xl">Trustpilot</span>
-              </div>
+            <div class="border border-gray-200 p-2 bg-white min-h-[140px] flex items-center justify-center">
+              <UiWidgetTrustpilot 
+                template-id="53aa8912dec7e10d38f59f36"
+                business-unit-id="5ff48289096c2900014598a7"
+                width="100px"
+                height="120px"
+                locale="en-GB"
+                :iframe-styles="{ border: 'none' }"
+              />
             </div>
           </div>
         </div>
@@ -83,9 +55,9 @@
             <div class="overflow-x-auto px-4">
               <div class="flex gap-4">
                 <div 
-                  v-for="(review, index) in reviewSlides[0].slice(0, 3)" 
-                  :key="'mobile-review-' + index"
-                  class="flex-shrink-0 w-84 bg-white border border-gray-200 p-5 shadow-sm"
+                  v-for="(review, slideIndex) in mockReviews.slice(0, 6)" 
+                  :key="'mobile-slide-' + slideIndex"
+                  class="flex-shrink-0 w-80 bg-white border border-gray-200 p-5 shadow-sm"
                 >
                   <div class="flex items-center justify-between mb-3">
                     <div class="flex space-x-1">
@@ -174,15 +146,15 @@
         </div>
       </div>
 
-  <div class="flex justify-center gap-2 mt-12">
-    <button
-      v-for="(slide, index) in reviewSlides"
-      :key="'dot-' + index"
-      @click="() => { if (isMounted) currentSlide = index }"
-      class="dot"
-      :class="{ active: currentSlide === index }"
-    ></button>
-  </div>
+      <div class="hidden md:flex justify-center gap-2 mt-12">
+        <button
+          v-for="(slide, index) in reviewSlides"
+          :key="'dot-' + index"
+          @click="() => { if (isMounted) currentSlide = index }"
+          class="dot transition-all duration-300"
+          :class="{ active: currentSlide === index }"
+        ></button>
+      </div>
     </div>
   </section>
 </template>
@@ -370,6 +342,13 @@ const startAutoPlay = () => {
       currentSlide.value = (currentSlide.value + 1) % reviewSlides.value.length
     }
   }, 5000)
+  
+  setInterval(() => {
+    const mobileReviewsCount = mockReviews.value.slice(0, 6).length
+    if (mobileReviewsCount > 1) {
+      mobileCurrentSlide.value = (mobileCurrentSlide.value + 1) % mobileReviewsCount
+    }
+  }, 4000)
 }
 
 const loadRealReviews = async () => {
@@ -422,6 +401,7 @@ watchEffect(() => {
   height: 180px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .line-clamp-2 {

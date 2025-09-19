@@ -23,8 +23,15 @@
 
           <div v-show="!showMenu" class="hidden xl:flex items-center space-x-2 whitespace-nowrap">
             <span class="text-sm">Excellent</span>
-            <img src="/images/icons/5stars.svg" alt="Trustpilot Rating" class="h-4" />
-            <span class="text-sm">4.8 out of 5</span>
+            <UiWidgetTrustpilot 
+              template-id="5406e65db0d04a09e042d5fc"
+              business-unit-id="5ff48289096c2900014598a7"
+              width="80px"
+              height="20px"
+              theme="dark"
+              :iframe-styles="{ border: 'none' }"
+            />
+            <span class="text-sm space-x-2">4.8 out of 5</span>
             <img src="/images/icons/trustpilot-white.svg" alt="Trustpilot Logo" class="h-4" />
           </div>
         </div>

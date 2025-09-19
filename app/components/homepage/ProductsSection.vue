@@ -12,18 +12,20 @@
         </p>
       </div>
 
-      <div class="flex justify-center gap-2 mb-10 md:hidden">
-        <button
-          v-for="(tab, index) in tabs.slice(0, 3)"
-          :key="index"
-          @click="activeTab = index"
-          class="px-4 py-2 rounded-full font-lato font-semibold text-xs uppercase tracking-wider transition-colors duration-300 whitespace-nowrap flex-shrink-0"
-          :class="activeTab === index 
-            ? 'bg-stone-200 text-gray-800' 
-            : 'bg-white text-gray-700'"
-        >
-          {{ tab }}
-        </button>
+      <div class="mb-10 md:hidden overflow-x-auto scrollbar-hide">
+        <div class="flex gap-2 px-4 justify-center min-w-max">
+          <button
+            v-for="(tab, index) in tabs"
+            :key="index"
+            @click="activeTab = index"
+            class="px-4 py-2 rounded-full font-lato font-semibold text-xs uppercase tracking-wider transition-colors duration-300 whitespace-nowrap flex-shrink-0"
+            :class="activeTab === index 
+              ? 'bg-stone-200 text-gray-800' 
+              : 'bg-white text-gray-700'"
+          >
+            {{ tab }}
+          </button>
+        </div>
       </div>
       
       <div class="hidden md:flex justify-center gap-2 mb-10 overflow-x-auto scrollbar-hide px-4 md:px-0">
@@ -43,15 +45,60 @@
       </div>
 
       <div class="hidden md:block relative">
-        <div v-if="activeTab === 0" class="overflow-hidden">
+        <div v-if="currentSectionData.products.length > 0" class="overflow-hidden">
           <div 
             class="flex transition-transform duration-500 ease-in-out"
             :style="carouselStyle"
           >
             <div class="w-full flex-shrink-0">
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div v-if="activeTab === 3" class="flex justify-center">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl">
+                  <div 
+                    v-for="(product, index) in currentSectionData.products.slice(0, Math.min(4, currentSectionData.products.length))" 
+                    :key="'slide1-' + index"
+                    class="text-left"
+                  >
+                    <div class="mb-6">
+                      <img 
+                        src="/images/Component 27.png" 
+                        :alt="product.title"
+                        class="w-full h-auto"
+                      />
+                    </div>
+                    
+                    <div 
+                      v-if="product.badge"
+                      class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded text-xs font-medium mb-2 uppercase"
+                    >
+                      {{ product.badge }}
+                    </div>
+                    
+                    <h3 class="font-lato font-bold text-xl text-gray-900 mb-2 uppercase">
+                      {{ product.title }}
+                    </h3>
+                    
+                    <div class="mb-3">
+                      <span class="font-lato font-bold text-lg text-gray-900">
+                        FROM £ {{ product.price }}
+                      </span>
+                      <span 
+                        v-if="product.freeShipping"
+                        class="text-gray-500 text-sm font-normal ml-2"
+                      >
+                        Free Shipping
+                      </span>
+                    </div>
+                    
+                    <p class="font-lato text-sm text-gray-600 leading-relaxed">
+                      {{ product.description }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div v-else :class="activeTab === 0 ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8'">
                 <div 
-                  v-for="(product, index) in currentSectionData.products.slice(0, 4)" 
+                  v-for="(product, index) in currentSectionData.products.slice(0, Math.min(activeTab === 0 ? 4 : 5, currentSectionData.products.length))" 
                   :key="'slide1-' + index"
                   class="text-left"
                 >
@@ -93,10 +140,55 @@
               </div>
             </div>
 
-            <div class="w-full flex-shrink-0">
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div v-if="needsSecondSlide" class="w-full flex-shrink-0">
+              <div v-if="activeTab === 3" class="flex justify-center">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl">
+                  <div 
+                    v-for="(product, index) in currentSectionData.products.slice(Math.min(4, currentSectionData.products.length))" 
+                    :key="'slide2-' + index"
+                    class="text-left"
+                  >
+                    <div class="mb-6">
+                      <img 
+                        src="/images/Component 27.png" 
+                        :alt="product.title"
+                        class="w-full h-auto"
+                      />
+                    </div>
+                    
+                    <div 
+                      v-if="product.badge"
+                      class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded text-xs font-medium mb-2 uppercase"
+                    >
+                      {{ product.badge }}
+                    </div>
+                    
+                    <h3 class="font-lato font-bold text-xl text-gray-900 mb-2 uppercase">
+                      {{ product.title }}
+                    </h3>
+                    
+                    <div class="mb-3">
+                      <span class="font-lato font-bold text-lg text-gray-900">
+                        FROM £ {{ product.price }}
+                      </span>
+                      <span 
+                        v-if="product.freeShipping"
+                        class="text-gray-500 text-sm font-normal ml-2"
+                      >
+                        Free Shipping
+                      </span>
+                    </div>
+                    
+                    <p class="font-lato text-sm text-gray-600 leading-relaxed">
+                      {{ product.description }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div v-else :class="activeTab === 0 ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8'">
                 <div 
-                  v-for="(product, index) in currentSectionData.products.slice(4, 8)" 
+                  v-for="(product, index) in currentSectionData.products.slice(activeTab === 0 ? 4 : 5)" 
                   :key="'slide2-' + index"
                   class="text-left"
                 >
@@ -140,52 +232,15 @@
           </div>
         </div>
 
-        <div v-else>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div 
-              v-for="(product, index) in currentSectionData.products.slice(0, 4)" 
-              :key="'static-' + index"
-              class="text-left"
-            >
-              <div class="mb-4">
-                <img 
-                  src="/images/Component 27.png" 
-                  :alt="product.title"
-                  class="w-full h-auto"
-                />
-              </div>
-              
-              <div 
-                v-if="product.badge"
-                class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded text-xs font-medium mb-2 uppercase"
-              >
-                {{ product.badge }}
-              </div>
-              
-              <h3 class="font-lato font-bold text-xl text-gray-900 mb-2 uppercase">
-                {{ product.title }}
-              </h3>
-              
-              <div class="mb-3">
-                <span class="font-lato font-bold text-lg text-gray-900">
-                  FROM £ {{ product.price }}
-                </span>
-                <span 
-                  v-if="product.freeShipping"
-                  class="text-gray-500 text-sm font-normal ml-2"
-                >
-                  Free Shipping
-                </span>
-              </div>
-              
-              <p class="font-lato text-sm text-gray-600 leading-relaxed">
-                {{ product.description }}
-              </p>
-            </div>
+        <div v-else class="flex items-center justify-center" style="min-height: 600px;">
+          <div class="text-center">
+            <p class="font-lato text-lg text-gray-500">
+              {{ currentSectionData.desktopDescription }}
+            </p>
           </div>
         </div>
 
-        <div v-if="activeTab === 0" class="flex justify-center gap-2 mt-10">
+        <div v-if="currentSectionData.products.length > 0 && totalSlides > 1" class="flex justify-center gap-2 mt-10">
           <button
             v-for="(slide, index) in totalSlides"
             :key="'dot-' + index"
@@ -197,7 +252,7 @@
       </div>
 
       <div class="block md:hidden">
-        <div v-if="activeTab === 0">
+        <div v-if="currentSectionData.products.length > 0">
           <div class="overflow-hidden px-4">
             <div 
               class="flex transition-transform duration-500 ease-in-out"
@@ -259,41 +314,10 @@
           </div>
         </div>
 
-        <div v-else class="px-4">
-          <div class="max-w-[320px] mx-auto">
-            <div class="mb-6">
-              <img 
-                src="/images/Component 27.png" 
-                :alt="currentSectionData.products[0]?.title"
-                class="w-full h-auto"
-              />
-            </div>
-            
-            <div 
-              v-if="currentSectionData.products[0]?.badge"
-              class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded text-xs font-medium mb-2 uppercase"
-            >
-              {{ currentSectionData.products[0]?.badge }}
-            </div>
-            
-            <h3 class="font-lato font-bold text-lg text-gray-900 mb-2 uppercase text-left">
-              {{ currentSectionData.products[0]?.title }}
-            </h3>
-            
-            <div class="mb-4 text-left">
-              <span class="font-lato font-bold text-lg text-gray-900">
-                FROM £ {{ currentSectionData.products[0]?.price }}
-              </span>
-              <span 
-                v-if="currentSectionData.products[0]?.freeShipping"
-                class="text-gray-500 text-sm font-normal ml-2"
-              >
-                Free Shipping
-              </span>
-            </div>
-            
-            <p class="font-lato text-sm text-gray-600 leading-relaxed text-left">
-              {{ currentSectionData.products[0]?.description }}
+        <div v-else class="flex items-center justify-center px-4" style="min-height: 600px;">
+          <div class="text-center">
+            <p class="font-lato text-lg text-gray-500">
+              {{ currentSectionData.desktopDescription }}
             </p>
           </div>
         </div>
@@ -309,7 +333,6 @@ const activeTab = ref(0)
 const currentSlide = ref(0)
 const mobileCurrentSlide = ref(0)
 const isMounted = ref(false)
-const totalSlides = 2
 
 const carouselStyle = computed(() => {
   if (!isMounted.value && process.server) {
@@ -327,8 +350,29 @@ const tabs = [
   'DEEP SPACE'
 ]
 
+const totalSlides = computed(() => {
+  if (activeTab.value === 0) {
+    return Math.ceil(currentSectionData.value.products.length / 4)
+  } else if (activeTab.value === 3) {
+    return Math.ceil(currentSectionData.value.products.length / 3)
+  } else {
+    return Math.ceil(currentSectionData.value.products.length / 5)
+  }
+})
+
+const needsSecondSlide = computed(() => {
+  if (activeTab.value === 0) {
+    return currentSectionData.value.products.length > 4
+  } else if (activeTab.value === 3) {
+    return currentSectionData.value.products.length > 3
+  } else {
+    return currentSectionData.value.products.length > 5
+  }
+})
+
+
 const sectionsData = {
-  0: { 
+  0: {
     mobileDescription: 'Explore more personalised products<br>and ways to capture your moment',
     desktopDescription: 'Explore more personalised products and ways to capture your moment',
     products: [
@@ -413,6 +457,12 @@ const sectionsData = {
         badge: 'PREMIUM',
         description: 'High-quality print with premium paper and framing options',
         freeShipping: true
+      },
+      {
+        title: 'VINTAGE STAR MAP',
+        price: '26.99',
+        description: 'Classic vintage style star map with aged paper effect',
+        freeShipping: true
       }
     ]
   },
@@ -443,6 +493,12 @@ const sectionsData = {
         price: '49.99',
         description: 'Custom made engraved Star Map Necklace. Created using your chosen location, date & time.',
         freeShipping: true
+      },
+      {
+        title: '9CT SOLID GOLD STAR MAP',
+        price: '149.99',
+        description: 'Custom made engraved Star Map Necklace. Created using your chosen location, date & time.',
+        freeShipping: true
       }
     ]
   },
@@ -457,56 +513,23 @@ const sectionsData = {
         freeShipping: true
       },
       {
-        title: 'FULL MOON MAP',
-        price: '23.99',
-        badge: 'POPULAR',
-        description: 'Beautiful full moon phase with custom date and location details',
+        title: 'ORIGINAL MOON MAP',
+        price: '21.99',
+        description: 'Choose the location, date & time and picture the Moon at that exact moment',
         freeShipping: true
       },
       {
-        title: 'CRESCENT MOON MAP',
+        title: 'ORIGINAL MOON MAP',
         price: '21.99',
-        description: 'Elegant crescent moon phase for your special moment',
-        freeShipping: true
-      },
-      {
-        title: 'NEW MOON MAP',
-        price: '21.99',
-        description: 'Mysterious new moon phase with starry background',
+        description: 'Choose the location, date & time and picture the Moon at that exact moment',
         freeShipping: true
       }
     ]
   },
   4: {
     mobileDescription: 'Beautiful maps of your<br>most meaningful locations',
-    desktopDescription: 'Create beautiful maps of your most meaningful locations and special places',
-    products: [
-      {
-        title: 'CUSTOM LOCATION MAP',
-        price: '19.99',
-        description: 'Personalized map featuring your chosen location with custom styling',
-        freeShipping: true
-      },
-      {
-        title: 'VINTAGE LOCATION MAP',
-        price: '24.99',
-        description: 'Classic vintage-style map with aged paper effect and elegant typography',
-        freeShipping: true
-      },
-      {
-        title: 'MODERN LOCATION MAP',
-        price: '22.99',
-        description: 'Contemporary clean design highlighting your special place',
-        freeShipping: true
-      },
-      {
-        title: 'WATERCOLOR LOCATION MAP',
-        price: '26.99',
-        badge: 'ARTISTIC',
-        description: 'Beautiful watercolor-style map with soft colors and artistic flair',
-        freeShipping: true
-      }
-    ]
+    desktopDescription: '',
+    products: []
   },
   5: {
     mobileDescription: 'Stunning deep space imagery<br>and cosmic phenomena',
@@ -531,10 +554,21 @@ const sectionsData = {
         freeShipping: true
       },
       {
-        title: 'COSMIC PILLARS',
-        price: '22.99',
-        badge: 'STUNNING',
-        description: 'Magnificent pillar structures within the deep space region',
+        title: 'TARANTULA NEBULA',
+        price: '19.99',
+        description: 'Wide-field view showing the full extent of this cosmic wonder',
+        freeShipping: true
+      },
+      {
+        title: 'TARANTULA NEBULA',
+        price: '19.99',
+        description: 'Enhanced color version highlighting the nebula\'s structure',
+        freeShipping: true
+      },
+      {
+        title: 'TARANTULA NEBULA',
+        price: '19.99',
+        description: 'High-resolution image perfect for space enthusiasts',
         freeShipping: true
       }
     ]

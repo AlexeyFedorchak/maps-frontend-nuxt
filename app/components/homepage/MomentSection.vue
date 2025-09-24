@@ -71,9 +71,8 @@
 
 .main-title {
   font-family: 'Lato', sans-serif;
-  font-weight: 520;
+  font-weight: bold;
   font-size: 48px;
-  font-style: bold;
   line-height: 125%;
   color: #1a1a1a;
   margin-bottom: 32px;

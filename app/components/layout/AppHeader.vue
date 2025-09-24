@@ -22,7 +22,7 @@
           </button>
 
           <div v-show="!showMenu" class="hidden xl:flex items-center space-x-2 whitespace-nowrap">
-            <span class="text-sm">Excellent</span>
+            <span class="text-[14px] font-lato font-bold leading-[15px]">Excellent</span>
             <UiWidgetTrustpilot 
               template-id="5406e65db0d04a09e042d5fc"
               business-unit-id="5ff48289096c2900014598a7"
@@ -31,8 +31,8 @@
               theme="dark"
               :iframe-styles="{ border: 'none' }"
             />
-            <span class="text-sm space-x-2">4.8 out of 5</span>
-            <img src="/images/icons/trustpilot-white.svg" alt="Trustpilot Logo" class="h-4" />
+            <span class="text-[14px] font-lato font-bold leading-[13px] space-x-2">4.8 out of 5</span>
+            <img src="/images/icons/trustpilot-white.svg" alt="Trustpilot Logo" class="h-4 mb-1" />
           </div>
         </div>
 
@@ -46,22 +46,22 @@
          
           <a href="tel:0161 528 9460" class="hidden xl:flex items-center space-x-2 shrink-0">
             <img src="/images/icons/phone.svg" alt="Phone" class="h-6" />
-            <span class="text-sm">0161 528 9460</span>
+            <span class="text-sm font-lato font-normal tracking-[0.8px]">0161 528 9460</span>
           </a>
 
           <div class="hidden xl:flex items-center space-x-2 shrink-0">
             <img src="/images/icons/location.svg" alt="Location" class="h-6" />
-            <span class="text-sm">1-2 FREE DAY SHIPPING</span>
+            <span class="text-[14px] font-lato font-normaltracking-[0.8px]">1-2 FREE DAY SHIPPING</span>
           </div>
 
           <div class="hidden xl:flex items-center space-x-2 shrink-0">
             <img src="/images/icons/globe.svg" alt="Globe" class="h-6" />
-            <span class="text-sm">UK (GBP)</span>
+            <span class="text-[14px] font-lato font-normal tracking-[0.8px]">UK (GBP)</span>
           </div>
 
           <div class="flex items-center shrink-0 cursor-pointer space-x-2">
             <img src="/images/icons/basket.svg" alt="Basket" class="h-6" />
-            <span class="hidden xl:block text-sm">BASKET</span>
+            <span class="hidden xl:block text-[14px] font-lato font-normal tracking-[0.8px]">BASKET</span>
           </div>
           
         </div>

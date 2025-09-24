@@ -7,7 +7,7 @@
       </div>
       
       <div class="hidden md:block text-center mb-6">
-        <p class="font-lato font-medium text-lg text-gray-600 max-w-2xl mx-auto">
+        <p class="font-lato font-medium text-[20px] text-black-600 leading-[1.35px] max-w-2xl mx-auto">
           {{ currentSectionData.desktopDescription }}
         </p>
       </div>
@@ -18,7 +18,7 @@
             v-for="(tab, index) in tabs"
             :key="index"
             @click="activeTab = index"
-            class="px-4 py-2 rounded-full font-lato font-semibold text-xs uppercase tracking-wider transition-colors duration-300 whitespace-nowrap flex-shrink-0"
+            class="px-4 py-2 rounded-full font-lato font-semibold text-[14px] leading-[0.22px] tracking-[0.7px] uppercase tracking-wider transition-colors duration-300 whitespace-nowrap flex-shrink-0"
             :class="activeTab === index 
               ? 'bg-stone-200 text-gray-800' 
               : 'bg-white text-gray-700'"
@@ -34,7 +34,7 @@
             v-for="(tab, index) in tabs"
             :key="index"
             @click="activeTab = index"
-            class="px-4 py-3 rounded-full font-lato font-semibold text-xs md:text-sm uppercase tracking-wider transition-colors duration-300 whitespace-nowrap flex-shrink-0"
+            class="px-4 py-3 rounded-full font-lato font-semibold text-[14px] tracking-wider md:text-sm uppercase transition-colors duration-300 whitespace-nowrap flex-shrink-0"
             :class="activeTab === index 
               ? 'bg-stone-200 text-gray-800' 
               : 'bg-white text-gray-700 hover:bg-gray-100'"
@@ -68,28 +68,28 @@
                     
                     <div 
                       v-if="product.badge"
-                      class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded text-xs font-medium mb-2 uppercase"
+                      class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded text-[18px] font-extrabold leading-[1.2px] tracking-[1.6px] mb-2 uppercase"
                     >
                       {{ product.badge }}
                     </div>
                     
-                    <h3 class="font-lato font-bold text-xl text-gray-900 mb-2 uppercase">
+                    <h3 class="font-lato font-extrabold text-[18px] leading-[1.2px] tracking-[1.6px] text-gray-900 mb-2 uppercase ">
                       {{ product.title }}
                     </h3>
                     
                     <div class="mb-3">
-                      <span class="font-lato font-bold text-lg text-gray-900">
+                      <span class="font-lato font-bold text-[16px] leading-auto tracking-[1.2px] text-gray-900">
                         FROM £ {{ product.price }}
                       </span>
                       <span 
                         v-if="product.freeShipping"
-                        class="text-gray-500 text-sm font-normal ml-2"
+                        class="text-gray-500 text-[16px] font-roboto leading-[2.2px] ml-2"
                       >
                         Free Shipping
                       </span>
                     </div>
                     
-                    <p class="font-lato text-sm text-gray-600 leading-relaxed">
+                    <p class="font-lato text-[16px] leading-[125%] font-normal text-gray-600 leading-relaxed">
                       {{ product.description }}
                     </p>
                   </div>

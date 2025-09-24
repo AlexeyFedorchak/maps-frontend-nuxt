@@ -105,8 +105,9 @@
 .gift-title {
   font-family: 'Lato', sans-serif;
   font-weight: 700;
-  font-size: 28px;
-  line-height: 32px;
+  font-size: 24px;
+  line-height: 125%;
+  letter-spacing: 2.4px;
   color: #ffffff;
   margin-bottom: 12px;
   text-transform: uppercase;
@@ -116,7 +117,7 @@
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-size: 18px;
-  line-height: 24px;
+  line-height: 135%;
   color: #ffffff;
   opacity: 0.9;
 }

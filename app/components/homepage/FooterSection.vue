@@ -24,14 +24,6 @@
           </div>
           
           <div class="mobile-section">
-            <h3 class="mobile-footer-title">PREMIUM PRINT</h3>
-            <div class="mobile-links">
-              <a href="#">Location Map Jewellery</a>
-              <a href="#">Star Map Jewellery</a>
-            </div>
-          </div>
-          
-          <div class="mobile-section">
             <h3 class="mobile-footer-title">CONTACT US</h3>
             <div class="mobile-contact">
               <p>We are always happy to help<br>Monday - Friday 9am - 4:30pm</p>
@@ -87,12 +79,6 @@
             <li><a href="#">Mystic Night Star Map</a></li>
             <li><a href="#">Deep Space Print</a></li>
             <li><a href="#">Location Map</a></li>
-          </ul>
-          
-          <h3 class="footer-title premium-title">PREMIUM PRINT</h3>
-          <ul class="footer-links">
-            <li><a href="#">Location Map Jewellery</a></li>
-            <li><a href="#">Star Map Jewellery</a></li>
           </ul>
         </div>
         
@@ -228,9 +214,9 @@
 
 .footer-title {
   font-family: 'Lato', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 20px;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 130%;
   color: #ffffff;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -247,6 +233,10 @@
 
 .footer-links {
   list-style: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 17px;
+  line-height: 135%;
+  letter-spacing: 0.5px;
   padding: 0;
   margin: 0;
 }
@@ -282,7 +272,7 @@
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-size: 14px;
-  line-height: 18px;
+  line-height: 135%;
   color: #a0a3a8;
   margin: 0;
 }
@@ -308,7 +298,8 @@
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-size: 14px;
-  line-height: 18px;
+  letter-spacing: 0.5px;
+  line-height: 135%;
   color: #a0a3a8;
   margin: 0;
 }
@@ -332,6 +323,7 @@
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-size: 14px;
+  line-height: 125%;
   color: #a0a3a8;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -368,7 +360,9 @@
 
 .copyright p {
   font-family: 'Lato', sans-serif;
-  font-weight: 400;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 12%;
   font-size: 12px;
   color: #ffffff;
   margin: 0;
@@ -452,8 +446,8 @@
   .mobile-company-description {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 135%;
     color: #a0a3a8;
     margin: 0;
   }

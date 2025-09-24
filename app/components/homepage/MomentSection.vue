@@ -71,13 +71,14 @@
 
 .main-title {
   font-family: 'Lato', sans-serif;
-  font-weight: 700;
+  font-weight: 520;
   font-size: 48px;
-  line-height: 56px;
+  font-style: bold;
+  line-height: 125%;
   color: #1a1a1a;
   margin-bottom: 32px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2.4px;
 }
 
 .description-text {
@@ -87,9 +88,10 @@
 .description-text p {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 28px;
-  color: #4a5568;
+  font-size: normal;
+  font-size: 20px;
+  line-height: 135%;
+  color: #000000;
   margin-bottom: 20px;
 }
 
@@ -99,23 +101,24 @@
 
 .cta-button {
   font-family: 'Lato', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 800;
+  font-size: 18px;
   color: #000000;
   background-color: #ffffff;
   border: none;
   border-radius: 25px;
   padding: 20px 48px;
   cursor: pointer;
+  line-height: 125%;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   align-self: flex-start;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-width: 220px;
-  height: 56px;
+  min-width: 308px;
+  height: 70px;
 }
 
 .image-column {

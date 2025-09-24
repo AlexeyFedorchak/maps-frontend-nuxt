@@ -12,10 +12,10 @@
         </div>
         
         <div class="hidden md:block">
-          <h2 class="font-lato font-extrabold text-3xl md:text-4xl text-gray-900 mb-4 tracking-wide">
+          <h2 class="font-lato font-extrabold text-[24px] md:text-4xl leading-[125%] text-gray-900 mb-4 tracking-[2.4px]">
             WHY 50,000+ PEOPLE CAPTURED THEIR STORIES FOREVER.
           </h2>
-          <p class="font-lato font-medium text-lg" style="color: #787878;">
+          <p class="font-lato font-medium text-[18px] leading-[135%]" style="color: #787878;">
             Real moments. Real memories. Rated Excellent on Trustpilot.
           </p>
         </div>
@@ -63,14 +63,14 @@
                     <div class="flex space-x-1">
                       <img src="/images/icons/5stars.svg" alt="5 Stars" class="w-20 h-4" />
                     </div>
-                    <span class="text-xs text-gray-500">{{ review.timeAgo }}</span>
+                    <span class="text-[16px] font-roboto font-light leading-[2.6px] text-gray-500">{{ review.timeAgo }}</span>
                   </div>
 
-                  <h3 class="font-lato font-bold text-gray-900 mb-3 text-sm">
+                  <h3 class="font-roboto font-medium text-gray-900 mb-3 text-[18px] leading-[2.6]">
                     {{ review.title }}
                   </h3>
 
-                  <p class="font-lato text-sm text-gray-600 leading-relaxed mb-4">
+                  <p class="font-roboto text-[16px] font-light text-gray-600 leading-[2.2px] mb-4">
                     {{ review.content }}
                   </p>
 
@@ -84,7 +84,7 @@
                     </div>
                     <div>
                       <p class="font-lato font-semibold text-gray-900 text-sm">{{ review.reviewer }}</p>
-                      <p class="text-xs text-gray-500">Worldtraveler</p>
+                      <p class="text-[16px] font-roboto font-bold leading-[2.2px] text-black-500">Worldtraveler</p>
                     </div>
                   </div>
                 </div>
@@ -121,7 +121,7 @@
                       {{ review.title }}
                     </h3>
 
-                    <p class="font-lato text-xs text-gray-600 leading-relaxed mb-3 line-clamp-2">
+                    <p class="font-lato text-[13px] text-black-300 leading-relaxed mb-3 line-clamp-2">
                       {{ review.content }}
                     </p>
 

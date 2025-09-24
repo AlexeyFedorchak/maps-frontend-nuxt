@@ -4,7 +4,7 @@
     
     <div class="container">
       <div class="header-content">
-        <h2 class="main-title">PERSONALISED GIFTS<br>SAY IT BEST</h2>
+        <h2 class="main-title">PERSONALISED GIFTS SAY IT BEST</h2>
         <p class="subtitle">No matter what the occassion</p>
       </div>
 
@@ -278,13 +278,14 @@ const toggleAccordion = (index) => {
 
 .main-title {
   font-family: 'Lato', sans-serif;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 44px;
+  font-weight: 600;
+  font-style: extrabold;
+  font-size: 24px;
+  line-height: 125%;
   color: #1a1a1a;
   margin-bottom: 16px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2.4px;
 }
 
 .subtitle {
@@ -323,9 +324,9 @@ const toggleAccordion = (index) => {
 
 .gift-title {
   font-family: 'Lato', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 24px;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 135%;
   color: #1a1a1a;
   margin-bottom: 12px;
   text-align: center;
@@ -336,7 +337,7 @@ const toggleAccordion = (index) => {
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  color: #666666;
+  color: #787878;
   text-align: center;
   max-width: 280px;
 }

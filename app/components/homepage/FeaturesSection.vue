@@ -165,11 +165,13 @@
 .main-title {
   font-family: 'Lato', sans-serif;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 56px;
-  letter-spacing: 1.6px;
+  font-style: extrabold;
+  font-size: 24px;
+  line-height: 125%;
+  letter-spacing: 2.4px;
   color: #ffffff;
-  margin-bottom: 24px;
+  margin-top: 10px;
+  margin-bottom: 32px;
   text-align: center;
 }
 
@@ -246,6 +248,8 @@
   font-weight: 700;
   font-size: 16px;
   color: #000000;
+  line-height: 125%;
+  letter-spacing: 1px;
   background-color: #ffffff;
   border: none;
   border-radius: 20px;
@@ -262,7 +266,9 @@
 .made-with {
   font-family: 'Lato', sans-serif;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 125%;
+  letter-spacing: 1px;
   color: #a3a3a3;
   display: flex;
   align-items: center;

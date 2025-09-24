@@ -7,7 +7,7 @@
       <div class="flex items-center justify-center gap-8">         
         <div class="flex items-center gap-6">           
           <h3 class="font-lato font-black text-[20px] leading-[38px] tracking-[0px] text-black">             
-            10% OFF Join the Free Newsletter           
+            Join the Free Newsletter           
           </h3>           
           <p class="font-lato text-black text-sm whitespace-nowrap">             
             Sign up and receive 10% off your first order           
@@ -36,7 +36,7 @@
       <div class="flex flex-col space-y-6">
         <div class="text-center">
           <h3 class="font-lato font-black text-xl leading-tight tracking-[0px] text-black mb-3">
-            10% OFF Join the Free Newsletter
+            Join the Free Newsletter
           </h3>
           <p class="font-lato text-black text-sm">
             Sign up and receive 10% off your first order

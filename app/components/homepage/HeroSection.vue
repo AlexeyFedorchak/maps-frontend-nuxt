@@ -15,23 +15,23 @@
 
             <NuxtLink 
             to="/create" 
-            class="inline-flex items-center justify-center w-full max-w-[424px] h-[70px] bg-white/95 text-gray-800 rounded-2xl font-lato font-extrabold text-[16px] md:text-[20px] tracking-[1.6px] md:tracking-[2.4px] leading-[1.25] uppercase backdrop-blur-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.15)] mb-3 mx-auto"
+            class="inline-flex items-center justify-center w-full max-w-[424px] h-[70px] bg-white/95 text-gray-800 rounded-2xl font-lato font-extrabold text-[20px] md:text-[20px] tracking-[1.6px] md:tracking-[2.4px] leading-[1.25] uppercase backdrop-blur-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.15)] mb-3 mx-auto"
             >
             CREATE YOUR STAR MAP >
             </NuxtLink>
   
             <div class="flex items-center justify-center space-x-2 mb-[14px] text-white text-center flex-wrap">
               <img src="/images/icons/5stars.svg" alt="Trustpilot Rating" class="h-[14px] w-auto" />
-              <span class="font-lato font-medium text-[16px] text-black md:text-[20px]">Excellent 4.8 out of 5</span>
+              <span class="font-lato font-medium text-[20px] text-black md:text-[20px]">Excellent 4.8 out of 5</span>
               <img src="/images/icons/trustpilot.svg" alt="Trustpilot Logo" class="h-[20px] w-auto" />
             </div>
   
-            <h1 class="font-lato font-extrabold text-[24px] md:text-[28px] text-black tracking-[1.8px] md:tracking-[2.4px] leading-[1.35] mb-3 px-4 md:px-0 text-center">
+            <h1 class="font-lato font-extrabold text-[28px] md:text-[28px] text-black tracking-[2.4px] md:tracking-[2.4px] leading-[1.35] mb-3 px-4 md:px-0 text-center">
               CAPTURE YOUR MOMENT IN THE STARS
             </h1>
             
             <div class="max-w-[600px] mx-auto px-2 pb-[3vh] md:px-0">
-              <p class="font-lato font-medium text-[16px] md:text-[20px] text-black/90 leading-[1.4] text-center">
+              <p class="font-lato font-medium text-[20px] md:text-[20px] text-black/90 leading-[1.35] text-center">
                 <span class="block md:hidden">
                   <span class="whitespace-nowrap">Start with a time and place that means everything.</span><br>
                   Picture the stars at that exact moment.

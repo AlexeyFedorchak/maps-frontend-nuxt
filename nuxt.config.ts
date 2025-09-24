@@ -25,6 +25,8 @@ export default defineNuxtConfig({
         head: {
             link: [
                 {rel: 'stylesheet', href: 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css'},
+                { rel: 'stylesheet',href: 'https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap'},
+                {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap'}
             ],
             script: [
                 {src: 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js', type: 'text/javascript'},

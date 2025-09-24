@@ -19,7 +19,6 @@
               <a href="#">Real Photo Star Map</a>
               <a href="#">Mystic Night Star Map</a>
               <a href="#">Deep Space Print</a>
-              <a href="#">Location Map</a>
             </div>
           </div>
           
@@ -28,8 +27,10 @@
             <div class="mobile-contact">
               <p>We are always happy to help<br>Monday - Friday 9am - 4:30pm</p>
               <p>Picture The Stars, Ivy Business Centre, Crown Street, Failsworth, Manchester, M35 9BD, United Kingdom</p>
-              <p>support@picturethestars.com</p>
-              <p>0161 528 9460</p>
+              <div>
+                <a href="mailto:support@picturethestars.com" class="block contact-email hover:underline">support@picturethestars.com</a>
+                <a href="tel:0161 528 9460" class="block contact-phone hover:underline">0161 528 9460</a>
+              </div>
             </div>
           </div>
           
@@ -63,9 +64,9 @@
             <img src="/images/logo.svg" alt="Picture the Stars" class="footer-logo" />
           </div>
           <p class="company-description">
-            The specialists in creating exceptional<br>
-            Star Maps of the highest quality.<br>
-            Perfected over years of innovation &<br>
+            The specialists in creating exceptional
+            Star Maps of the highest quality.
+            Perfected over years of innovation &
             evolution. New products launched.
           </p>
         </div>
@@ -78,7 +79,6 @@
             <li><a href="#">Real Photo Star Map</a></li>
             <li><a href="#">Mystic Night Star Map</a></li>
             <li><a href="#">Deep Space Print</a></li>
-            <li><a href="#">Location Map</a></li>
           </ul>
         </div>
         
@@ -91,14 +91,16 @@
             </p>
             
             <p class="contact-address">
-              Picture The Stars, Ivy Business<br>
-              Centre, Crown Street, Failsworth,<br>
-              Manchester, M35 9BD, United<br>
+              Picture The Stars, Ivy Business
+              Centre, Crown Street, Failsworth,
+              Manchester, M35 9BD, United
               Kingdom
             </p>
-            
-            <p class="contact-email">support@picturethestars.com</p>
-            <p class="contact-phone">0161 528 9460</p>
+
+            <div>
+              <a href="mailto:support@picturethestars.com" class="block contact-email hover:underline">support@picturethestars.com</a>
+              <a href="tel:0161 528 9460" class="block contact-phone hover:underline">0161 528 9460</a>
+            </div>
           </div>
         </div>
         
@@ -106,14 +108,14 @@
           <h3 class="footer-title">FREE UK SHIPPING</h3>
           <div class="shipping-info">
             <p class="shipping-text">
-              Free shipping to the UK, Orders<br>
-              before 3:30pm are dispatched the<br>
+              Free shipping to the UK, Orders
+              before 3:30pm are dispatched the
               same day.
             </p>
             
             <p class="shipping-details">
-              All orders sent via Royal Mail Fully<br>
-              Tracked 48 hour (1-2 Days). Email and<br>
+              All orders sent via Royal Mail Fully
+              Tracked 48 hour (1-2 Days). Email and
               SMS Text updates.
             </p>
           </div>
@@ -122,10 +124,10 @@
         <div class="footer-column">
           <h3 class="footer-title">GUARANTEE</h3>
           <p class="guarantee-text">
-            We are confident you will love your<br>
-            purchase, however if you decide to<br>
-            return it back to us within 30 days,<br>
-            we will refund you 100% of the<br>
+            We are confident you will love your
+            purchase, however if you decide to
+            return it back to us within 30 days,
+            we will refund you 100% of the
             purchase amount.
           </p>
         </div>
@@ -133,10 +135,10 @@
         <div class="footer-column">
           <h3 class="footer-title">SECURE PAYMENT</h3>
           <p class="payment-text">
-            Encrypted secure payment powered<br>
-            by Stripe. Money back guarantee (30<br>
-            days) if you are not satisfied with<br>
-            Your order. Credit & Debit card<br>
+            Encrypted secure payment powered
+            by Stripe. Money back guarantee (30
+            days) if you are not satisfied with
+            Your order. Credit & Debit card
             payments by
           </p>
         </div>
@@ -185,7 +187,7 @@
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 60px;
+  gap: 40px;
   margin-bottom: 40px;
 }
 
@@ -199,15 +201,16 @@
 }
 
 .footer-logo {
-  max-width: 200px;
+  width: 200px;
   margin-bottom: 20px;
 }
 
 .company-description {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 15px;
+  line-height: 135%;
+  letter-spacing: 0.5px;
   color: #a0a3a8;
   margin: 0;
 }
@@ -242,13 +245,13 @@
 }
 
 .footer-links li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .footer-links a {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 18px;
   color: #a0a3a8;
   text-decoration: none;
@@ -262,7 +265,7 @@
 .contact-info {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .contact-hours,
@@ -271,8 +274,9 @@
 .contact-phone {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 135%;
+  letter-spacing: 0.5px;
   color: #a0a3a8;
   margin: 0;
 }
@@ -280,15 +284,16 @@
 .shipping-info {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .shipping-text,
 .shipping-details {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 15px;
+  line-height: 135%;
+  letter-spacing: 0.5px;
   color: #a0a3a8;
   margin: 0;
 }
@@ -297,7 +302,7 @@
 .payment-text {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: 0.5px;
   line-height: 135%;
   color: #a0a3a8;
@@ -308,7 +313,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 60px 60px 40px 60px;
+  padding: 30px 60px;
   margin: 0 -60px;
 }
 
@@ -322,7 +327,7 @@
 .social-links a {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 125%;
   color: #a0a3a8;
   text-decoration: none;
@@ -482,7 +487,7 @@
   .mobile-links a {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 18px;
     color: #a0a3a8;
     text-decoration: none;
@@ -499,7 +504,7 @@
   .mobile-payment {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
   
   .mobile-contact p,
@@ -508,7 +513,7 @@
   .mobile-payment p {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 18px;
     color: #a0a3a8;
     margin: 0;

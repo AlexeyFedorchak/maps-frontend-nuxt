@@ -21,32 +21,17 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-8 items-start px-6">
-        <div class="hidden md:block lg:col-span-1">
-          <div class="border border-gray-200 p-4 bg-white min-h-[180px] h-[180px] flex items-center justify-center">
-            <UiWidgetTrustpilot style="margin-left: -50px;"
+      <div class="grid grid-cols-1 xl:grid-cols-6 gap-8 items-start px-6">
+        <div class="block lg:col-span-1">
+          <div class="md:border md:border-gray-200 p-4 bg-white min-h-[180px] h-[180px] flex items-center justify-center">
+            <UiWidgetTrustpilot style="margin-left: -65px;"
               template-id="53aa8912dec7e10d38f59f36"
               business-unit-id="5ff48289096c2900014598a7"
-              width="300px"
+              width="285px"
               height="150px"
               locale="en-GB"
               :iframe-styles="{ border: 'none' }"
             />
-          </div>
-        </div>
-        
-        <div class="block md:hidden mb-8 py-4">
-          <div class="max-w-sm mx-auto px-4">
-            <div class="border border-gray-200 p-2 bg-white min-h-[140px] flex items-center justify-center">
-              <UiWidgetTrustpilot 
-                template-id="53aa8912dec7e10d38f59f36"
-                business-unit-id="5ff48289096c2900014598a7"
-                width="100px"
-                height="120px"
-                locale="en-GB"
-                :iframe-styles="{ border: 'none' }"
-              />
-            </div>
           </div>
         </div>
         
@@ -55,7 +40,7 @@
             <div class="overflow-x-auto px-4">
               <div class="flex gap-4">
                 <div 
-                  v-for="(review, slideIndex) in mockReviews.slice(0, 6)" 
+                  v-for="(review, slideIndex) in mockReviews.slice(0, 5)"
                   :key="'mobile-slide-' + slideIndex"
                   class="flex-shrink-0 w-80 bg-white border border-gray-200 p-5 shadow-sm"
                 >
@@ -70,7 +55,7 @@
                     {{ review.title }}
                   </h3>
 
-                  <p class="font-roboto text-[16px] font-light text-gray-600 leading-[2.2px] mb-4">
+                  <p class="font-roboto text-[16px] font-light text-gray-600 leading-[22px] mb-4">
                     {{ review.content }}
                   </p>
 
@@ -83,8 +68,8 @@
                       </span>
                     </div>
                     <div>
-                      <p class="font-lato font-semibold text-gray-900 text-sm">{{ review.reviewer }}</p>
-                      <p class="text-[16px] font-roboto font-bold leading-[2.2px] text-black-500">Worldtraveler</p>
+                      <p class="font-lato font-semibold text-gray-900 text-[16px]">{{ review.reviewer }}</p>
+                      <p class="text-[16px] font-roboto font-bold leading-[22px] text-black-500">Worldtraveler</p>
                     </div>
                   </div>
                 </div>
@@ -93,7 +78,7 @@
           </div>
         </div>
 
-        <div class="hidden md:block lg:col-span-5 xl:col-span-6">
+        <div class="hidden md:block xl:col-span-5">
           <div class="relative overflow-hidden">
             <div 
               class="flex transition-transform duration-500 ease-in-out"
@@ -104,7 +89,7 @@
                 :key="'slide-' + slideIndex"
                 class="w-full flex-shrink-0"
               >
-                <div class="grid grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 min-h-[160px]">
+                <div class="grid grid-cols-3 xl:grid-cols-5 gap-4 min-h-[160px]">
                   <div 
                     v-for="(review, reviewIndex) in slide" 
                     :key="'review-' + review.id"
@@ -114,14 +99,14 @@
                       <div class="flex space-x-1">
                         <img src="/images/icons/5stars.svg" alt="5 Stars" class="w-20 h-4" />
                       </div>
-                      <span class="text-xs text-gray-500">{{ review.timeAgo }}</span>
+                      <span class="text-[16px] text-gray-500">{{ review.timeAgo }}</span>
                     </div>
 
-                    <h3 class="font-lato font-bold text-gray-900 mb-2 text-sm">
+                    <h3 class="font-lato font-bold text-gray-900 mb-2 text-[16px]">
                       {{ review.title }}
                     </h3>
 
-                    <p class="font-lato text-[13px] text-black-300 leading-relaxed mb-3 line-clamp-2">
+                    <p class="font-lato text-[16px] text-black-300 leading-relaxed mb-3 line-clamp-2">
                       {{ review.content }}
                     </p>
 
@@ -296,30 +281,6 @@ const mockReviews = ref([
     rating: 5,
     reviewer: 'Amanda Johnson',
     timeAgo: '2 days ago'
-  },
-  {
-    id: '16',
-    title: 'Best on the market',
-    content: 'I love this product because the support is great. Excellent choice.',
-    rating: 5,
-    reviewer: 'Daniel Wilson',
-    timeAgo: '2 days ago'
-  },
-  {
-    id: '17',
-    title: 'Best on the market',
-    content: 'I love this product because the support is great. Outstanding support.',
-    rating: 5,
-    reviewer: 'Laura Martinez',
-    timeAgo: '2 days ago'
-  },
-  {
-    id: '18',
-    title: 'Best on the market',
-    content: 'I love this product because the support is great. Incredible product.',
-    rating: 5,
-    reviewer: 'Ryan Thompson',
-    timeAgo: '2 days ago'
   }
 ])
 
@@ -327,7 +288,7 @@ const reviewSlides = computed(() => {
   const reviews = realReviews.value.length > 0 ? realReviews.value : mockReviews.value
   
   const slides = []
-  const reviewsPerSlide = 6
+  const reviewsPerSlide = 5
   for (let i = 0; i < reviews.length; i += reviewsPerSlide) {
     slides.push(reviews.slice(i, i + reviewsPerSlide))
   }
@@ -344,7 +305,7 @@ const startAutoPlay = () => {
   }, 5000)
   
   setInterval(() => {
-    const mobileReviewsCount = mockReviews.value.slice(0, 6).length
+    const mobileReviewsCount = mockReviews.value.slice(0, 5).length
     if (mobileReviewsCount > 1) {
       mobileCurrentSlide.value = (mobileCurrentSlide.value + 1) % mobileReviewsCount
     }

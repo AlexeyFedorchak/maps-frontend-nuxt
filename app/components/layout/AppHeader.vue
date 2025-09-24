@@ -1,5 +1,5 @@
 <template>
-  <header class="text-white px-4 py-3 w-full h-16 font-lato block fixed z-50 bg-[#25282D]">
+  <header class="text-white px-4 pt-4 w-full h-16 font-lato block fixed z-50 bg-[#25282D]">
     <div class="w-full">
       <div class="grid grid-cols-3 items-center">
         <div class="flex items-center justify-start flex-nowrap"
@@ -10,8 +10,8 @@
             class="w-6 hover:opacity-75 transition-opacity cursor-pointer"
             aria-label="Toggle menu"
           >
-            <img v-show="!showMenu" src="/images/icons/burger.svg" alt="Burger menu" />
-            <img v-show="showMenu" src="/images/icons/close.svg" alt="Close menu" />
+            <img class="block min-w-4" v-show="!showMenu" src="/images/icons/burger.svg" alt="Burger menu" />
+            <img class="block min-w-4" v-show="showMenu" src="/images/icons/close.svg" alt="Close menu" />
           </button>
 
           <span v-show="showMenu" @click="toggleMenu" class="tracking-[1px] uppercase cursor-pointer hidden xl:block">Close</span>
@@ -23,7 +23,7 @@
 
           <div v-show="!showMenu" class="hidden xl:flex items-center space-x-2 whitespace-nowrap">
             <span class="text-[14px] font-lato font-bold leading-[15px]">Excellent</span>
-            <UiWidgetTrustpilot 
+            <UiWidgetTrustpilot
               template-id="5406e65db0d04a09e042d5fc"
               business-unit-id="5ff48289096c2900014598a7"
               width="80px"
@@ -38,28 +38,28 @@
 
         <div class="flex items-center justify-center">
           <NuxtLink to="/" class="hover:opacity-75 transition-opacity">
-            <img src="/images/logo.svg" alt="Picture the Stars Logo" class="h-8" />
+            <img src="/images/logo.svg" alt="Picture the Stars Logo" class="h-9" />
           </NuxtLink>
         </div>
 
-        <div class="flex items-center justify-end flex-nowrap space-x-1">
+        <div class="xl:mt-2 flex items-center justify-end flex-nowrap space-x-4">
          
-          <a href="tel:0161 528 9460" class="hidden xl:flex items-center space-x-2 shrink-0">
+          <a href="tel:0161 528 9460" class="hidden xl:flex items-center space-x-1 shrink-0">
             <img src="/images/icons/phone.svg" alt="Phone" class="h-6" />
             <span class="text-sm font-lato font-normal tracking-[0.8px]">0161 528 9460</span>
           </a>
 
-          <div class="hidden xl:flex items-center space-x-2 shrink-0">
+          <div class="hidden xl:flex items-center space-x-1 shrink-0">
             <img src="/images/icons/location.svg" alt="Location" class="h-6" />
             <span class="text-[14px] font-lato font-normaltracking-[0.8px]">1-2 FREE DAY SHIPPING</span>
           </div>
 
-          <div class="hidden xl:flex items-center space-x-2 shrink-0">
+          <div class="hidden xl:flex items-center space-x-1 shrink-0">
             <img src="/images/icons/globe.svg" alt="Globe" class="h-6" />
             <span class="text-[14px] font-lato font-normal tracking-[0.8px]">UK (GBP)</span>
           </div>
 
-          <div class="flex items-center shrink-0 cursor-pointer space-x-2">
+          <div class="flex items-center shrink-0 cursor-pointer space-x-1">
             <img src="/images/icons/basket.svg" alt="Basket" class="h-6" />
             <span class="hidden xl:block text-[14px] font-lato font-normal tracking-[0.8px]">BASKET</span>
           </div>

@@ -7,7 +7,7 @@
         >
           <button 
             @click="toggleMenu"
-            class="w-6 hover:opacity-75 transition-opacity cursor-pointer"
+            class="w-6 hover:opacity-75 transition-opacity cursor-pointer -mt-1"
             aria-label="Toggle menu"
           >
             <img class="block min-w-4" v-show="!showMenu" src="/images/icons/burger.svg" alt="Burger menu" />
@@ -16,7 +16,7 @@
 
           <span v-show="showMenu" @click="toggleMenu" class="tracking-[1px] uppercase cursor-pointer hidden xl:block">Close</span>
 
-          <button v-show="!showMenu" class="hidden xl:flex items-center space-x-1 px-4 py-2 min-w-[180px] border-1 border-white rounded-[12px] text-white text-xs font-bold hover:opacity-75 transition leading-none whitespace-nowrap cursor-pointer">
+          <button v-show="!showMenu" class="hidden xl:flex items-center space-x-1 px-4 py-2 min-w-[180px] border-1 border-white rounded-[12px] text-white text-xs font-bold hover:opacity-75 transition leading-none whitespace-nowrap cursor-pointer -mt-1">
             <img src="/images/icons/stars.svg" alt="Create Star Map" class="h-4" />
             <span class="tracking-[1px]">CREATE STAR MAP</span>
           </button>

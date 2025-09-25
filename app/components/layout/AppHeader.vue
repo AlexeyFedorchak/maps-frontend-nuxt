@@ -76,22 +76,22 @@
           
           <div class="flex flex-col justify-between h-full w-full lg:mx-8 xl:mx-12">
             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div class="space-y-8 md:space-y-16">
+              <div class="space-y-8 md:space-y-10">
                 <div>
                   <a href="#" class="block uppercase font-normal font-lato text-2xl tracking-[1.6px] mb-6 hover:underline underline-offset-4">
                     Star Map Design
                   </a>
-                  <nav class="flex flex-col space-y-4 menu-links">
+                  <nav class="flex flex-col space-y-3 menu-links">
                     <a href="#" class="hover:underline underline-offset-4 text-2xl">Original</a>
                     <a href="#" class="flex items-center">
                       <span class="text-2xl hover:underline underline-offset-4">Mystic Night</span>
-                      &nbsp;&nbsp;<span class="inline-block px-2 py-1 2xl uppercase tracking-[1px] text-black bg-[#E4E2DA]">Limited Edition</span>
+                      &nbsp;&nbsp;<span class="inline-block px-2 py-[1px] 2xl uppercase tracking-[1px] text-black bg-[#E4E2DA]">Limited Edition</span>
                     </a>
                     <a href="#" class="hover:underline underline-offset-4 text-2xl">Real Photo</a>
                     <a href="#" class="hover:underline underline-offset-4 text-2xl">Starlight</a>
                     <a href="#" class="flex items-center">
                       <span class="text-2xl hover:underline underline-offset-4">Watercolour</span>
-                      &nbsp;&nbsp;<span class="inline-block px-2 py-1 2xl uppercase tracking-[1px] text-black bg-[#D7D8D9]">New</span>
+                      &nbsp;&nbsp;<span class="inline-block px-2 py-[1px] 2xl uppercase tracking-[1px] text-black bg-[#D7D8D9]">New</span>
                     </a>
 
                   </nav>
@@ -101,7 +101,7 @@
                   <a href="#" class="block uppercase font-normal font-lato text-2xl tracking-[1.6px] mb-6 hover:underline underline-offset-4">
                     Jewellery
                   </a>
-                  <nav class="flex flex-col space-y-4 menu-links">
+                  <nav class="flex flex-col space-y-3 menu-links">
                     <a href="#" class="hover:underline underline-offset-4 text-2xl">Star Map Jewellery</a>
                     <a href="#" class="hover:underline underline-offset-4 text-2xl">Location Map Jewellery</a>
                   </nav>
@@ -109,7 +109,7 @@
               </div>
 
               <div>
-                <nav class="flex flex-col space-y-6">
+                <nav class="flex flex-col space-y-5">
                   <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-2xl tracking-[1.6px]">
                     Deep Space
                   </a>

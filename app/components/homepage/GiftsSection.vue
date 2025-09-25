@@ -100,6 +100,7 @@
   color: white;
   text-align: center;
   width: 90%;
+  z-index: 2;
 }
 
 .gift-title {
@@ -119,6 +120,22 @@
   font-size: 18px;
   line-height: 135%;
   color: #ffffff;
+  opacity: 0.9;
+}
+
+.gift-image::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: url('/images/overlay.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  pointer-events: none;
+  z-index: 1;
   opacity: 0.9;
 }
 

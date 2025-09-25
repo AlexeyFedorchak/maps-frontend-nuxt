@@ -117,6 +117,7 @@ const handleKeyPress = (event) => {
   height: 100%;
   padding: 0 20px;
   padding-right: 180px;
+  line-height: 0;
   font-size: 14px;
   color: #9ca3af;
   background: transparent;
@@ -127,6 +128,7 @@ const handleKeyPress = (event) => {
 .email-input::placeholder {
   color: #9ca3af;
   font-weight: 500;
+  transform: translateY(0.5px);
 }
 
 .submit-button {
@@ -140,6 +142,7 @@ const handleKeyPress = (event) => {
   font-family: 'Lato', sans-serif;
   font-weight: 700;
   font-size: 12px;
+  line-height: 0;
   border: none;
   border-radius: 24px;
   white-space: nowrap;

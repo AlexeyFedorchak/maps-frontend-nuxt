@@ -267,6 +267,7 @@ const updateSelectedItem = (value) => {
   border-radius: 50px;
   padding: 10px 24px;
   cursor: pointer;
+  line-height: 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   min-width: 140px;

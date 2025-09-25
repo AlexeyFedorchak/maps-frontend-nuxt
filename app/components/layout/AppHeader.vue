@@ -78,19 +78,19 @@
             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
               <div class="space-y-8 md:space-y-16">
                 <div>
-                  <a href="#" class="block uppercase font-normal font-lato text-3xl tracking-[1.6px] mb-6 hover:underline underline-offset-4">
+                  <a href="#" class="block uppercase font-normal font-lato text-2xl tracking-[1.6px] mb-6 hover:underline underline-offset-4">
                     Star Map Design
                   </a>
                   <nav class="flex flex-col space-y-4 menu-links">
-                    <a href="#" class="hover:underline underline-offset-4 text-3xl">Original</a>
+                    <a href="#" class="hover:underline underline-offset-4 text-2xl">Original</a>
                     <a href="#" class="flex items-center">
-                      <span class="text-3xl hover:underline underline-offset-4">Mystic Night</span>
+                      <span class="text-2xl hover:underline underline-offset-4">Mystic Night</span>
                       &nbsp;&nbsp;<span class="inline-block px-2 py-1 2xl uppercase tracking-[1px] text-black bg-[#E4E2DA]">Limited Edition</span>
                     </a>
-                    <a href="#" class="hover:underline underline-offset-4 text-3xl">Real Photo</a>
-                    <a href="#" class="hover:underline underline-offset-4 text-3xl">Starlight</a>
+                    <a href="#" class="hover:underline underline-offset-4 text-2xl">Real Photo</a>
+                    <a href="#" class="hover:underline underline-offset-4 text-2xl">Starlight</a>
                     <a href="#" class="flex items-center">
-                      <span class="text-3xl hover:underline underline-offset-4">Watercolour</span>
+                      <span class="text-2xl hover:underline underline-offset-4">Watercolour</span>
                       &nbsp;&nbsp;<span class="inline-block px-2 py-1 2xl uppercase tracking-[1px] text-black bg-[#D7D8D9]">New</span>
                     </a>
 
@@ -98,46 +98,46 @@
                 </div>
 
                 <div>
-                  <a href="#" class="block uppercase font-normal font-lato text-3xl tracking-[1.6px] mb-6 hover:underline underline-offset-4">
+                  <a href="#" class="block uppercase font-normal font-lato text-2xl tracking-[1.6px] mb-6 hover:underline underline-offset-4">
                     Jewellery
                   </a>
                   <nav class="flex flex-col space-y-4 menu-links">
-                    <a href="#" class="hover:underline underline-offset-4 text-3xl">Star Map Jewellery</a>
-                    <a href="#" class="hover:underline underline-offset-4 text-3xl">Location Map Jewellery</a>
+                    <a href="#" class="hover:underline underline-offset-4 text-2xl">Star Map Jewellery</a>
+                    <a href="#" class="hover:underline underline-offset-4 text-2xl">Location Map Jewellery</a>
                   </nav>
                 </div>
               </div>
 
               <div>
                 <nav class="flex flex-col space-y-6">
-                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-3xl tracking-[1.6px]">
+                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-2xl tracking-[1.6px]">
                     Deep Space
                   </a>
-                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-3xl tracking-[1.6px]">
+                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-2xl tracking-[1.6px]">
                     Location Map
                   </a>
-                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-3xl tracking-[1.6px]">
+                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-2xl tracking-[1.6px]">
                     FAQ
                   </a>
                   <a href="#" class="hover:underline underline-offset-4">
-                    <span class="uppercase font-normal font-lato text-3xl tracking-[1.6px]">
+                    <span class="uppercase font-normal font-lato text-2xl tracking-[1.6px]">
                       The Science Behind
                     </span>
-                    <span class="whitespace-nowrap text-2xl font-light">Star Maps</span>
+                    <span class="whitespace-nowrap text-1xl font-light">Star Maps</span>
                   </a>
                   <a href="#" class="hover:underline underline-offset-4">
-                    <span class="uppercase font-normal font-lato text-3xl tracking-[1.6px]">
+                    <span class="uppercase font-normal font-lato text-2xl tracking-[1.6px]">
                       The Science Behind
                     </span>
-                    <span class="whitespace-nowrap text-2xl font-light">Moon Maps</span>
+                    <span class="whitespace-nowrap text-1xl font-light">Moon Maps</span>
                   </a>
-                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-3xl tracking-[1.6px]">
+                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-2xl tracking-[1.6px]">
                     How it Works
                   </a>
-                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-3xl tracking-[1.6px]">
+                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-2xl tracking-[1.6px]">
                     Spotlight blog
                   </a>
-                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-3xl tracking-[1.6px]">
+                  <a href="#" class="uppercase font-normal font-lato hover:underline underline-offset-4 text-2xl tracking-[1.6px]">
                     Contact
                   </a>
                 </nav>
@@ -147,21 +147,21 @@
               <div class="w-full flex flex-col justify-center gap-4 mt-10 md:flex-row md:flex-nowrap md:justify-start xl:mt-0">
                 <NuxtLink
                     to="/create"
-                    class="w-full xl:max-w-[280px] flex items-center justify-center h-[60px] bg-white/95 text-gray-800 rounded-2xl font-lato font-extrabold text-[16px] md:text-[18px] tracking-[1px] leading-[1.25] uppercase backdrop-blur-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.15)]"
+                    class="w-full xl:max-w-[280px] flex items-center justify-center h-[60px] bg-white/95 text-gray-800 rounded-2xl font-lato font-extrabold text-[14px] md:text-[16px] tracking-[1px] leading-[1.25] uppercase backdrop-blur-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.15)]"
                 >
                   Create Star Map
                 </NuxtLink>
 
                 <NuxtLink
                     to="/create"
-                    class="w-full xl:max-w-[280px] flex items-center justify-center h-[60px] bg-white/95 text-gray-800 rounded-2xl font-lato font-extrabold text-[16px] md:text-[18px] tracking-[1px] leading-[1.25] uppercase backdrop-blur-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.15)]"
+                    class="w-full xl:max-w-[280px] flex items-center justify-center h-[60px] bg-white/95 text-gray-800 rounded-2xl font-lato font-extrabold text-[14px] md:text-[16px] tracking-[1px] leading-[1.25] uppercase backdrop-blur-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.15)]"
                 >
                   Create Moon Map
                 </NuxtLink>
 
                 <NuxtLink
                     to="/create"
-                    class="w-full xl:max-w-[280px] flex items-center justify-center h-[60px] bg-white/95 text-gray-800 rounded-2xl font-lato font-extrabold text-[16px] md:text-[18px] tracking-[1px] leading-[1.25] uppercase backdrop-blur-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.15)]"
+                    class="w-full xl:max-w-[280px] flex items-center justify-center h-[60px] bg-white/95 text-gray-800 rounded-2xl font-lato font-extrabold text-[14px] md:text-[16px] tracking-[1px] leading-[1.25] uppercase backdrop-blur-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.15)]"
                 >
                   Create Location Map
                 </NuxtLink>

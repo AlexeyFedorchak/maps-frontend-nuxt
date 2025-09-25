@@ -42,7 +42,7 @@
           </NuxtLink>
         </div>
 
-        <div class="xl:mt-2 flex items-center justify-end flex-nowrap space-x-4">
+        <div class="flex items-center justify-end flex-nowrap space-x-4">
          
           <a href="tel:0161 528 9460" class="hidden xl:flex items-center space-x-1 shrink-0">
             <img src="/images/icons/phone.svg" alt="Phone" class="h-6" />

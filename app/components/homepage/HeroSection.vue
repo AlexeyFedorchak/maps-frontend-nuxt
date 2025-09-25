@@ -6,7 +6,7 @@
           alt="Hero Background" 
           class="w-full h-full object-cover object-center min-h-screen mt-16"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-50 via-gray-50/10 to-transparent"></div>
       </div>
       
       <div class="relative z-[2] w-full text-center text-white px-4 md:px-0 pt-[70vh] md:pt-0">

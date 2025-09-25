@@ -108,7 +108,6 @@ const handleKeyPress = (event) => {
   width: 400px;
   height: 50px;
   background: white;
-  border: 2px solid #e5e7eb;
   border-radius: 25px;
   overflow: hidden;
 }

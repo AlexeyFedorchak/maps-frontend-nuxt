@@ -286,11 +286,10 @@ const updateSelectedItem = (value) => {
   font-style: bold;
   color: #000000;
   background: #cdcac1;
-  border: 2px solid #f5f5f5;
   border-radius: 50px;
   padding: 10px 24px;
   cursor: pointer;
-  line-height: 125%;
+  line-height: 0;
   text-transform: uppercase;
   letter-spacing: 1px;
   min-width: 180px;

@@ -23,23 +23,33 @@
           <div class="w-full sm:w-auto min-h-[200px]">
             <Carousel 
             class="relative w-full"
+             @init-api="setApi"
             :opts="{
               align: 'start',
-              loop: true,
             }"
             >
               <CarouselContent>
-                <CarouselItem v-for="(_, index) in 5" :key="index" class="md:basis-1/2 lg:basis-1/4">
+                <CarouselItem v-for="(_, index) in 8" :key="index" class="md:basis-1/2 lg:basis-1/4">
                   <div class="p-1">
                     <Card>
                       <CardContent class="flex aspect-square items-center justify-center p-6">
-                        <span class="text-4xl font-semibold">{{ index + 1 }}</span>
+                        <span class="text-4xl font-semibold">{{ index + 1}}</span>
                       </CardContent>
                     </Card>
                   </div>
                 </CarouselItem>
               </CarouselContent>
             </Carousel>
+
+      <div class="flex justify-center gap-2 mt-4">
+      <button
+        v-for="(_, index) in scrollSnaps"
+        :key="index"
+        @click="scrollTo(index)"
+        class="w-3 h-3 rounded-full transition-colors"
+        :class="index === selectedIndex ? 'bg-black' : 'bg-gray-400'"
+      />
+    </div>
           </div>
         </div>
         <div :class="activeTab === 'star_map' ? 'block' : 'hidden'">
@@ -62,16 +72,32 @@
   </section>
 </template>
 
-<script setup>
-import { ref, computed, onMounted, nextTick, watchEffect, watch } from 'vue'
-import { Card, CardContent } from "../ui/card"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel'
+<script setup lang="ts">
+import { ref,  onMounted, nextTick, watchEffect } from "vue"
+import { Card, CardContent } from "@/components/ui/card"
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
+
+const api = ref<CarouselApi | null >(null)
+const scrollSnaps = ref<number[]>([])
+const selectedIndex = ref<number>(0)
+
+const setApi = (emblaApi: CarouselApi | undefined) => {
+  if (!emblaApi) return
+  api.value = emblaApi
+  
+  scrollSnaps.value = emblaApi.scrollSnapList()
+  
+  const updateSelected = () => {
+    selectedIndex.value = emblaApi.selectedScrollSnap()
+  }
+  
+  emblaApi.on("select", updateSelected)
+  updateSelected()
+}
+
+const scrollTo = (index: number) => {
+  api.value?.scrollTo(index)
+}
 
 const activeTab = ref('bestsellers')
 const isMounted = ref(false)

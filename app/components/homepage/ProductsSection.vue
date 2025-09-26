@@ -1,6 +1,6 @@
 <template>
   <section class="bg-gray-50 py-8">
-    <div class="max-w-[1600px] mx-auto px-6">
+    <div class="max-w-[1600px] mx-20">
 
       <div class="mb-10 overflow-x-auto scrollbar-hide">
         <div class="flex gap-2 px-4 justify-center min-w-max min-h-11">
@@ -20,13 +20,16 @@
 
       <div class="product-section">
         <div :class="activeTab === 'bestsellers' ? 'block' : 'hidden'">
-          <div class="w-full sm:w-auto">
+          <div class="w-full sm:w-auto min-h-[200px]">
             <Carousel 
-            class="relative w-full max-w-xs mx-auto" 
-            :opts="{ axis: 'x' }"
+            class="relative w-full"
+            :opts="{
+              align: 'start',
+              loop: true,
+            }"
             >
               <CarouselContent>
-                <CarouselItem v-for="(_, index) in 5" :key="index">
+                <CarouselItem v-for="(_, index) in 5" :key="index" class="md:basis-1/2 lg:basis-1/4">
                   <div class="p-1">
                     <Card>
                       <CardContent class="flex aspect-square items-center justify-center p-6">
@@ -36,8 +39,6 @@
                   </div>
                 </CarouselItem>
               </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
             </Carousel>
           </div>
         </div>

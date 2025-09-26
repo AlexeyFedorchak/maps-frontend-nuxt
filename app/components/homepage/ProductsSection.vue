@@ -29,8 +29,8 @@
               align: 'start',
               slidesToScroll: 1,
               breakpoints: {
-                '(min-width: 1280px)': { slidesToScroll: 4 }, // desktop
                 '(min-width: 768px)': { slidesToScroll: 2 }, // tablet
+                '(min-width: 1024px)': { slidesToScroll: 4 }, // desktop
               },
             }"
             >
@@ -47,15 +47,15 @@
               </CarouselContent>
             </Carousel>
 
-      <div class="flex justify-center gap-2 mt-4">
-      <button
-        v-for="(_, index) in scrollSnaps"
-        :key="index"
-        @click="scrollTo(index)"
-        class="w-3 h-3 rounded-full transition-colors"
-        :class="index === selectedIndex ? 'bg-black' : 'bg-gray-400'"
-      />
-    </div>
+            <div class="flex justify-center gap-2 mt-4">
+              <button
+                v-for="(_, index) in scrollSnaps"
+                :key="index"
+                @click="scrollTo(index)"
+                class="dot"
+                :class="index === selectedIndex ? 'active' : ''"
+              />
+            </div>
           </div>
         </div>
         <div :class="activeTab === 'star_map' ? 'block' : 'hidden'">
@@ -79,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref,  onMounted, nextTick, watchEffect } from "vue"
+import { ref,  onMounted, onBeforeUnmount, nextTick, watchEffect } from "vue"
 import { Card, CardContent } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
 
@@ -120,6 +120,17 @@ const tabs = {
 onMounted(async () => {
   await nextTick()
   isMounted.value = true
+
+  const handleResize = () => {
+    api.value?.reInit()
+    scrollSnaps.value = api.value?.scrollSnapList() || []
+  }
+
+  window.addEventListener("resize", handleResize)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", () => api.value?.reInit())
 })
 
 watchEffect(() => {

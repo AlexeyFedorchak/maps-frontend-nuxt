@@ -20,9 +20,26 @@
 
       <div class="product-section">
         <div :class="activeTab === 'bestsellers' ? 'block' : 'hidden'">
-
-
-
+          <div class="w-full sm:w-auto">
+            <Carousel 
+            class="relative w-full max-w-xs mx-auto" 
+            :opts="{ axis: 'x' }"
+            >
+              <CarouselContent>
+                <CarouselItem v-for="(_, index) in 5" :key="index">
+                  <div class="p-1">
+                    <Card>
+                      <CardContent class="flex aspect-square items-center justify-center p-6">
+                        <span class="text-4xl font-semibold">{{ index + 1 }}</span>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
         </div>
         <div :class="activeTab === 'star_map' ? 'block' : 'hidden'">
           <p class="uppercase">{{ activeTab }}</p>
@@ -46,6 +63,14 @@
 
 <script setup>
 import { ref, computed, onMounted, nextTick, watchEffect, watch } from 'vue'
+import { Card, CardContent } from "../ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel'
 
 const activeTab = ref('bestsellers')
 const isMounted = ref(false)

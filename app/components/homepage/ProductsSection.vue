@@ -25,11 +25,17 @@
             class="relative w-full"
              @init-api="setApi"
             :opts="{
+              loop: false,
               align: 'start',
+              slidesToScroll: 1,
+              breakpoints: {
+                '(min-width: 1280px)': { slidesToScroll: 4 }, // desktop
+                '(min-width: 768px)': { slidesToScroll: 2 }, // tablet
+              },
             }"
             >
               <CarouselContent>
-                <CarouselItem v-for="(_, index) in 8" :key="index" class="md:basis-1/2 lg:basis-1/4">
+                <CarouselItem v-for="(_, index) in 9" :key="index" class="md:basis-1/2 lg:basis-1/4">
                   <div class="p-1">
                     <Card>
                       <CardContent class="flex aspect-square items-center justify-center p-6">

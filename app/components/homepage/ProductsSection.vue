@@ -22,7 +22,7 @@
         <div :class="activeTab === 'bestsellers' ? 'block' : 'hidden'">
         <HomepageProductSlider :products="bestsellersProduct"/>
         </div>
-        <div :class="activeTab === 'star_map' ? 'block' : 'hidden'">
+        <div :class="activeTab === 'star_map' ? 'block' : 'hidden'" class="min-h-[700px]">
           <HomepageProductSlider 
             :products="starMapProducts"
             titleClass="font-lato font-extrabold text-[16px] leading-[120%] tracking-[1.2px] uppercase mt-[12px]"
@@ -32,7 +32,7 @@
             itemBasisClass="md:basis-1/2 lg:basis-1/5"
           />
         </div>
-        <div :class="activeTab === 'custom_jewellery' ? 'block' : 'hidden'">
+        <div :class="activeTab === 'custom_jewellery' ? 'block' : 'hidden'" class="min-h-[700px]">
           <HomepageProductSlider 
             :products="customJewelleryProducts"
             titleClass="font-lato font-extrabold text-[16px] leading-[120%] tracking-[1.2px] uppercase mt-[12px]"

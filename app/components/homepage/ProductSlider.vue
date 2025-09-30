@@ -17,18 +17,29 @@
           <CarouselItem 
             v-for="(product, index) in products" 
             :key="product.id || index" 
-            class="md:basis-1/2 lg:basis-1/4"
+            :class="[itemBasisClass, itemPaddingClass]"
+
           >
-            <div class="p-1">
-              <Card>
-                <CardContent class="flex aspect-square items-center justify-center p-6">
-                  <div class="text-center">
-                    <span class="text-4xl font-semibold">{{ product.name || index + 1 }}</span>
-                    <p v-if="product.price" class="mt-2 text-sm text-gray-600">{{ product.price }}</p>
+            <div class="p-1" :class="image">
+                  <div>
+                    <img 
+                    :src="product.image || '/images/Component 28.png'" 
+                    :alt="product.name || `Product ${index + 1}`"
+                    class="w-full h-full object-cover transition-transform mx-auto"
+                  />
                   </div>
-                </CardContent>
-              </Card>
             </div>
+            <div :class="titleClass">
+                {{ product.name }}
+            </div>
+            <div :class="priceClass">
+                {{ product.price }}
+                <span v-if="product.freeShipping" :class="shippingClass">{{ product.freeShipping }}</span>
+            </div>
+            <div :class="descriptionClass" class="whitespace-pre-line">
+                {{ product.description }}
+            </div>
+
           </CarouselItem>
         </CarouselContent>
       </Carousel>
@@ -55,15 +66,30 @@
     name?: string
     price?: string
     image?: string
+    description?: Text
+    freeShipping?: string
     [key: string]: any
   }
   
   interface Props {
     products?: Product[]
+    titleClass?: string,
+    priceClass?: string,
+    shippingClass?: string
+    descriptionClass?: string,
+    itemBasisClass?: string,
+    itemPaddingClass?: string
+    image?: string
   }
   
   const props = withDefaults(defineProps<Props>(), {
-    products: () => Array.from({ length: 9 }, (_, i) => ({ id: i + 1 }))
+    products: () => Array.from({ length: 9 }, (_, i) => ({ id: i + 1 })),
+    titleClass: 'font-lato font-extrabold text-[18px] leading-[120%] tracking-[1.6px] uppercase',
+    priceClass: 'font-lato font-bold text-[16px] leading-auto tracking-[1.2px] text-[#25282D]',
+    shippingClass: 'font-roboto font-normal text-[16px] leading-[22px] tracking-[0px] text-[#a5a5a5]',
+    descriptionClass: 'font-lato font-normal text-[16px] leading-[125%] tracking-[0px] text-[#787878]',
+    itemBasisClass: 'md:basis-1/2 lg:basis-1/4',
+    itemPaddingClass: ''
   })
   
   const api = ref<CarouselApi | null>(null)

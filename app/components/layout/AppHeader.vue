@@ -37,7 +37,7 @@
         </div>
 
         <div class="flex items-center justify-center">
-          <NuxtLink to="/" class="hover:opacity-75 transition-opacity">
+          <NuxtLink to="/" class="hover:opacity-75 transition-opacity absolute top-3">
             <img src="/images/logo.svg" alt="Picture the Stars Logo" class="h-9" />
           </NuxtLink>
         </div>

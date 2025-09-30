@@ -20,13 +20,20 @@
             :class="[itemBasisClass, itemPaddingClass]"
 
           >
-            <div class="p-1" :class="image">
-                  <div>
+            <div class="p-1 relative" :class="image">
+                  <div class="relative">
                     <img 
                     :src="product.image || '/images/Component 28.png'" 
                     :alt="product.name || `Product ${index + 1}`"
                     class="w-full h-full object-cover transition-transform mx-auto"
                   />
+                  <div 
+                   v-if="product.label" 
+                   class="absolute bottom-3 left-3 bg-[#E4E2DA] px-3 py-1 font-lato font-normal text-[14px] tracking-[1.01px] leading-auto uppercase"
+                   :class="product.labelClass"
+                  >
+                  {{ product.label }}
+                  </div>
                   </div>
             </div>
             <div :class="titleClass">
@@ -44,7 +51,7 @@
         </CarouselContent>
       </Carousel>
   
-      <div class="flex justify-center gap-2 mt-4">
+      <div class="flex justify-center gap-2 mt-20">
         <button
           v-for="(_, index) in scrollSnaps"
           :key="index"
@@ -66,8 +73,10 @@
     name?: string
     price?: string
     image?: string
+    label?: string
     description?: Text
     freeShipping?: string
+    new?: string
     [key: string]: any
   }
   
@@ -79,15 +88,18 @@
     descriptionClass?: string,
     itemBasisClass?: string,
     itemPaddingClass?: string
+    label?: string
     image?: string
+    new?: string
+    labelClass?: string
   }
   
   const props = withDefaults(defineProps<Props>(), {
     products: () => Array.from({ length: 9 }, (_, i) => ({ id: i + 1 })),
-    titleClass: 'font-lato font-extrabold text-[18px] leading-[120%] tracking-[1.6px] uppercase',
-    priceClass: 'font-lato font-bold text-[16px] leading-auto tracking-[1.2px] text-[#25282D]',
+    titleClass: 'font-lato font-extrabold text-[18px] leading-[120%] tracking-[1.6px] uppercase mt-[15px]',
+    priceClass: 'font-lato font-bold text-[16px] leading-auto tracking-[1.2px] text-[#25282D] mt-[10px]',
     shippingClass: 'font-roboto font-normal text-[16px] leading-[22px] tracking-[0px] text-[#a5a5a5]',
-    descriptionClass: 'font-lato font-normal text-[16px] leading-[125%] tracking-[0px] text-[#787878]',
+    descriptionClass: 'font-lato font-normal text-[16px] leading-[125%] tracking-[0px] text-[#787878] mt-[15px]',
     itemBasisClass: 'md:basis-1/2 lg:basis-1/4',
     itemPaddingClass: ''
   })

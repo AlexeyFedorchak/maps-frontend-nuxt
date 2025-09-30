@@ -1,19 +1,17 @@
 <template>
     <div class="w-ful max-h-[1600px]">
-      <div class="flex gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
         <div 
           v-for="(product, index) in products" 
           :key="product.id || index"
-          class="flex-1"
         >
-          <div class="p-1">
-            <div>
-              <img 
-                :src="product.image || '/images/Component 28.png'" 
-                :alt="product.name || `Product ${index + 1}`"
-                class="w-full h-full object-cover transition-transform mx-auto"
-              />
-            </div>
+
+          <div>
+            <img
+              :src="product.image || '/images/Component 28.png'"
+              :alt="product.name || `Product ${index + 1}`"
+              class="w-full h-full object-cover transition-transform mx-auto"
+            />
           </div>
           
           <div :class="titleClass">

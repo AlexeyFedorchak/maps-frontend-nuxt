@@ -20,7 +20,7 @@
             :class="[itemBasisClass, itemPaddingClass]"
 
           >
-            <div class="p-1 relative" :class="image">
+            <div class="relative" :class="image">
                   <div class="relative">
                     <img 
                     :src="product.image || '/images/Component 28.png'" 
@@ -51,7 +51,7 @@
         </CarouselContent>
       </Carousel>
   
-      <div class="flex justify-center gap-2 mt-20">
+      <div class="flex justify-center gap-2 mt-20" :class="{ hidden: scrollSnaps.length == 1}">
         <button
           v-for="(_, index) in scrollSnaps"
           :key="index"

@@ -1,6 +1,6 @@
 <template>
   <section class="bg-gray-50 py-8">
-    <div class="max-w-[1600px] mx-40">
+    <div class="max-w-[1600px] mx-[8%]">
 
       <div class="mb-10 overflow-x-auto scrollbar-hide">
         <div class="flex gap-2 px-4 justify-center min-w-max min-h-11">
@@ -124,6 +124,12 @@ const deepSpaceProducts = ref([
   {id: 3, name: 'tarantula nebula', price: 'FROM £ 19.99', freeShipping: 'Free Shipping', image: '/images/picture_3.png'},
   {id: 4, name: 'tarantula nebula', price: 'FROM £ 19.99', freeShipping: 'Free Shipping', image: '/images/picture_4.png'},
   {id: 5, name: 'tarantula nebula', price: 'FROM £ 19.99', freeShipping: 'Free Shipping', image: '/images/picture_5.png'},
-  {id: 6, name: 'tarantula nebula', price: 'FROM £ 19.99', freeShipping: 'Free Shipping', image: '/images/picture_6.png'}
+  {id: 6, name: 'tarantula nebula', price: 'FROM £ 19.99', freeShipping: 'Free Shipping', image: '/images/picture_6.png'},
+  {id: 7, name: 'tarantula nebula', price: 'FROM £ 19.99', freeShipping: 'Free Shipping', image: '/images/picture_1.png'},
+  {id: 8, name: 'tarantula nebula', price: 'FROM £ 19.99', freeShipping: 'Free Shipping', image: '/images/picture_2.png'},
+  {id: 9, name: 'tarantula nebula', price: 'FROM £ 19.99', freeShipping: 'Free Shipping', image: '/images/picture_3.png'},
+  {id: 10, name: 'tarantula nebula', price: 'FROM £ 19.99', freeShipping: 'Free Shipping', image: '/images/picture_4.png'},
+  {id: 11, name: 'tarantula nebula', price: 'FROM £ 19.99', freeShipping: 'Free Shipping', image: '/images/picture_5.png'},
+  {id: 12, name: 'tarantula nebula', price: 'FROM £ 19.99', freeShipping: 'Free Shipping', image: '/images/picture_6.png'},
 ])
 </script>

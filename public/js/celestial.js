@@ -1081,9 +1081,14 @@ Celestial.display = function(config) {
   function drawOutline(stroke) {
     var rot = mapProjection.rotate(),
         prj = getProjection(cfg.projection, config.projectionRatio);
-    
+
     mapProjection.rotate([0,0]);
-    setStyle(cfg.background);
+    // Use borderWidth for stroke, but keep other background properties
+    var borderStyle = Object.assign({}, cfg.background);
+    if (cfg.background.borderWidth !== undefined) {
+      borderStyle.width = cfg.background.borderWidth;
+    }
+    setStyle(borderStyle);
     container.selectAll(parentElement + " .outline").attr("d", map);
     if (stroke === true) {
       context.globalAlpha = 1;
@@ -2013,11 +2018,12 @@ var settings = {
     supergalactic: { show: false, stroke: "#cc66cc", width: 1.3, opacity: 0.7 } // Show supergalactic plane 
    //mars: { show: false, stroke:"#cc0000", width:1.3, opacity:.7 }
   }, // Background style
-  background: { 
-    fill: "#000000", 
-    opacity: 1, 
+  background: {
+    fill: "#000000",
+    opacity: 1,
     stroke: "#000000", // Outline
-    width: 1.5 
+    width: 1.5,
+    borderWidth: 1.5 // Separate border width control
   }, 
   horizon: {  //Show horizon marker, if geo-position and date-time is set
     show: false, 
@@ -5178,7 +5184,7 @@ function exportSVG(fname) {
      .attr("class", "mapBorder")
      .attr("d", map);
      
-    styles.mapBorder = {"fill": "none", "stroke": cfg.background.stroke, "stroke-width": cfg.background.width, "stroke-opacity": 1, "stroke-dasharray": "none" };
+    styles.mapBorder = {"fill": "none", "stroke": cfg.background.stroke, "stroke-width": cfg.background.borderWidth || cfg.background.width, "stroke-opacity": 1, "stroke-dasharray": "none" };
 
     projection.rotate(rot);
     callback(null);

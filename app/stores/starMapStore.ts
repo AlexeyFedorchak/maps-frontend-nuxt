@@ -26,6 +26,12 @@ export const useStarMapStore = defineStore('starMapStore', () => {
     const hasRibbon = ref(false);
     const features = ref<StarFeature[]>(STAR_MAP_FEATURES);
 
+    const loadData = async () => {
+        const { getProductOptions } = useApi();
+        const { data } = await getProductOptions('star-map');
+        return data;
+    };
+
     const getLayoutName = computed(() => {
         return 'circle-layout';
     });
@@ -133,6 +139,22 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         location.value = {...location.value, coords: [next, location.value.coords[1]]};
     }
 
+
+    function loadFromBasketItem(basketItem: any) {
+        if (!basketItem) return;
+
+        location.value = basketItem.location ?? location.value;
+        theme.value = basketItem.theme ?? theme.value;
+        layout.value = basketItem.layout ?? layout.value;
+        frame.value = basketItem.frame ?? frame.value;
+        mapTime.value = basketItem.time ?? mapTime.value;
+        hasRibbon.value = basketItem.hasRibbon ?? hasRibbon.value;
+
+        mapDate.value = basketItem.date ? new Date(basketItem.date) : mapDate.value;
+
+        mapTitle.value = basketItem.mapTitle ?? basketItem.title ?? mapTitle.value;
+    }
+
     return {
         frame,
         hasRibbon,
@@ -167,5 +189,7 @@ export const useStarMapStore = defineStore('starMapStore', () => {
         setLongitude,
         setLatHem,
         setLonHem,
+        loadData,
+        loadFromBasketItem,
     };
 });

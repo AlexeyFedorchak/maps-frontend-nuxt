@@ -6,7 +6,7 @@ const { isMobile } = useBreakpoints();
     <slot name="header">
       <UiControlPanelHeader v-if="!isMobile" logo="/images/logo.svg" alt="Logo"/>
     </slot>
-    <div class="content-area">
+    <div class="flex-1 p-3 md:overflow-y-auto bg-[#F7F7F7]">
       <slot name="content" />
     </div>
   </div>

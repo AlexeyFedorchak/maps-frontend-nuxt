@@ -1,6 +1,6 @@
 <template>
   <div class="pt-3">
-    <UiControlPanelThemes :themes="STAR_MAP_THEMES"
+    <UiControlPanelThemes :themes="props.themes"
                           :theme="props.theme"
                           @theme-selected="emit('theme-selected', $event)"/>
     <UiControlPanelLayout title="Features"
@@ -18,6 +18,7 @@ import { STAR_MAP_THEMES } from '~/constants/star-map';
 const props = defineProps<{
   features: any[];
   theme: Theme | null;
+  themes?: Theme[];
 }>();
 
 const emit = defineEmits<{

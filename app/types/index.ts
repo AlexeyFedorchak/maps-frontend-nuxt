@@ -36,10 +36,11 @@ export interface Theme {
     fullImage?: string
     compatibleLayouts?: Layout[]
     mapboxStyle?: string
+    mapTilerStyle?: string
     isActive?: boolean
     sortOrder?: number
-    bg?: string
-    fg?: string
+    bgColor?: string
+    fgColor?: string
     stars?: string
     col?: string
     milkyLarge?: string
@@ -65,11 +66,16 @@ export interface StarFeature {
 }
 
 export interface Frame {
-    id: string
-    name: string
-    className: string
-    price: string
-    backgroundImage: string
+    id: string | number;
+    type?: 'frame';
+    name: string;
+    title?: string;
+    subTitle?: string;
+    className?: string;
+    price: number;
+    image?: string;
+    backgroundImage?: string;
+    thumbnail?: string;
 }
 
 export interface ColorScheme {
@@ -122,10 +128,64 @@ export interface MapExportResult {
     mimeType: string
 }
 
+export interface Extra {
+    id: number
+    name: string
+    description: string
+    price: number
+    isMain: boolean
+}
+
+
 export interface Font {
     id: FontId
     label: string
     fontFamily: string
     preview: string
+}
 
+export interface BasketRecommendation {
+    id: string;
+    type: 'frame' | 'ribbon' | 'default';
+    title: string;
+    subTitle: string;
+    price: number;
+}
+
+export interface PrintSize {
+    id: string;
+    label: string;
+    name: string;
+    size: string;
+    price: number;
+}
+
+export interface BasketItem {
+    id: number;
+    uuid: string;
+    slug: string;
+    title: string;
+    mapTitle?: string | null;
+    location: Location;
+    date: Date;
+    time?: string | null;
+    selectedSize: PrintSize;
+    price: string;
+    frame?: Frame | null;
+    hasRibbon: boolean;
+    theme?: Theme | null;
+    layout?: Layout | null;
+    selectedExtras: BasketRecommendation[];
+    basicRecommendations: BasketRecommendation[];
+    advancedRecommendations: BasketRecommendation[];
+    apiProductData: Object | null;
+    previewUri: string | null;
+}
+
+export interface PopularItem {
+    id: number;
+    title: string;
+    price: number;
+    discount: string;
+    description: string;
 }

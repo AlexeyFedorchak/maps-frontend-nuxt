@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { useLocationMapStore } from '~/stores';
+import { useBasketStore } from '~/stores';
 import { useStepper, NavigationDirection } from '~/composables/useStepper';
 import { CONTROL_PANEL_STEPPER } from '~/components/shared/control-panel/constants';
+import { MAP_TYPES } from '~/constants/mapTypes';
 
 const locationMapStore = useLocationMapStore();
+const basketStore = useBasketStore();
 const step = {
   location: 'location',
   design: 'design',
@@ -53,6 +56,7 @@ const stepper = useStepper([
         isDisabled: ref(false),
         direction: NavigationDirection.forward,
         className: 'w-[64%]',
+        action: navigateToCheckout,
       },
     ],
   },
@@ -60,6 +64,9 @@ const stepper = useStepper([
 provide(CONTROL_PANEL_STEPPER, stepper);
 
 const dynamicTotal = ref(21.99);
+const currentTab = ref('tab-1');
+const paymentDescription = computed(() => currentTab.value === 'tab-1' ? 'Free Shipping' : 'Free Shipping and Gift Box included');
+const apiData = ref({});
 
 function handleTotalUpdate(newTotal: number): void {
   dynamicTotal.value = newTotal;
@@ -72,14 +79,88 @@ const totalPrice = computed(() => {
 const installmentPrice = computed(() => {
   return (dynamicTotal.value / 3).toFixed(2)
 });
+
+async function navigateToCheckout() {
+  // Collect data from stores
+  const { id, name: title, slug } = apiData.value;
+  const location = locationMapStore.location;
+  const date = locationMapStore.mapDate;
+  const selectedSize = locationMapStore.selectedSize;
+  const price = totalPrice;
+  const frame = locationMapStore.frame;
+  const hasRibbon = locationMapStore.hasRibbon;
+  const mapTitle = locationMapStore.mapTitle;
+  const theme = locationMapStore.theme;
+  const layout = locationMapStore.layout;
+
+  // Add current location map configuration to basket
+  basketStore.loadBasket();
+
+  if (locationMapStore.hasRibbon) {
+    locationMapStore.hasRibbon = !locationMapStore.hasRibbon;
+    await basketStore.savePreview(MAP_TYPES.LOCATIONMAP);
+    locationMapStore.hasRibbon = !locationMapStore.hasRibbon
+  } else {
+    await basketStore.savePreview(MAP_TYPES.LOCATIONMAP);
+  }
+
+  // Check if we're editing an existing item
+  if (basketStore.editingItem) {
+    // Update the existing item
+    const updatedItem = {
+      ...basketStore.editingItem,
+      title,
+      mapTitle,
+      location,
+      date,
+      selectedSize,
+      price,
+      frame,
+      hasRibbon,
+      theme,
+      layout,
+      previewUri: basketStore.previewUri,
+    };
+    basketStore.updateItemInBasket(updatedItem);
+    basketStore.setEditingItem(null);
+  } else {
+    // Add new item to basket
+    basketStore.addPosterToBasket({
+      id,
+      title,
+      mapTitle,
+      slug,
+      location,
+      date,
+      selectedSize,
+      price,
+      frame,
+      hasRibbon,
+      theme,
+      layout
+    });
+  }
+
+  navigateTo('/checkout');
+}
+
+onMounted(async () => {
+  apiData.value = await locationMapStore.loadData();
+});
 </script>
 
 <template>
   <SharedControlPanel
+      :panel-info="{
+        title: 'Custom Location Map',
+        description: 'Your special chosen place, captured in the finest detail. High quality archival grade paper. Giclee print to last a lifetime.',
+      }"
       :panel-price="{
-      totalPrice: totalPrice,
-      installmentPrice: installmentPrice,
-    }"
+        totalPrice: totalPrice,
+        installmentPrice: installmentPrice,
+        paymentDescription: paymentDescription,
+      }"
+      @tab-changes="currentTab = $event"
   >
     <template #panel-switcher-tab-1>
       <Transition name="step" mode="out-in">
@@ -107,6 +188,9 @@ const installmentPrice = computed(() => {
 
         <!-- Step: Choose -->
         <LocationMapStepChoose
+            :sizes="apiData?.sizes"
+            :frames="apiData?.frames"
+            :extras="apiData?.extras"
             v-else-if="stepper.getCurrentStep.value?.name === step.choose"
             key="choose"
             @set-frame="locationMapStore.setFrame($event)"

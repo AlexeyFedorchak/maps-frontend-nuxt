@@ -27,36 +27,35 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrow-up:before {
+.icon-cross:before {
     content: "\e900";
 }
-
-.icon-lifetime:before {
+.icon-mini-basket:before {
     content: "\e901";
 }
-
-.icon-hd:before {
+.icon-arrow-up:before {
     content: "\e902";
 }
-
-.icon-feather:before {
+.icon-lifetime:before {
     content: "\e903";
 }
-
-.icon-water-drop:before {
+.icon-hd:before {
     content: "\e904";
 }
-
-.icon-print:before {
+.icon-feather:before {
     content: "\e905";
 }
-
-.icon-stars:before {
+.icon-water-drop:before {
     content: "\e906";
 }
-
-.icon-arrow-down:before {
+.icon-print:before {
     content: "\e907";
+}
+.icon-stars:before {
+    content: "\e908";
+}
+.icon-arrow-down:before {
+    content: "\e909";
 }
 
 .step-enter-active,
@@ -66,4 +65,28 @@
 .step-enter-from,
 .step-leave-to {
     opacity: 0;
+}
+
+.black-frame {
+    background-image: url("/images/black-frame.svg");
+}
+
+.white-frame {
+    background-image: url("/images/white-frame.svg");
+}
+
+.natural-frame {
+    background-image: url("/images/natural-frame.svg");
+}
+
+.ribbon {
+    background-image: url("/images/ribbon.svg");
+}
+
+.wall-strips {
+    background-image: url("/images/wall-strips.png");
+}
+
+.greetings-card {
+    background-image: url("/images/greetings-card.png");
 }

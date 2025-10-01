@@ -11,7 +11,23 @@
 </template>
 
 <script setup lang="ts">
+import { useBasketStore } from '~/stores/basketStore';
+import { useStarMapStore } from '~/stores/starMapStore';
 
+const basketStore = useBasketStore();
+const starMapStore = useStarMapStore();
+
+// Check if we're editing an existing item
+onMounted(() => {
+  if (basketStore.editingItem) {
+    starMapStore.loadFromBasketItem(basketStore.editingItem);
+  }
+});
+
+// Clear editing state when leaving the page
+onUnmounted(() => {
+  basketStore.setEditingItem(null);
+});
 </script>
 
 <style scoped>

@@ -10,6 +10,7 @@ export interface StepperStepButton {
     isDisabled: Ref<boolean>;
     direction: NavigationDirection;
     className: string;
+    action?: () => void; // Optional custom action function
 }
 
 export interface StepperStep {

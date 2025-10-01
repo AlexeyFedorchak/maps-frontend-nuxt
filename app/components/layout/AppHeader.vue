@@ -27,12 +27,12 @@
               template-id="5406e65db0d04a09e042d5fc"
               business-unit-id="5ff48289096c2900014598a7"
               width="80px"
-              height="20px"
+              height="14px"
               theme="dark"
               :iframe-styles="{ border: 'none' }"
             />
             <span class="text-[14px] font-lato font-bold leading-[13px] space-x-2">4.8 out of 5</span>
-            <img src="/images/icons/trustpilot-white.svg" alt="Trustpilot Logo" class="h-4 mb-1" />
+            <img src="/images/icons/trustpilot-white.svg" alt="Trustpilot Logo" class="h-4" />
           </div>
         </div>
 

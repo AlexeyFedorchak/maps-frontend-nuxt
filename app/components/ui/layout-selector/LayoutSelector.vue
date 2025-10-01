@@ -1,6 +1,6 @@
 <template>
   <div class="layout-selector">
-   
+
 
     <div class="layout-selector__grid">
       <button
@@ -17,13 +17,13 @@
             :alt="layout.name"
             class="layout-selector__image"
           />
-          <div 
+          <div
             v-else
             class="layout-selector__placeholder"
             :class="`layout-selector__placeholder--${layout.shape}`"
           />
         </div>
-        
+
         <div class="layout-selector__info">
           <h4 class="layout-selector__name">
             {{ layout.name }}
@@ -31,7 +31,7 @@
           <p class="layout-selector__dimensions">
             {{ layout.dimensions }}
           </p>
-          <p 
+          <p
             v-if="layout.description"
             class="layout-selector__description"
           >
@@ -39,7 +39,7 @@
           </p>
         </div>
 
-        <div 
+        <div
           v-if="layout.isDefault"
           class="layout-selector__badge"
         >
@@ -47,14 +47,14 @@
       </button>
     </div>
 
-    <div 
+    <div
       v-if="isLoading"
       class="layout-selector__loading"
     >
       <div class="layout-selector__spinner" />
     </div>
 
-    <div 
+    <div
       v-if="error"
       class="layout-selector__error"
     >
@@ -104,7 +104,7 @@ onMounted(() => {
 }
 
 .layout-selector__title {
-  @apply text-lg font-bold text-gray-900;
+  @apply text-base font-bold text-gray-900;
 }
 
 .layout-selector__grid {

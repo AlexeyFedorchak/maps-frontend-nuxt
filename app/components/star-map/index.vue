@@ -24,10 +24,10 @@ const {
 } = storeToRefs(starMapStore);
 
 const bgColor = computed(function () {
-  return features.value[3]?.isSelected ? theme.value?.bg : theme.value?.fg;
+  return features.value[3]?.isSelected ? theme.value?.bgColor : theme.value?.fgColor;
 });
 const fgColor = computed(function () {
-  return features.value[3]?.isSelected ? theme.value?.fg : theme.value?.bg;
+  return features.value[3]?.isSelected ? theme.value?.fgColor : theme.value?.bgColor;
 });
 
 const svgDataUrl = computed(function (): string {
@@ -86,6 +86,12 @@ function renderCelestial() {
   const Celestial = $celestial || (window as any).Celestial;
   if (!el || !Celestial) return;
 
+  // Check if Celestial is properly initialized before calling its methods
+  if (typeof Celestial.clear !== 'function' || typeof Celestial.display !== 'function') {
+    console.warn('Celestial library not fully initialized yet');
+    return;
+  }
+
   const cfg = JSON.parse(JSON.stringify(CELESTIAL_DEFAULT_CONFIG));
   const [constellations, , , , gridMap] = features.value;
   if (gridMap?.isSelected) cfg.lines.graticule.show = true;
@@ -98,12 +104,24 @@ function renderCelestial() {
   cfg.follow = 'zenith';
   cfg.background.width = isShowCoordinates.value ? 1 : 700 * 2 / preview.value!.offsetWidth;
 
-  Celestial.clear();
-  Celestial.display(cfg);
+  try {
+    Celestial.clear();
+    Celestial.display(cfg);
+  } catch (error) {
+    console.warn('Error rendering Celestial:', error);
+  }
 
   const dt = buildDate(mapDate.value, mapTime.value);
-  Celestial.date(dt);
-  Celestial.redraw?.();
+  try {
+    if (typeof Celestial.date === 'function') {
+      Celestial.date(dt);
+    }
+    if (typeof Celestial.redraw === 'function') {
+      Celestial.redraw();
+    }
+  } catch (error) {
+    console.warn('Error setting Celestial date in render:', error);
+  }
   isCalculating.value = false;
 }
 
@@ -128,9 +146,21 @@ watch([mapDate, mapTime], () => {
   const {$celestial} = useNuxtApp();
   const Celestial = $celestial || (window as any).Celestial;
   if (!el || !Celestial) return;
+  
+  // Check if Celestial is properly initialized before calling its methods
+  if (typeof Celestial.date !== 'function') {
+    console.warn('Celestial library not fully initialized yet');
+    isCalculating.value = false;
+    return;
+  }
+  
   const dt = buildDate(mapDate.value, mapTime.value);
-  Celestial.date(dt);
-  Celestial.redraw?.();
+  try {
+    Celestial.date(dt);
+    Celestial.redraw?.();
+  } catch (error) {
+    console.warn('Error setting Celestial date:', error);
+  }
   setTimeout(() => isCalculating.value = false, 1000); // small delay added to improve user experience
 });
 

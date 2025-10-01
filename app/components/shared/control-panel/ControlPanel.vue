@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NavigationDirection, type Stepper } from '~/composables/useStepper';
+import {NavigationDirection, type Stepper, type StepperStepButton} from '~/composables/useStepper';
 import { CONTROL_PANEL_STEPPER } from '~/components/shared/control-panel/constants';
 
 /**
@@ -14,8 +14,10 @@ const props = defineProps<{
   panelPrice?: {
     totalPrice?: string;
     installmentPrice?: string;
-    features?: Array<{icon: string; text: string}>;
+    features?: Array<{ icon: string; text: string }>;
+    paymentDescription: string;
   };
+  isHideFreeDeliverySection?: boolean;
 }>();
 
 const emmit = defineEmits<{
@@ -28,9 +30,9 @@ if (!stepper) {
 }
 
 const defaultFeatures = [
-  { text: 'Lifetime Warranty', icon: 'lifetime'},
-  { text: 'Ultra HD Prints', icon: 'hd'},
-  { text: 'Milky Way +', icon: 'stars'},
+  {text: 'Lifetime Warranty', icon: 'lifetime'},
+  {text: 'Ultra HD Prints', icon: 'hd'},
+  {text: 'Milky Way +', icon: 'stars'},
 ];
 
 const defaultPanelInfo = {
@@ -54,6 +56,14 @@ function changeStep(direction: NavigationDirection) {
   }
 }
 
+function handleButtonClick(button: StepperStepButton) {
+  if (button.action) {
+    button.action();
+  } else {
+    changeStep(button.direction);
+  }
+}
+
 function tabChanges(tab: string): void {
   emmit('tab-changes', tab);
 }
@@ -70,10 +80,10 @@ function tabChanges(tab: string): void {
           @tab-changes="tabChanges($event)"
       >
         <template #content-tab-1>
-          <slot name="panel-switcher-tab-1" />
+          <slot name="panel-switcher-tab-1"/>
         </template>
         <template #content-tab-2>
-          <slot name="panel-switcher-tab-2" />
+          <slot name="panel-switcher-tab-2"/>
         </template>
       </UiControlPanelSwitcher>
       <div class="p-7">
@@ -83,6 +93,7 @@ function tabChanges(tab: string): void {
               class="mb-4"
               :totalPrice="props.panelPrice.totalPrice"
               :installmentPrice="props.panelPrice.installmentPrice"
+              :paymentDescription="props.panelPrice.paymentDescription"
           />
 
           <MobileProductFeatures
@@ -97,7 +108,7 @@ function tabChanges(tab: string): void {
                 v-for="button of stepper?.getCurrentStep?.value?.buttons"
                 class="uppercase min-h-[3.438rem] md:min-h-[4.25rem]"
                 size="lg"
-                @click="changeStep(button.direction)"
+                @click="handleButtonClick(button)"
                 :class="button.className"
                 :disabled="button.isDisabled"
             >
@@ -107,9 +118,16 @@ function tabChanges(tab: string): void {
         </slot>
       </div>
 
-      <slot name="trustpilot">
-        <UiControlPanelWidgetTrustpilot />
-      </slot>
+      <div class="flex flex-wrap justify-center">
+        <slot name="trustpilot">
+          <UiControlPanelWidgetTrustpilot/>
+        </slot>
+        <div v-if="!props?.isHideFreeDeliverySection"
+             class="hidden md:flex gap-2.5 items-center">
+          <NuxtImg class="w-6" src="/images/icons/free-delivery.svg"/>
+          <span class="text-sm">Free Delivery</span>
+        </div>
+      </div>
     </template>
   </UiControlPanelContainer>
 </template>

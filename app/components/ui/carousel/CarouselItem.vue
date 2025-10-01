@@ -15,7 +15,7 @@ const { orientation } = useCarousel()
     aria-roledescription="slide"
     :class="cn(
       'min-w-0 shrink-0 grow-0 basis-full',
-      orientation === 'horizontal' ? 'pl-4' : 'pt-4',
+      orientation === 'horizontal' ? 'pl-5 md:pl-2' : 'pt-5 md:pt-2',
       props.class,
     )"
   >

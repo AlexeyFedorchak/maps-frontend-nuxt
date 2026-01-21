@@ -12,15 +12,28 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             mapboxToken: process.env.NUXT_MAPBOX_TOKEN,
+            mapTilerToken: process.env.NUXT_MAPTILER_TOKEN,
+            apiUrl: process.env.API_URL || 'http://localhost/api',
+            stripePublishableKey: process.env.NUXT_STRIPE_PUBLISHABLE_KEY,
         },
+        stripeSecretKey: process.env.STRIPE_SECRET_KEY,
+        stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
     },
     app: {
         head: {
             link: [
                 {rel: 'stylesheet', href: 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css'},
+
+                {rel: 'stylesheet', href: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'},
+
+                {rel: 'stylesheet', href: 'https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css'},
             ],
             script: [
                 {src: 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js', type: 'text/javascript'},
+
+                {src: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', type: 'text/javascript'},
+
+                {src: 'https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.min.js', type: 'text/javascript'},
             ],
         },
     },

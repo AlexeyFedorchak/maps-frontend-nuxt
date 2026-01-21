@@ -11,7 +11,24 @@
 </template>
 
 <script setup lang="ts">
+import { useBasketStore } from '~/stores/basketStore';
+import { useLocationMapStore } from '~/stores/locationMapStore';
 
+const basketStore = useBasketStore();
+const locationMapStore = useLocationMapStore();
+
+// Check if we're editing an existing item
+onMounted(() => {
+  if (basketStore.editingItem) {
+    // Load the basket item data into the location map store
+    locationMapStore.loadFromBasketItem(basketStore.editingItem);
+  }
+});
+
+// Clear editing state when leaving the page
+onUnmounted(() => {
+  basketStore.setEditingItem(null);
+});
 </script>
 
 <style scoped>

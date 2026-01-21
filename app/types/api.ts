@@ -150,3 +150,29 @@ export interface ExportProgressMessage {
   status: 'started' | 'processing' | 'completed' | 'failed'
   message?: string
 }
+
+export interface PriceCalculationProduct {
+  slug: string
+  sizeId: number
+  extraIds?: number[]
+  frameId?: number
+}
+
+export interface PriceCalculationRequest {
+  products: PriceCalculationProduct[]
+}
+
+export interface ProductPriceDetail {
+  product: {
+    id: number
+    name: string
+    slug: string
+    [key: string]: any
+  }
+  total: number
+}
+
+export interface PriceCalculationResponse {
+  data: ProductPriceDetail[]
+  [key: string]: any
+}

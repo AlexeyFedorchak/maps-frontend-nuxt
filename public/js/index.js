@@ -1,9 +1,12 @@
 // CSRF Token
 // const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-const MAP_BOX_TOKEN = 'pk.eyJ1IjoicGljdHVyZXRoZXN0YXJzIiwiYSI6ImNrdmh5aG1qazg3OWIybnM3cnFtb3N0eDkifQ.gogB_qXK_jblN5CJ_GBPPw';
-// Mapbox GL JS Setup
-mapboxgl.accessToken = MAP_BOX_TOKEN;
+// Mapbox token (commented out, keeping for reference)
+// const MAP_BOX_TOKEN = 'pk.eyJ1IjoicGljdHVyZXRoZXN0YXJzIiwiYSI6ImNrdmh5aG1qazg3OWIybnM3cnFtb3N0eDkifQ.gogB_qXK_jblN5CJ_GBPPw';
+// mapboxgl.accessToken = MAP_BOX_TOKEN;
+
+// MapTiler token
+const MAPTILER_TOKEN = '4rv7bF9VW4WEjS9H5u3O';
 let map;
 
 // const designsData = @json($designs);
@@ -24,39 +27,73 @@ const layoutOptions = document.querySelectorAll('.layout-option');
 const continueBtn = document.getElementById('continueBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 
-function initializeInteractiveMap() {
+// Mapbox implementation (commented out, keeping for reference)
+// function initializeInteractiveMap() {
+//     try {
+//         map = new mapboxgl.Map({
+//             container: 'interactiveMap',
+//             style: 'mapbox://styles/picturethestars/cla9hyw9400x615mgdh6maidi',
+//             center: [-0.128, 51.507],
+//             zoom: 11,
+//             interactive: true
+//         });
+//
+//         map.on('load', () => {
+//             map.showCollisionBoxes = true;
+//
+//             const initialLayoutOption = document.querySelector('.layout-option.selected');
+//             if (initialLayoutOption) {
+//                 const initialShape = initialLayoutOption.getAttribute('data-shape');
+//                 // updateMapFrame(initialShape);
+//                 map.resize();
+//             }
+//
+//             if (colorSelector && colorSelector.getSelectedStyle) {
 
+// MapTiler implementation
+function initializeInteractiveMap() {
     try {
-        map = new mapboxgl.Map({
-            container: 'interactiveMap',
-            style: 'mapbox://styles/picturethestars/cla9hyw9400x615mgdh6maidi',
-            center: [-0.128, 51.507],
+        // Check if Leaflet and MapTiler SDK are loaded
+        if (typeof L === 'undefined') {
+            console.error('Leaflet is not loaded');
+            return;
+        }
+
+        // Initialize Leaflet map
+        map = L.map('interactiveMap', {
+            center: [51.507, -0.128], // Leaflet uses [lat, lng]
             zoom: 11,
-            interactive: true
+            zoomControl: true
         });
 
-        map.on('load', () => {
-            map.showCollisionBoxes = true;
+        // Use MapTiler raster tiles
+        const tileLayer = L.tileLayer(`https://api.maptiler.com/maps/01997ffa-e996-7490-95ba-c1939af8011e/{z}/{x}/{y}.png?key=${MAPTILER_TOKEN}`, {
+            tileSize: 512,
+            zoomOffset: -1,
+            minZoom: 1,
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.maptiler.com/">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+        });
+
+        tileLayer.addTo(map);
+
+        tileLayer.on('load', () => {
+            console.log('MapTiler tiles loaded');
 
             const initialLayoutOption = document.querySelector('.layout-option.selected');
             if (initialLayoutOption) {
                 const initialShape = initialLayoutOption.getAttribute('data-shape');
                 // updateMapFrame(initialShape);
-
-                map.resize();
-
+                map.invalidateSize();
             }
 
             if (colorSelector && colorSelector.getSelectedStyle) {
                 const initialStyle = colorSelector.getSelectedStyle();
                 applyColorSchemeToMap(initialStyle);
             }
-
-            hideAlLabels();
         });
 
-        map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-
+        // Add event listeners for Leaflet
         map.on('moveend', () => {
             const center = map.getCenter();
             const lat = center.lat.toFixed(3);
@@ -65,16 +102,14 @@ function initializeInteractiveMap() {
             const ew = center.lng >= 0 ? 'E' : 'W';
             const coordinatesText = `${lat}°${ns} ${lng}°${ew}`;
 
-            document.querySelector('.map-coordinates').textContent = coordinatesText;
-
-        });
-
-        map.on('error', (e) => {
-            console.error('❌ Map loading error:', e);
+            const coordsElement = document.querySelector('.map-coordinates');
+            if (coordsElement) {
+                coordsElement.textContent = coordinatesText;
+            }
         });
 
     } catch (error) {
-        console.error('❌ Failed to initialize map:', error);
+        console.error('Failed to initialize map:', error);
     }
 }
 
@@ -198,11 +233,15 @@ function selectLocation(name, coords) {
     document.querySelector('.map-coordinates').textContent = `${lat}°${ns} ${lng}°${ew}`;
 
     if (map) {
-        map.flyTo({
-            center: coords,
-            zoom: 12,
-            duration: 2000
-        });
+        // Leaflet uses [lat, lng] and different flyTo syntax
+        if (map.flyTo) {
+            map.flyTo([coords[1], coords[0]], 12, {
+                duration: 2
+            });
+        } else {
+            // Fallback for basic Leaflet without flyTo
+            map.setView([coords[1], coords[0]], 12);
+        }
     }
 }
 
@@ -275,7 +314,12 @@ layoutOptions.forEach(option => {
 
         if (map) {
             setTimeout(() => {
-                map.resize();
+                // Leaflet uses invalidateSize() instead of resize()
+                if (map.invalidateSize) {
+                    map.invalidateSize();
+                } else if (map.resize) {
+                    map.resize(); // Fallback for any custom resize method
+                }
             }, 300);
         }
     });
@@ -298,7 +342,14 @@ function updateMapLayout(shape) {
     }
 
     if (map) {
-        setTimeout(() => map.resize(), 50);
+        setTimeout(() => {
+            // Leaflet uses invalidateSize() instead of resize()
+            if (map.invalidateSize) {
+                map.invalidateSize();
+            } else if (map.resize) {
+                map.resize(); // Fallback
+            }
+        }, 50);
     }
 }
 

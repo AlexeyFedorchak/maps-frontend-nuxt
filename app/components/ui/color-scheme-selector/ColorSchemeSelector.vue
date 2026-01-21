@@ -1,6 +1,6 @@
 <template>
   <div class="color-scheme-selector">
-   
+
 
     <div class="color-scheme-selector__grid">
       <button
@@ -10,12 +10,12 @@
         :class="{ 'color-scheme-selector__item--selected': selectedSchemeId === scheme.id }"
         @click="selectColorScheme(scheme)"
       >
-        <div 
+        <div
           class="color-scheme-selector__preview"
           :style="{ background: scheme.preview }"
         >
           <div class="color-scheme-selector__colors">
-            <div 
+            <div
               v-for="(color, key) in scheme.colors"
               :key="key"
               class="color-scheme-selector__color"
@@ -24,12 +24,12 @@
             />
           </div>
         </div>
-        
+
         <div class="color-scheme-selector__info">
           <h4 class="color-scheme-selector__name">
             {{ scheme.name }}
           </h4>
-          <p 
+          <p
             v-if="scheme.description"
             class="color-scheme-selector__description"
           >
@@ -39,21 +39,21 @@
       </button>
     </div>
 
-    <div 
+    <div
       v-if="selectedScheme"
       class="color-scheme-selector__details"
     >
       <h4 class="color-scheme-selector__details-title">
          "{{ selectedScheme.name }}"
       </h4>
-      
+
       <div class="color-scheme-selector__color-details">
-        <div 
+        <div
           v-for="(color, key) in selectedScheme.colors"
           :key="key"
           class="color-scheme-selector__color-item"
         >
-          <div 
+          <div
             class="color-scheme-selector__color-swatch"
             :style="{ backgroundColor: color }"
           />
@@ -69,14 +69,14 @@
       </div>
     </div>
 
-    <div 
+    <div
       v-if="isLoading"
       class="color-scheme-selector__loading"
     >
       <div class="color-scheme-selector__spinner" />
     </div>
 
-    <div 
+    <div
       v-if="error"
       class="color-scheme-selector__error"
     >
@@ -112,7 +112,7 @@ const activeColorSchemes = computed(() =>
 )
 
 
-const selectedScheme = computed(() => 
+const selectedScheme = computed(() =>
   props.selectedSchemeId ? getColorSchemeById(props.selectedSchemeId) : null
 )
 
@@ -146,7 +146,7 @@ onMounted(() => {
 }
 
 .color-scheme-selector__title {
-  @apply text-lg font-bold text-gray-900;
+  @apply text-base font-bold text-gray-900;
 }
 
 .color-scheme-selector__grid {

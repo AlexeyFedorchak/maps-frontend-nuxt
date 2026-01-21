@@ -2,8 +2,15 @@
 import { NavigationDirection, useStepper } from '~/composables/useStepper';
 import { useStarMapStore } from '~/stores/starMapStore';
 import { CONTROL_PANEL_STEPPER } from '~/components/shared/control-panel/constants';
+import { useLocationMapStore } from "~/stores";
+import { useBasketStore } from "~/stores";
+import { MAP_TYPES } from '~/constants/mapTypes';
+
+const apiData = ref({});
 
 const starMapStore = useStarMapStore();
+const basketStore = useBasketStore();
+const locationMapStore = useLocationMapStore();
 const step = {
   location: 'location',
   design: 'design',
@@ -70,6 +77,7 @@ const stepper = useStepper([
         isDisabled: ref(false),
         direction: NavigationDirection.forward,
         className: 'w-[64%]',
+        action: navigateToCheckout,
       },
     ],
   },
@@ -77,6 +85,8 @@ const stepper = useStepper([
 provide(CONTROL_PANEL_STEPPER, stepper);
 
 const dynamicTotal = ref(21.99);
+const currentTab = ref('tab-1');
+const paymentDescription = computed(() => currentTab.value === 'tab-1' ? 'Free Shipping' : 'Free Shipping and Gift Box included');
 
 function handleTotalUpdate(newTotal: number): void {
   dynamicTotal.value = newTotal;
@@ -89,14 +99,91 @@ const totalPrice = computed(() => {
 const installmentPrice = computed(() => {
   return (dynamicTotal.value / 3).toFixed(2)
 });
+
+async function navigateToCheckout() {
+  // Collect data from stores
+  const { id, name: title, slug } = apiData.value;
+  const location = starMapStore.location;
+  const date = starMapStore.mapDate;
+  const time = starMapStore.mapTime;
+  const selectedSize = locationMapStore.selectedSize;
+  const price = totalPrice;
+  const frame = starMapStore.frame;
+  const hasRibbon = starMapStore.hasRibbon;
+  const mapTitle = starMapStore.mapTitle;
+  const theme = starMapStore.theme;
+  const layout = starMapStore.layout;
+
+  // Add current star map configuration to basket
+  basketStore.loadBasket();
+
+  if (starMapStore.hasRibbon) {
+    starMapStore.hasRibbon = !starMapStore.hasRibbon;
+    await basketStore.savePreview(MAP_TYPES.STARMAP);
+    starMapStore.hasRibbon = !starMapStore.hasRibbon
+  } else {
+    await basketStore.savePreview(MAP_TYPES.STARMAP);
+  }
+
+  // Check if we're editing an existing item
+  if (basketStore.editingItem) {
+    // Update the existing item
+    const updatedItem = {
+      ...basketStore.editingItem,
+      title,
+      mapTitle,
+      location,
+      date,
+      time,
+      selectedSize,
+      price,
+      frame,
+      hasRibbon,
+      theme,
+      layout,
+      previewUri: basketStore.previewUri,
+    };
+    basketStore.updateItemInBasket(updatedItem);
+    basketStore.setEditingItem(null);
+  } else {
+    // Add new item to basket
+    basketStore.addPosterToBasket({
+      id,
+      title,
+      mapTitle,
+      slug,
+      location,
+      date,
+      time,
+      selectedSize,
+      price,
+      frame,
+      hasRibbon,
+      theme,
+      layout
+    });
+  }
+
+  navigateTo('/checkout');
+}
+
+onMounted(async () => {
+  apiData.value = await starMapStore.loadData();
+});
 </script>
 
 <template>
   <SharedControlPanel
+      :panel-info="{
+        title: 'Personalised Star Map',
+        description: 'Create your star map, capture the stars on your special moment. The unique and beautiful bespoke picture of the stars.    ',
+      }"
       :panel-price="{
-      totalPrice: totalPrice,
-      installmentPrice: installmentPrice,
-    }"
+        totalPrice: totalPrice,
+        installmentPrice: installmentPrice,
+        paymentDescription: paymentDescription,
+      }"
+      @tab-changes="currentTab = $event"
   >
     <template #panel-switcher-tab-1>
       <Transition name="step" mode="out-in">
@@ -106,6 +193,7 @@ const installmentPrice = computed(() => {
             key="design"
             :features="starMapStore.features"
             :theme="starMapStore.theme"
+            :themes="apiData?.themes || []"
             @theme-selected="starMapStore.setTheme($event)"
             @feature-selected="starMapStore.setFeature($event)"
         />
@@ -144,6 +232,9 @@ const installmentPrice = computed(() => {
 
         <!-- Step: Choose -->
         <LocationMapStepChoose
+            :sizes="apiData?.sizes"
+            :frames="apiData?.frames"
+            :extras="apiData?.extras"
             v-else-if="stepper.getCurrentStep.value?.name === step.choose"
             key="choose"
             @set-frame="starMapStore.setFrame($event)"

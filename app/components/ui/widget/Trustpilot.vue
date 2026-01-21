@@ -7,6 +7,9 @@ const props = withDefaults(
       width?: string;
       height?: string;
       theme?: string;
+      token?: string;
+      stars?: string;
+      reviewLanguages?: string;
       iframeStyles?: Record<string, string>;
     }>(),
     {
@@ -16,13 +19,16 @@ const props = withDefaults(
       height: '26px',
       theme: 'default',
       locale: 'en-GB',
+      token: '83536786-5c13-491b-a075-1be32cb554c2',
+      stars: '1,2,3,4,5',
+      reviewLanguages: 'en',
     },
 );
 
 const trustpilot = ref<HTMLElement | null>(null);
 
 watch(trustpilot, () => {
-  if (window.Trustpilot) {
+  if (process.client && window.Trustpilot) {
     window.Trustpilot.loadFromElement(trustpilot.value);
   }
 }, { once: true });
@@ -30,6 +36,12 @@ watch(trustpilot, () => {
 const getIframeSrc = computed(() => {
   return `https://widget.trustpilot.com/trustboxes/${props.templateId}/index.html?templateId=${props.templateId}&businessunitId=${props.businessunitId}#locale=${props.locale}&styleHeight=${props.height}&styleWidth=${props.width}&theme=${props.theme}`;
 });
+
+declare global {
+  interface Window {
+    Trustpilot: any;
+  }
+}
 </script>
 
 <template>
@@ -41,7 +53,10 @@ const getIframeSrc = computed(() => {
          :data-businessunit-id="props.businessunitId"
          :data-style-height="props.height"
          :data-style-width="props.width"
-         :data-theme="props.theme">
+         :data-theme="props.theme"
+         :data-token="props.token"
+         :data-stars="props.stars"
+         :data-review-languages="props.reviewLanguages">
       <slot>
         <iframe
             title="Customer reviews powered by Trustpilot"

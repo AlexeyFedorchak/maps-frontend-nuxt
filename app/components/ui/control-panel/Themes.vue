@@ -18,16 +18,16 @@ const emit = defineEmits<{
     <span class="text-[#787878]">{{ props?.theme?.name || 'Original-black' }}</span>
   </div>
 
-  <div class="flex flex-wrap gap-3 mb-14">
+  <div class="flex flex-wrap gap-[2%] md:gap-1 lg:gap-3 mb-14">
     <div
-        v-for="theme in themes"
+        v-for="theme in props.themes"
         :key="theme.id"
-        class="theme-option"
+        class="theme-option w-[15%] lg:size-15"
         :class="{ selected: props?.theme?.id === theme.id }"
         @click="emit('theme-selected', theme)"
     >
-      <div class="theme-preview aspect-square rounded-full overflow-hidden relative border-none size-15"
-           :style="{ '--bg-color': theme?.bg }">
+      <div class="theme-preview aspect-square rounded-full overflow-hidden relative border-none w-full h-full"
+           :style="{ '--bg-color': theme?.bgColor }">
         <div v-if="theme.badge" class="theme-badge">{{ theme.badge }}</div>
         <img class="object-cover size-full" :src="theme.preview" :alt="theme.name">
       </div>

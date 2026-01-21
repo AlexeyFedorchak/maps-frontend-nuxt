@@ -285,7 +285,8 @@ export const CELESTIAL_DEFAULT_CONFIG = {
         "fill": "transparent",
         "opacity": 1,
         "stroke": "#FFFFFF",
-        "width": 1.3311466666666667
+        "width": 1.3311466666666667,
+        "borderWidth": 2.6632933333333334
     },
     "horizon": {
         "show": false,

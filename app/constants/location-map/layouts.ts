@@ -25,4 +25,22 @@ export const LOCATION_MAP_LAYOUTS: Layout[] = [
         shape: 'full-page',
         preview: '/images/layouts/full-page.svg'
     },
+    {
+        id: 5,
+        name: 'Heart',
+        shape: 'heart',
+        preview: '/images/layouts/heart.svg'
+    },
+    {
+        id: 6,
+        name: 'Photo',
+        shape: 'photo',
+        preview: '/images/layouts/photo.svg'
+    },
+    {
+        id: 7,
+        name: 'Fade',
+        shape: 'fade',
+        preview: '/images/layouts/fade.svg'
+    },
 ];

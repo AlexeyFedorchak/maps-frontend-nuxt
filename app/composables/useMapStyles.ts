@@ -44,6 +44,7 @@ export function useMapStyles(): UseMapStylesReturn {
           description: 'Modern minimalist design',
           preview: '/images/designs/modern-preview.jpg',
           mapboxStyleId: 'mapbox://styles/picturethestars/cla9hyw9400x615mgdh6maidi',
+          mapTilerStyleId: 'https://api.maptiler.com/maps/01997ffa-e996-7490-95ba-c1939af8011e/style.json',
           isActive: true
         },
         {
@@ -52,6 +53,7 @@ export function useMapStyles(): UseMapStylesReturn {
           description: 'Dark urban style',
           preview: '/images/designs/asphalt-preview.jpg',
           mapboxStyleId: 'mapbox://styles/picturethestars/cla9hyyxo000214ny7xj3vejr',
+          mapTilerStyleId: 'https://api.maptiler.com/maps/streets-v2/style.json',
           isActive: true
         },
         {
@@ -60,6 +62,7 @@ export function useMapStyles(): UseMapStylesReturn {
           description: 'Nautical navigation style',
           preview: '/images/designs/nautical-preview.jpg',
           mapboxStyleId: 'mapbox://styles/picturethestars/cla9hz69s003t14saymfoel6l',
+          mapTilerStyleId: 'https://api.maptiler.com/maps/basic-v2/style.json',
           isActive: true
         }
       ]
@@ -69,7 +72,7 @@ export function useMapStyles(): UseMapStylesReturn {
           id: 1,
           name: 'Rectangle',
           description: 'Rectangular format',
-          dimensions: '40x30 cm',
+          size: '40x30 cm',
           shape: 'rectangle',
           preview: '/images/layouts/rectangle.svg',
           isDefault: true,
@@ -79,7 +82,7 @@ export function useMapStyles(): UseMapStylesReturn {
           id: 2,
           name: 'Square',
           description: 'Square format',
-          dimensions: '30x30 cm', 
+          size: '30x30 cm',
           shape: 'rectangle',
           preview: '/images/layouts/square.svg',
           isActive: true
@@ -88,7 +91,7 @@ export function useMapStyles(): UseMapStylesReturn {
           id: 3,
           name: 'Circle',
           description: 'Circular format',
-          dimensions: 'Ø 30 cm',
+          size: 'Ø 30 cm',
           shape: 'circle',
           preview: '/images/layouts/circle.svg',
           isActive: true

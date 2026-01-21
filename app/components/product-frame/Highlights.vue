@@ -20,10 +20,10 @@ const props = defineProps<{
         :key="idx"
         class="flex-c"
     >
-      <div class="flex-c">
+      <div class="flex-c flex-wrap">
         <span class="map-preview-icon aspect-square mr-2">
           <UiIcon :name="item.icon" width="16px"/></span>
-        <span :class="item.showInfo ? 'mr-2' : null">{{ item.label }}</span>
+        <span :class="item.showInfo ? 'mr-2' : null" class="whitespace-nowrap">{{ item.label }}</span>
         <img v-if="item.showInfo" src="/images/icons/info.svg" alt="info">
       </div>
     </div>

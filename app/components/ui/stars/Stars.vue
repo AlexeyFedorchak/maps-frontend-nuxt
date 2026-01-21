@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="tp-stars tp-stars--5 inline-block align-middle overflow-hidden w-28">
+  <div class="tp-stars tp-stars--5 inline-block align-middle overflow-hidden w-20">
     <svg role="img" aria-labelledby="starRating" viewBox="0 0 251 50" xmlns="http://www.w3.org/2000/svg">
       <g class="tp-star">
         <path class="tp-star__canvas" fill="#dcdce6" d="M0 49.330002h46.375586V0H0z"></path>

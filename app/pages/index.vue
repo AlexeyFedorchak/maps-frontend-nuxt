@@ -3,11 +3,18 @@
     <li><NuxtLink to="/product/location-map">Location map</NuxtLink></li>
     <li><NuxtLink to="/product/star-map">Star map</NuxtLink></li>
     <li><NuxtLink to="/checkout">checkout</NuxtLink></li>
+    <li><NuxtLink to="/basket">basket</NuxtLink></li>
+    <li><NuxtLink to="/test-header">Home Page</NuxtLink></li>
   </ul>
-
+  <client-only>
+    <TrustpilotReviewWidget />
+    <TrustpilotReviewCarousel />
+  </client-only>
 </template>
 
 <script setup>
+import TrustpilotReviewCarousel from '~/components/trust-pilot/TrustpilotReviewCarousel.vue';
+import TrustpilotReviewWidget from '~/components/trust-pilot/TrustpilotReviewWidget.vue';
 </script>
 
 <style scoped>
